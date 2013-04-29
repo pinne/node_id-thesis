@@ -1,0 +1,106 @@
+Technical background
+====================
+OpenWrt
+-------
+
+OpenWrt is a free and open-source GNU/Linux distribution, targeting embedded
+devices, specifically wireless routers, but can run on almost any set of hardware.
+Cross-compilation is enabled by OpenWrt Buildroot, which compiles the C code
+using uClibc, a lightweight C library focusing on embedded Linux systems. 
+It intends to be a meta distribution and offers developers a framework on which
+to base their firmware on.
+
+OpenWrt is generally compiled and linked using gcc and binutils, with the help
+of Makefiles and patches for the various gcc versions and target platforms.
+Allowing end users as well as service operators and hardware manufacturers
+to compile the firmware. It offers the BusyBox set of barebones UNIX tools,
+enabling advanced users to fully interact with their Linux system and providing
+developers with a familiar platform for debugging and testing their product.
+
+http://wiki.confine-project.eu/_media/soft:openwrt-talk-2012-06-01.pdf
+http://wiki.openwrt.org/
+
+OPKG
+----
+
+The package management system used in OpenWrt is OPKG. It is based off the
+discontinued ipkg and operates similar to APT and dpkg of Debian-based
+distributions. There are currently over 2000 OPKG packages available for
+OpenWrt.
+
+The OpenWrt system and its packages are built using GNU Autoconf.
+
+Inteno Open Platform System
+---------------------------
+
+For Customer Premises Equipment\footnote{commonly abbreviated as CPE} like wireless
+gateways, Inteno Open Platform System offers an open-source Linux distribution based
+on OpenWrt. It uses the OpenWrt build system including cross-compilation
+toolchain to ensure compatibility with the ecosystem and upstream.
+
+http://www.inteno.se/Portals/0/IntenoFiles/ProductDocs/241/689/iopsys_white_paper.pdf_20121015135755.pdf
+
+Building LuCI
+-------------
+The LuCI package is pulled from Intenos repository at:
+
+    http://ihgsp.inteno.se/git/luci-inteno.git
+
+And is defined in the file:
+
+    package/luci/luci/Makefile
+
+The working repository is kept locally on my machine and the LuCI repository is
+instead pointing to a repository on the local machine.
+
+    ../../../../luci-simon/
+
+Lua Configuration Interface
+---------------------------
+LuCI is an suite of programs and libraries for extending OpenWrt using the Lua
+programming language. It originated in the OpenWrt project but has since grown
+and is now it's own project.
+http://luci.subsignal.org/trac
+
+The themes are accessed from the directory:
+
+    root@Inteno:/usr/lib/lua/luci/view/themes/
+
+### Port forwarding
+Rules for port forwarding are read from:
+
+    /etc/config/firewall
+
+A port forwarding rule which forwards external HTTP traffic over port 80 to the
+local IP 192.168.1.214, looks like:
+
+config redirect               
+        option target 'DNAT' 
+        option src 'wan'
+        option dest 'lan'
+        option proto 'tcp'
+        option src_dport '80'
+        option dest_ip '192.168.1.214'
+        option dest_port '80' 
+        option name 'Web server'
+
+The presentation markup for the current port forwarding page in the LuCI
+backend on the Gateway, is defined in the file:
+
+    luci-inteno/applications/luci-firewall/luasrc/view/firewall/cbi_addforward.htm
+
+    libs/core/luasrc/model/firewall.lua :555
+
+in the functions:
+
+    function redirect.*
+
+Lua programming language
+------------------------
+Lua is a multi-paradigm programming language. 
+
+Node identification
+-------------------
+To ensure the configuration of the gateway is as pain-free as possible, certain
+techniques for identifying nodes on the network enhance the user experience.
+
