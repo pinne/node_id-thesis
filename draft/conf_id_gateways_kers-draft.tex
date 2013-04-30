@@ -6,9 +6,10 @@
 \usepackage[utf8]{inputenc}
 \usepackage[swedish,english]{babel}
 \usepackage{modifications}
-%\DeclareGraphicsExtensions{.png}
+\usepackage{url}
 \usepackage{graphicx}
 \DeclareGraphicsExtensions{.eps}
+%\DeclareGraphicsExtensions{.png}
 
 \title{Configuration and device identification on network gateways}
 
@@ -42,6 +43,25 @@
 \mainmatter
 \pagestyle{newchap}
 \chapter{Introduction}
+%brief introduction to inteno and the product
+Inteno Broadband Technology is an international corporate group that supplies customer premises equipment for internet service providers.  
+The headquarter as well as the research and development center is located in Stockholm, Sweden.  
+Inteno Open Systems Platform is a Linux-based open source platform running on
+customer premises equipment.
+It is based off the OpenWrt distribution which targets embedded devices, specifically network gateways. \cite{Inteno}
+
+%identified a real problem (motivate that it is real and interesting)
+The support costs for partners and resellers of Intenos customer premises equipment are constantly looking to reduce support costs. 
+This creates costs for the businesses and by simplifying configuration by abstracting common tasks of the end-user, these costs can be cut.
+
+%come up with a solution (give a rough idea what the solution looks like)
+Using automatic device identification and automating common tasks such as port forwarding, support costs can be reduced and end-user satisfaction is higher.
+Many common support issues could be automated by the software running on the customer premises equipment and by effectively communication with the end-user through the user interface.
+
+%how I actually solved the problem (high-level summary of results).
+The OpenWrt distribution provides a complete platform for compiling and deploying a gateway image.
+By building a extensible library of presets for common port forwarding rules and developing a simple selection dialog, partners can customize their preset rules to any new device heading for market.
+
 
 \part{Important Results}
 
@@ -50,39 +70,28 @@
 \section{Preliminaries}
 
 \subsection{OpenWrt}
-OpenWrt is a free and open-source GNU/Linux distribution, targeting embedded
-devices, specifically wireless routers, but can run on almost any set of hardware.
-Cross-compilation is enabled by OpenWrt Buildroot, which compiles the C code
-using uClibc, a lightweight C library focusing on embedded Linux systems. 
-It intends to be a meta distribution and offers developers a framework on which
-to base their firmware on.
+OpenWrt is a free and open-source GNU/Linux distribution, targeting embedded devices, specifically wireless routers, but can run on almost any set of hardware.
+Cross-compilation is enabled by OpenWrt Buildroot, which compiles the C code using uClibc, a lightweight C library focusing on embedded Linux systems. 
+It intends to be a meta distribution and offers developers a framework on which to base their firmware on.
 
-OpenWrt is generally compiled and linked using gcc and binutils, with the help
-of Makefiles and patches for the various gcc versions and target platforms.
-Allowing end users as well as service operators and hardware manufacturers
-to compile the firmware. It offers the BusyBox set of barebones UNIX tools,
-enabling advanced users to fully interact with their Linux system and providing
-developers with a familiar platform for debugging and testing their product.
+OpenWrt is generally compiled and linked using gcc and binutils, with the help of Makefiles and patches for the various gcc versions and target platforms.
+Allowing end users as well as service operators and hardware manufacturers to compile the firmware.
+It offers the BusyBox set of barebones UNIX tools, enabling advanced users to fully interact with their Linux system and providing developers with a familiar platform for debugging and testing their product.
+\cite{OpenWrt:structure_design}
 
 \subsection{OPKG}
-The package management system used in OpenWrt is OPKG. It is based off the
-discontinued ipkg and operates similar to APT and dpkg of Debian-based
-distributions. There are currently over 2000 OPKG packages available for
-OpenWrt.
+The package management system used in OpenWrt is OPKG. It is based off the discontinued ipkg and operates similar to APT and dpkg of Debian-based distributions.
+There are currently over 2000 OPKG packages available for OpenWrt.
 
 The OpenWrt system and its packages are built using GNU Autoconf.
 
 \subsection{Inteno Open Platform System}
-For Customer Premises Equipment\footnote{commonly abbreviated as CPE} like wireless
-gateways, Inteno Open Platform System offers an open-source Linux distribution based
-on OpenWrt. It uses the OpenWrt build system including cross-compilation
-toolchain to ensure compatibility with the ecosystem and upstream.
+For Customer Premises Equipment\footnote{commonly abbreviated as CPE} like wireless gateways, Inteno Open Platform System offers an open-source Linux distribution based on OpenWrt.
+It uses the OpenWrt build system including cross-compilation toolchain to ensure compatibility with the ecosystem and upstream.
 
 \subsection{Lua Configuration Interface}
-LuCI is an suite of programs and libraries for extending OpenWrt using the Lua
-programming language. It originated in the OpenWrt project but has since grown
-and is now it's own project.
-http://luci.subsignal.org/trac
+LuCI is an suite of programs and libraries for extending OpenWrt using the Lua programming language.
+It originated in the OpenWrt project but has since grown and is now it's own project.
 
 The themes are accessed from the directory:
 
@@ -90,15 +99,13 @@ The themes are accessed from the directory:
     root@Inteno:/usr/lib/lua/luci/view/themes/
 \end{verbatim}
 
-Port forwarding
 Rules for port forwarding are read from:
 
 \begin{verbatim}
     /etc/config/firewall
 \end{verbatim}
 
-A port forwarding rule which forwards external HTTP traffic over port 80 to the
-local IP 192.168.1.214, looks like:
+A port forwarding rule which forwards external HTTP traffic over port 80 to the local IP 192.168.1.214, looks like:
 
 \begin{verbatim}
 config redirect               
@@ -112,8 +119,7 @@ config redirect
         option name 'Web server'
 \end{verbatim}
 
-The presentation markup for the current port forwarding page in the LuCI
-backend on the Gateway, is defined in the file:
+The presentation markup for the current port forwarding page in the LuCI backend on the Gateway, is defined in the file:
 
 \begin{verbatim}
     luci-inteno/applications/luci-firewall/luasrc/view/firewall/cbi_addforward.htm
@@ -134,7 +140,7 @@ See figure~\ref{fig:wizard-seq_dia} on page~\pageref{fig:wizard-seq_dia}.
 \begin{figure}[h!]
    \centering
    \includegraphics[width=15cm]{wizard-seq_dia}
-   \caption{Sequential diagram}
+   \caption{Sequential diagram of applying port forwarding rules}
    \label{fig:wizard-seq_dia}
 \end{figure}
 
@@ -143,10 +149,12 @@ See figure~\ref{fig:wizard-seq_dia} on page~\pageref{fig:wizard-seq_dia}.
 \subsection{Problem Statement}
 
 \subsection{The Proof}
+\subsubsection{Automatic port forwarding}
+
+
 \appendix
 \addappheadtotoc
 \chapter{RDF}\label{appA}
-
 \begin{figure}[ht]
    \begin{center}
 And here is a figure
@@ -160,7 +168,7 @@ And here is a figure
 \end{figure}
 
 that we refer to here: \ref{RDF_4}
-\end{document}
 
 \bibliographystyle{plain}
 \bibliography{bibliography}
+\end{document}
