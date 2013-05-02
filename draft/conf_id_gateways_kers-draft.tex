@@ -1,13 +1,41 @@
+\RequirePackage{ifpdf}
 \documentclass[a4paper,11pt]{kth-mag}
 \usepackage[T1]{fontenc}
 \usepackage{textcomp}
 \usepackage{lmodern}
-%\usepackage[latin1]{inputenc}
 \usepackage[utf8]{inputenc}
 \usepackage[swedish,english]{babel}
 \usepackage{modifications}
 \usepackage{url}
 \usepackage{graphicx}
+
+\usepackage[dvipdfm,bookmarks]{hyperref}
+
+% use sane colors for hyperlinks
+\usepackage{xcolor}
+\definecolor{dark-red}{rgb}{0.4,0.15,0.15}
+\definecolor{dark-blue}{rgb}{0.15,0.15,0.4}
+\definecolor{medium-blue}{rgb}{0,0,0.5}
+\hypersetup{
+    colorlinks, linkcolor={dark-red},
+    citecolor={dark-blue}, urlcolor={medium-blue}
+}
+
+% enable blank pages by:
+% \afterpage{\blankpage}
+\usepackage{afterpage}
+
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+
+% Define a new pagestyle called 'center'
+\makepagestyle{center}
+\makeevenfoot{center}{}{\thepage}{}
+\makeoddfoot{center}{}{\thepage}{}
+
 \DeclareGraphicsExtensions{.eps}
 %\DeclareGraphicsExtensions{.png}
 
@@ -24,18 +52,27 @@
 \trita{TRITA xxx 2013-nn}
 \trita{}
 \begin{document}
-\frontmatter
-\pagestyle{empty}
-\removepagenumbers
+
+%\frontmatter
+\pagenumbering{roman}
+\setcounter{page}{3}
+\pagestyle{center}
+
 \maketitle
 \selectlanguage{english}
 \begin{abstract}
    Abstract in English.
 
 \end{abstract}
-\clearpage
+\newpage
+\blankpage
+
 \begin{foreignabstract}{swedish}
-   Abstract på svenska.
+   Innehåller en svensk sammanfattning av rapportens innehåll på 10-15 rader samt nyckelord som beskriver innehållet (upp till 10 stycken).
+   Sammmanfattningen bör kortfattat redogöra för frågeställningen/problemmet, metoden och svaret/resultateet så precist som möjligt.
+
+\newpage
+\blankpage
 
 \end{foreignabstract}
 \clearpage
@@ -44,28 +81,33 @@
 \pagestyle{newchap}
 \chapter{Introduction}
 %brief introduction to inteno and the product
-Inteno Broadband Technology is an international corporate group that supplies customer premises equipment for internet service providers.  
-The headquarter as well as the research and development center is located in Stockholm, Sweden.  
-Inteno Open Systems Platform is a Linux-based open source platform running on
-customer premises equipment.
-It is based off the OpenWrt distribution which targets embedded devices, specifically network gateways. \cite{Inteno}
+Inteno Broadband Technology is a company that supplies customer premises equipment for internet service providers.  
+Their headquarters and research and development center is located in Stockholm, Sweden.  
+Inteno Open Systems Platform is a Linux-based open source platform running on customer premises equipment.
+It is based on the OpenWrt distribution which targets embedded devices, specifically network gateways. \cite{Inteno}
 
 %identified a real problem (motivate that it is real and interesting)
-The support costs for partners and resellers of Intenos customer premises equipment are constantly looking to reduce support costs. 
-This creates costs for the businesses and by simplifying configuration by abstracting common tasks of the end-user, these costs can be cut.
+The technical support departments of partners and resellers of Intenos
+customer premises equipment, are looking to reduce support costs and improve customer experience. 
+Support issues creates costs for the business and by reducing the number of support tickets and their processing duration, these costs can be reduced.
 
 %come up with a solution (give a rough idea what the solution looks like)
+By simplifying configuration through abstracting common tasks for the end-user, the number of support calls can be reduced.
 Using automatic device identification and automating common tasks such as port forwarding, support costs can be reduced and end-user satisfaction is higher.
 Many common support issues could be automated by the software running on the customer premises equipment and by effectively communication with the end-user through the user interface.
 
 %how I actually solved the problem (high-level summary of results).
 The OpenWrt distribution provides a complete platform for compiling and deploying a gateway image.
-By building a extensible library of presets for common port forwarding rules and developing a simple selection dialog, partners can customize their preset rules to any new device heading for market.
+By building a extensible library of presets for common port forwarding rules
+and developing a simple selection dialog, the amount of calls can be lowered
+while increasing customer satisfaction.
+
+%skriv klart angående att tack vare ramverket så kan åf lägga till egna regler.
 
 
-\part{Important Results}
+%\part{Important Results}
 
-\chapter{First One}
+\chapter{Method}
 
 \section{Preliminaries}
 

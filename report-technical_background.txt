@@ -3,19 +3,12 @@ Technical background
 OpenWrt
 -------
 
-OpenWrt is a free and open-source GNU/Linux distribution, targeting embedded
-devices, specifically wireless routers, but can run on almost any set of hardware.
-Cross-compilation is enabled by OpenWrt Buildroot, which compiles the C code
-using uClibc, a lightweight C library focusing on embedded Linux systems. 
-It intends to be a meta distribution and offers developers a framework on which
-to base their firmware on.
+OpenWrt is a free and open-source GNU/Linux distribution, targeting embedded devices, specifically wireless routers, but can run on almost any set of hardware.
+Cross-compilation is enabled by OpenWrt Buildroot, which compiles the C code using uClibc, a lightweight C library focusing on embedded Linux systems. 
+It intends to be a meta distribution and offers developers a framework on which to base their firmware on.
 
-OpenWrt is generally compiled and linked using gcc and binutils, with the help
-of Makefiles and patches for the various gcc versions and target platforms.
-Allowing end users as well as service operators and hardware manufacturers
-to compile the firmware. It offers the BusyBox set of barebones UNIX tools,
-enabling advanced users to fully interact with their Linux system and providing
-developers with a familiar platform for debugging and testing their product.
+OpenWrt is generally compiled and linked using gcc and binutils, with the help of Makefiles and patches for the various gcc versions and target platforms.
+Allowing end users as well as service operators and hardware manufacturers to compile the firmware. It offers the BusyBox set of barebones UNIX tools, enabling advanced users to fully interact with their Linux system and providing developers with a familiar platform for debugging and testing their product.
 
 http://wiki.confine-project.eu/_media/soft:openwrt-talk-2012-06-01.pdf
 http://wiki.openwrt.org/
@@ -23,20 +16,16 @@ http://wiki.openwrt.org/
 OPKG
 ----
 
-The package management system used in OpenWrt is OPKG. It is based off the
-discontinued ipkg and operates similar to APT and dpkg of Debian-based
-distributions. There are currently over 2000 OPKG packages available for
-OpenWrt.
+The package management system used in OpenWrt is OPKG. It is based off the discontinued ipkg and operates similar to APT and dpkg of Debian-based distributions.
+There are currently over 2000 OPKG packages available for OpenWrt.
 
 The OpenWrt system and its packages are built using GNU Autoconf.
 
 Inteno Open Platform System
 ---------------------------
 
-For Customer Premises Equipment\footnote{commonly abbreviated as CPE} like wireless
-gateways, Inteno Open Platform System offers an open-source Linux distribution based
-on OpenWrt. It uses the OpenWrt build system including cross-compilation
-toolchain to ensure compatibility with the ecosystem and upstream.
+For Customer Premises Equipment\footnote{commonly abbreviated as CPE} like wireless gateways, Inteno Open Platform System offers an open-source Linux distribution based on OpenWrt.
+It uses the OpenWrt build system including cross-compilation toolchain to ensure compatibility with the ecosystem and upstream.
 
 http://www.inteno.se/Portals/0/IntenoFiles/ProductDocs/241/689/iopsys_white_paper.pdf_20121015135755.pdf
 
