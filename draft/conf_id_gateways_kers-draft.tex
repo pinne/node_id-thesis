@@ -62,15 +62,24 @@
 \thispagestyle{center}
 \selectlanguage{english}
 \begin{abstract}
-   Abstract in English.
+   %why do we care about the problem?
+To set up port forwarding rules in their network gateways, certain technical skills are required from the user.
+These assumptions in the gateway software stack, can lead to an increase in support calls to the network operators and resellers of equipment, as well as a worsened user experience.
+Other issues include faulty configuration, leaving the network vulnerable to attacks.
+   %what did you actually do to get your results?
+
+   %what did you learn/invent/create?
+We designed a graphical user interface as an OpenWrt module and implemented a wrapper for a network scanner to detect devices and applications on the local network.
+This enables end-users to avoiding looking up forwarding rules for ports and protocols to configure port forwarding rules, basing their decisions on data from the network scanner.
+
+   %what are the larger implications of your findings
+The implementation will reduce support costs for the service operators and improve user experience.
 
 \end{abstract}
 \newpage
 \blankpage
 
 \begin{foreignabstract}{swedish}
-   Innehåller en svensk sammanfattning av rapportens innehåll på 10-15 rader samt nyckelord som beskriver innehållet (upp till 10 stycken).
-   Sammmanfattningen bör kortfattat redogöra för frågeställningen/problemmet, metoden och svaret/resultateet så precist som möjligt.
 
 \newpage
 \blankpage
@@ -83,25 +92,24 @@
 \chapter{Introduction}
 %brief introduction to inteno and the product
 Inteno Broadband Technology is a company that supplies customer premises equipment for internet service providers.  
-Their headquarters and research and development center is located in Stockholm, Sweden.  
+Their headquarters and research and development center is located in Stockholm, Sweden.
 Inteno Open Systems Platform is a Linux-based open source platform running on customer premises equipment.
 It is based on the OpenWrt distribution which targets embedded devices, specifically network gateways. \cite{Inteno}
 
 %identified a real problem (motivate that it is real and interesting)
 The technical support departments of partners and resellers of Intenos
 customer premises equipment, are looking to reduce support costs and improve customer experience. 
-Support issues creates costs for the business and by reducing the number of support tickets and their processing duration, these costs can be reduced.
+Support issues creates costs for the business and by reducing the number of support tickets and their processing time, these costs can be reduced.
 
 %come up with a solution (give a rough idea what the solution looks like)
 By simplifying configuration through abstracting common tasks for the end-user, the number of support calls can be reduced.
 Using automatic device identification and automating common tasks such as port forwarding, support costs can be reduced and end-user satisfaction is higher.
-Many common support issues could be automated by the software running on the customer premises equipment and by effectively communication with the end-user through the user interface.
+Many common support issues could be automated by the software running on the customer premises equipment and by effective communication with the end-user through the user interface.
 
 %how I actually solved the problem (high-level summary of results).
-The OpenWrt distribution provides a complete platform for compiling and deploying a gateway image.
-By building a extensible library of presets for common port forwarding rules
-and developing a simple selection dialog, the amount of calls can be lowered
-while increasing customer satisfaction.
+The OpenWrt distribution provides a complete platform for compiling and
+deploying a gateway firmware image.
+By building a extensible library of presets for common port forwarding rules and developing a simple selection dialog, the amount of calls can be lowered while increasing customer satisfaction.
 
 %skriv klart angående att tack vare ramverket så kan åf lägga till egna regler.
 
@@ -109,6 +117,26 @@ while increasing customer satisfaction.
 %\part{Important Results}
 
 \chapter{Background}
+
+Inteno produces hardware for customer premises equipment like network gateways and their direct customers are network operators and internet service providers.
+The research and development department at Inteno works on improving the platform, adding value to the end users and the operators.
+
+There are simple ways in which to improve the user experience, developers of network gateway software often implement a set of presets of port forwarding rules for common applications.
+The interface presents the user with a list of applications in clear text and lets the user select an IP address, for which the forwarding rules should apply.
+
+%skriv något om alternativa program typ port forwarding
+Alternative solutions to simplifying port forwarding include using standalone applications which run on a PC, connected to the local network.
+These applications has internal lists of port forwarding rules for common applications and devices, which is then applied for a specific IP address on the local network.
+\cite{portforward.com}
+
+%skriv något om alternativa program typ port scanner och guider på nätet
+To test the newly applied configurations, web-based or locally run port scanners can be used.
+They will scan the users external IP address for open ports and present which are open, this does not guarantee that the packets are routed to the correct internal address.
+
+\section{Current situation}
+The default settings page for port forwarding is currently located under the \emph{Firewall} tab, the forwarding procedure involves looking up ports for the specific device or unit.
+These set of rules sometimes involve several ports and protocols, increasing the possibility for misstep and faulty configuration by the end user.
+Such tasks are well suited for automation by the software suite, especially for applications and devices which require several port forwarding rules, automatic some of these steps will save time and bring overall value to the user experience.
 
 \section{Software suite}
 
@@ -123,17 +151,17 @@ It offers the BusyBox set of barebones UNIX tools, enabling advanced users to fu
 \cite{OpenWrt:structure_design}
 
 \subsection{OPKG}
-The package management system used in OpenWrt is OPKG. It is based off the discontinued ipkg and operates similar to APT and dpkg of Debian-based distributions.
+The package management system used in OpenWrt is \emph{OPKG}. It is based off the discontinued \emph{ipkg} and operates similar to \emph{APT} and \emph{dpkg} of Debian-based distributions.
 There are currently over 2000 OPKG packages available for OpenWrt.
 
-The OpenWrt system and its packages are built using GNU Autoconf.
+The OpenWrt system and its packages are built using \emph{GNU Autoconf}.
 
 \subsection{Inteno Open Platform System}
 For Customer Premises Equipment\footnote{commonly abbreviated as CPE} like wireless gateways, Inteno Open Platform System offers an open-source Linux distribution based on OpenWrt.
 It uses the OpenWrt build system including cross-compilation toolchain to ensure compatibility with the ecosystem and upstream.
 
 \subsection{Lua Configuration Interface}
-LuCI is an suite of programs and libraries for extending OpenWrt using the Lua programming language.
+\emph{LuCI} is an suite of programs and libraries for extending OpenWrt using the Lua programming language.
 It originated in the OpenWrt project but has since grown and is now it's own project.
 
 The themes are accessed from the directory:
@@ -177,17 +205,15 @@ in the functions:
 \end{verbatim}
 
 \chapter{Problem}
-\section{User experience}
+   \section{User experience}
+Customers and operators of Inteno CPE have expressed concern about support costs for port forwarding and configuration in general.
+The 
 
-\section{Support time}
+   \section{Support costs}
 
-\chapter{Related work}
-\section{Human-computer interaction}
-
-\chapter{Implementation}
-\section{Design}
-
-%explain your approach in a general overview
+\chapter{Design}
+   \section{Human-computer interaction}
+   \section{Forwarding page}
 
 See figure~\ref{fig:wizard-seq_dia} on page~\pageref{fig:wizard-seq_dia}.
 \begin{figure}[h!]
@@ -197,9 +223,17 @@ See figure~\ref{fig:wizard-seq_dia} on page~\pageref{fig:wizard-seq_dia}.
    \label{fig:wizard-seq_dia}
 \end{figure}
 
+
+\chapter{Implementation}
+%explain your approach in a general overview
+The implementation consists of three general parts that work together in delivering easier forwarding rules configuration.
+As shown in figure~\ref{fig:wizard-seq_dia}, the three configuration files that together with user input, are used as sources for the final redirection rule in the firewall configuration file.
+The device detection updates the configuration file \emph{devices} with newly discovered devices, this does not include applications running on computers or game specific forwarding rules, running on gaming consoles, this requires user intervention.
+
 %discuss tradeoffs, discuss traps you've fallen into
 
 %explain your design and limitations in greater detail
+Using the \emph{Unified Configuration System}, that is included in the OpenWrt distribution, all the basic commands for configuring the firewall rules were prototyped and explored.
 
 \chapter{Results}
 \section{Performance}
