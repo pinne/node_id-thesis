@@ -1,5 +1,5 @@
 \RequirePackage{ifpdf}
-\documentclass[a4paper,11pt]{kth-mag}
+\documentclass[a4paper,11pt]{kth-bcs}
 \usepackage[T1]{fontenc}
 \usepackage{textcomp}
 \usepackage{lmodern}
@@ -41,16 +41,22 @@
 
 \title{Configuration and device identification on network gateways}
 
-\subtitle{Configuration and device identification on network gateways}
+\subtitle{Konfigurering och enhetsidentifiering på nätverksgateways}
 \foreigntitle{Konfigurering och enhetsidentifiering på nätverksgateways}
 \author{Simon Kers}
 \date{May 2013}
-\blurb{Bachelor's Thesis at STH\\
+\blurb{Bachelor's Thesis at KTH\\
+       School of Technology and Health\\
        Supervisor: Micael Lundvall\\
        Examiner: Ibrahim Orhan
+%       Kungliga Tekniska Högskolan\\
+%       Skolan för teknik och hälsa\\
+%       136 40 Handen, Sweden\\
+%       http://www.kth.se/sth
 }
-\trita{TRITA xxx 2013-nn}
-\trita{}
+
+\trita{TRITA-STH 20XX:nn}
+
 \begin{document}
 
 \frontmatter
@@ -63,17 +69,17 @@
 \selectlanguage{english}
 \begin{abstract}
    %why do we care about the problem?
-To set up port forwarding rules in their network gateways, certain technical skills are required from the user.
+To set up port forwarding rules on network gateways, certain technical skills are required from end-users.
 These assumptions in the gateway software stack, can lead to an increase in support calls to the network operators and resellers of equipment, as well as a worsened user experience.
 Other issues include faulty configuration, leaving the network vulnerable to attacks.
    %what did you actually do to get your results?
 
    %what did you learn/invent/create?
-We designed a graphical user interface as an OpenWrt module and implemented a wrapper for a network scanner to detect devices and applications on the local network.
-This enables end-users to avoiding looking up forwarding rules for ports and protocols to configure port forwarding rules, basing their decisions on data from the network scanner.
+We present an enhancement of the web-based graphical user interface in the OpenWrt distribution, along with a wrapper for a network scanner, to detect devices and applications on the local network.
+This relieves end-users of looking up forwarding rules for ports and protocols to configure their gateway, basing their decisions on data collected by the network scanner or by using an application name instead of its ports.
 
    %what are the larger implications of your findings
-The implementation will reduce support costs for the service operators and improve user experience.
+The implementation will reduce support costs for the service operators and improve the user experience.
 
 \end{abstract}
 \newpage
@@ -91,7 +97,7 @@ The implementation will reduce support costs for the service operators and impro
 \pagestyle{newchap}
 \chapter{Introduction}
 %brief introduction to inteno and the product
-Inteno Broadband Technology is a company that supplies customer premises equipment for internet service providers.  
+Inteno Broadband Technology is a company that supplies \emph{customer premises equipment} (CTE) for internet service providers.  
 Their headquarters and research and development center is located in Stockholm, Sweden.
 Inteno Open Systems Platform is a Linux-based open source platform running on customer premises equipment.
 It is based on the OpenWrt distribution which targets embedded devices, specifically network gateways. \cite{Inteno}
@@ -176,19 +182,10 @@ Rules for port forwarding are read from:
     /etc/config/firewall
 \end{verbatim}
 
-A port forwarding rule which forwards external HTTP traffic over port 80 to the local IP 192.168.1.214, looks like:
+A port forwarding rule which forwards external HTTP traffic over port 80 to the local IP 192.168.1.214, as shown in \ref{fig:redirect_conf}.
 
-\begin{verbatim}
-config redirect               
-        option target 'DNAT' 
-        option src 'wan'
-        option dest 'lan'
-        option proto 'tcp'
-        option src_dport '80'
-        option dest_ip '192.168.1.214'
-        option dest_port '80' 
-        option name 'Web server'
-\end{verbatim}
+foo: \ref{fig:foo}.
+
 
 The presentation markup for the current port forwarding page in the LuCI backend on the Gateway, is defined in the file:
 
@@ -213,6 +210,8 @@ The
 
 \chapter{Design}
    \section{Human-computer interaction}
+This is a cite\cite{garrett2003elements}
+
    \section{Forwarding page}
 
 See figure~\ref{fig:wizard-seq_dia} on page~\pageref{fig:wizard-seq_dia}.
@@ -222,7 +221,6 @@ See figure~\ref{fig:wizard-seq_dia} on page~\pageref{fig:wizard-seq_dia}.
    \caption{Sequential diagram of applying port forwarding rules}
    \label{fig:wizard-seq_dia}
 \end{figure}
-
 
 \chapter{Implementation}
 %explain your approach in a general overview
@@ -240,15 +238,53 @@ Using the \emph{Unified Configuration System}, that is included in the OpenWrt d
 
 \chapter{Conclusions}
 %discuss what we can learn from the results
+Some text
 
 %draw real conclusions
 
 %explain how to fix shortcommings of work and how to fix them
 
 \section{Further development}
+
+\newpage
+\newpage
 \appendix
 \addappheadtotoc
+\chapter{Configuration files}\label{appA}
+   %\addcontentsline{toc}{section}{Configuration files}
+   \begin{figure}[ht]
+      \centering
+      \begin{verbatim}
+config redirect               
+        option target 'DNAT' 
+        option src 'wan'
+        option dest 'lan'
+        option proto 'tcp'
+        option src_dport '80'
+        option dest_ip '192.168.1.214'
+        option dest_port '80' 
+        option name 'Web server'
+      \end{verbatim}
+      \caption{
+         \small{
+Port forwarding section in the \emph{firewall} configuration file
+         }
+      }
+      \label{fig:redirect_conf}
+   \end{figure}
 
+   \begin{figure}[ht]
+      \centering
+      \label{fig:foo}
+      \begin{verbatim}
+         foo bar baz
+      \end{verbatim}
+      \caption{
+         \small{
+Port forwarding section in the \emph{firewall} configuration file
+         }
+      }
+   \end{figure}
 %\chapter{RDF}\label{appA}
 %\begin{figure}[ht]
 %   \begin{center}
