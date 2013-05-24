@@ -1,0 +1,685 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>Configuration and device identification on network gateways</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html --> 
+<meta name="src" content="conf_id_gateways_kers-draft.tex"> 
+<meta name="date" content="2013-05-23 07:42:00"> 
+<link rel="stylesheet" type="text/css" href="conf_id_gateways_kers-draft.css"> 
+</head><body 
+>
+                                                                           
+
+                                                                           
+<!--l. 63--><p class="indent" >
+                                                                           
+
+                                                                           
+   <div class="maketitle"> <span 
+class="ec-lmssbx-10x-x-172">Configuration and device identification on</span>
+ <span 
+class="ec-lmssbx-10x-x-172">network gateways</span>
+ <span 
+class="ec-lmss-10x-x-109">Konfigurering och enhetsidentifiering på n</span><span 
+class="ec-lmss-10x-x-109">ätverksgateways</span>
+ <span 
+class="ec-lmss-12">SIMON KERS</span>
+<span 
+class="ec-lmss-10x-x-109">Bachelor&#8217;s Thesis at KTH</span><br />
+<span 
+class="ec-lmss-10x-x-109">School of Technology and Health</span><br />
+<span 
+class="ec-lmss-10x-x-109">Supervisor: Micael Lundvall</span><br />
+<span 
+class="ec-lmss-10x-x-109">Examiner: Ibrahim Orhan</span>
+   <div  
+class="centerline">                                         <span 
+class="ec-lmss-10x-x-109">TRITA-STH 20XX:nn</span>                                         </div>
+                                                                           
+
+                                                                           
+                                                                           
+
+                                                                           
+   </div>
+<div class="center" 
+>
+<!--l. 70--><p class="noindent" >
+<!--l. 70--><p class="noindent" ><span 
+class="ec-lmssdc-10x-x-207">Abstract</span></div>
+           <span 
+class="ec-lmr-10">To  set  up  port  forwarding  rules  on  network  gateways,  certain</span>
+        <span 
+class="ec-lmr-10">technical skills are required from end-users. These assumptions in the</span>
+        <span 
+class="ec-lmr-10">gateway  software  stack,  can  lead  to  an  increase  in  support  calls  to</span>
+        <span 
+class="ec-lmr-10">the network operators and resellers of equipment, as well as a lessened</span>
+        <span 
+class="ec-lmr-10">user experience. Other issues include faulty configuration, leaving the</span>
+        <span 
+class="ec-lmr-10">network vulnerable to attacks.</span>
+        <!--l. 78--><p class="indent" >     <span 
+class="ec-lmr-10">We  present  an  enhancement  of  the  web-based  graphical  user</span>
+        <span 
+class="ec-lmr-10">interface  in  the  OpenWrt  distribution,  along  with  a  wrapper  for  a</span>
+        <span 
+class="ec-lmr-10">network scanner, to detect devices and applications on the local network.</span>
+        <span 
+class="ec-lmr-10">This relieves end-users of looking up forwarding rules for ports and</span>
+        <span 
+class="ec-lmr-10">protocols  to  configure  their  gateway,  basing  their  decisions  on  data</span>
+        <span 
+class="ec-lmr-10">collected by the network scanner or by using an application name instead</span>
+        <span 
+class="ec-lmr-10">of its ports.</span>
+        <!--l. 82--><p class="indent" >     <span 
+class="ec-lmr-10">Using  the  Nmap  utility  for  identifying  services  on  the  network,</span>
+        <span 
+class="ec-lmr-10">could be considered harmful activity by network admins and intrusion</span>
+        <span 
+class="ec-lmr-10">detection systems. The preset library is extensible and generic enough</span>
+        <span 
+class="ec-lmr-10">to be included in the default software suite shipping with the network</span>
+        <span 
+class="ec-lmr-10">equipment. This proposal could reduce support costs for the service</span>
+        <span 
+class="ec-lmr-10">operators and improve user experience and configuration of network</span>
+        <span 
+class="ec-lmr-10">gateways.</span>
+<!--l. 87--><p class="noindent" >
+                                                                           
+
+                                                                           
+<!--l. 88--><p class="indent" >
+                                                                           
+
+                                                                           
+<div class="center" 
+>
+<!--l. 90--><p class="noindent" >
+<!--l. 90--><p class="noindent" ><span 
+class="ec-lmssdc-10x-x-207">Referat</span></div>
+        <div class="center" 
+>
+<!--l. 90--><p class="noindent" >
+<!--l. 90--><p class="noindent" ><span 
+class="ec-lmssdc-10x-x-144">Konfigurering och enhetsidentifiering på n</span><span 
+class="ec-lmssdc-10x-x-144">ätverksgateways</span></div>
+     <!--l. 91--><p class="noindent" ><span 
+class="ec-lmr-10">Sammanfattning på svenska tillkommer senare.</span>
+        <!--l. 93--><p class="indent" >
+                                                                           
+
+                                                                           
+        <!--l. 94--><p class="indent" >
+                                                                           
+
+                                                                           
+                                                                           
+
+                                                                           
+<!--l. 98--><p class="indent" >
+                                                                           
+
+                                                                           
+   <h2 class="likechapterHead"><a 
+ id="x1-1000"></a>Contents</h2> <div class="tableofcontents">
+   <span class="chapterToc" ><a 
+href="#x1-20001" id="QQ2-1-2"></a></span>
+<br />   <span class="chapterToc" ><a 
+href="#x1-30002" id="QQ2-1-3"></a></span>
+<br />   &#x00A0;<span class="sectionToc" >2.1 <a 
+href="#x1-40002.1" id="QQ2-1-4">Software suite</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >2.1.1 <a 
+href="#x1-50002.1.1" id="QQ2-1-5">OpenWrt</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >2.1.2 <a 
+href="#x1-60002.1.2" id="QQ2-1-6">OPKG</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >2.1.3 <a 
+href="#x1-70002.1.3" id="QQ2-1-7">Inteno Open Platform System</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >2.1.4 <a 
+href="#x1-80002.1.4" id="QQ2-1-8">Lua Configuration Interface</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >2.1.5 <a 
+href="#x1-90002.1.5" id="QQ2-1-9">Model-View Controller</a></span>
+<br />   <span class="chapterToc" ><a 
+href="#x1-100003" id="QQ2-1-10"></a></span>
+<br />   &#x00A0;<span class="sectionToc" >3.1 <a 
+href="#x1-110003.1" id="QQ2-1-11">User experience</a></span>
+<br />   &#x00A0;<span class="sectionToc" >3.2 <a 
+href="#x1-120003.2" id="QQ2-1-12">Customer support</a></span>
+<br />   <span class="chapterToc" ><a 
+href="#x1-130004" id="QQ2-1-13"></a></span>
+<br />   &#x00A0;<span class="sectionToc" >4.1 <a 
+href="#x1-140004.1" id="QQ2-1-15">User interface</a></span>
+<br />   <span class="chapterToc" ><a 
+href="#x1-150005" id="QQ2-1-16"></a></span>
+<br />   &#x00A0;<span class="sectionToc" >5.1 <a 
+href="#x1-160005.1" id="QQ2-1-17">Nmap</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >5.1.1 <a 
+href="#x1-170005.1.1" id="QQ2-1-18">Wrapper</a></span>
+<br />   &#x00A0;<span class="sectionToc" >5.2 <a 
+href="#x1-180005.2" id="QQ2-1-19">Preset library</a></span>
+<br />   <span class="chapterToc" ><a 
+href="#x1-190006" id="QQ2-1-20"></a></span>
+<br />   <span class="chapterToc" ><a 
+href="#x1-200007" id="QQ2-1-21"></a></span>
+<br />   &#x00A0;<span class="sectionToc" >7.1 <a 
+href="#x1-210007.1" id="QQ2-1-22">Further development</a></span>
+<br />   <span class="chapterToc" ><a 
+href="#Q1-1-23">Appendices</a></span>
+<br />   <span class="appendixToc" >A <a 
+href="#x1-22000A" id="QQ2-1-24"></a></span>
+<br />   <span class="chapterToc" ><a 
+href="#Q1-1-28">Bibliography</a></span>
+   </div>*
+                                                                           
+
+                                                                           
+                                                                           
+
+                                                                           
+                                                                           
+
+                                                                           
+<!--l. 101--><p class="indent" >
+                                                                           
+
+                                                                           
+   <h2 class="chapterHead"><span class="titlemark">Chapter&#x00A0;1</span><br /><a 
+ id="x1-20001"></a>Introduction</h2> Inteno Broadband Technology is a company that
+supplies <span 
+class="ec-lmri-10x-x-109">customer premises equipment </span>(CPE) for internet service providers. Their
+headquarters and research and development center is located in Stockholm,
+Sweden. Inteno Open Systems Platform, or <span 
+class="ec-lmri-10x-x-109">iopsys </span>is a GNU/Linux-based open
+source platform running on customer premises equipment. It is based on the
+OpenWrt distribution which targets embedded devices, specifically network
+gateways.<span class="cite">[<a 
+href="#XInteno">2</a>]</span>
+<!--l. 109--><p class="noindent" >The technical support departments of partners and resellers of Inteno CPE, are looking
+to reduce support costs and improve customer experience. Support issues creates costs for
+the business and by reducing the number of support tickets and their processing time,
+these costs can be reduced.
+<!--l. 113--><p class="indent" >   By simplifying configuration through abstracting common tasks for the end-user, the
+number of support calls can be reduced. Using automatic device identification and
+automating common tasks such as port forwarding, support costs can be reduced and
+end-user satisfaction improved. Many common support issues could be automated
+by the software running on the CPE and by effective communication with the
+end-user through the user interface. One such feature is automatic service discovery
+on the local network. The system identifies the ports and services running on
+the network devices, that the end-user might want to set up forwarding rules
+for.
+<!--l. 120--><p class="indent" >   By building a extensible library of presets for common port forwarding rules and
+developing a simple selection dialog, the end user can more efficiently set up port
+forwarding rules and configure their gateway. The system for service identification is a
+wrapper around <span 
+class="ec-lmri-10x-x-109">Nmap</span>, that performs a scan of the network nodes and returns a list of
+available services. This information is in turn used to match against known presets and
+protocols, and offer the user a choice of applying the preset rules for the newly detected
+network device. The preset system is extensible, allowing retailers to add their own
+devices and services as preset definitions, each with their specific forwarding
+rules.
+                                                                           
+
+                                                                           
+<!--l. 128--><p class="indent" >
+                                                                           
+
+                                                                           
+   <h2 class="chapterHead"><span class="titlemark">Chapter&#x00A0;2</span><br /><a 
+ id="x1-30002"></a>Background</h2>
+<!--l. 130--><p class="noindent" >The research and development department at Inteno works on improving
+the platform, adding value to the end users, the operators and the larger
+OpenWrt software project. Because of the nature of OpenWrt&#8217;s free software
+licence<span class="footnote-mark"><a 
+href="conf_id_gateways_kers-draft2.html#fn1x3"><sup class="textsuperscript">1</sup></a></span><a 
+ id="x1-3001f1"></a> ,
+the code is publicly released and available for download from Intenos webpage<span class="cite">[<a 
+href="#Xinteno_gpl">1</a>]</span>.
+<!--l. 133--><p class="indent" >   There are simple ways in which to improve the user experience, developers of network
+gateway software often implement a set of presets of port forwarding rules for common
+applications. The interface presents the user with a list of applications in plain text
+and lets the user select an IP address, for which the forwarding rules should
+apply.
+<!--l. 137--><p class="indent" >   Alternative solutions to simplifying port forwarding include using standalone
+applications which run on a PC, connected to the local network. These applications has
+internal lists of port forwarding rules for common applications and devices, which is then
+applied for a specific IP address on the local network. <span class="cite">[<a 
+href="#Xportforward.com">5</a>]</span>
+<!--l. 144--><p class="indent" >   To test the newly applied configurations, web-based or locally run port scanners can
+be used. They will scan the users external IP address for open ports and present which
+are open, this does not guarantee that the packets are routed to the correct internal
+address.
+   <h3 class="sectionHead"><span class="titlemark">2.1   </span> <a 
+ id="x1-40002.1"></a>Software suite</h3>
+<!--l. 149--><p class="noindent" >The newer Inteno devices ship with the OpenWrt distribution, which is a small
+GNU/Linux operating system. It provides the developer with the basic UNIX debugging
+tools and a POSIX compatible command-line interface shell.
+<!--l. 152--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">2.1.1   </span> <a 
+ id="x1-50002.1.1"></a>OpenWrt</h4>
+<!--l. 153--><p class="noindent" >OpenWrt is a free and open-source GNU/Linux distribution, targeting embedded
+devices, specifically wireless routers, but can run on almost any set of hardware.
+Cross-compilation is enabled by OpenWrt Buildroot, which compiles the C code using
+uClibc, a lightweight C library focusing on embedded Linux systems. It intends to be a
+meta distribution and offers developers a framework on which to base their firmware
+on.
+<!--l. 157--><p class="indent" >   OpenWrt is generally compiled and linked using gcc and binutils, with the
+help of Makefiles and patches for the various gcc versions and target platforms.
+Allowing end users as well as service operators and hardware manufacturers
+to compile the firmware. It offers the BusyBox set of barebones UNIX tools,
+                                                                           
+
+                                                                           
+enabling advanced users to fully interact with their Linux system and providing
+developers with a familiar platform for debugging and testing their product.
+<span class="cite">[<a 
+href="#XOpenWrt:structure_design">3</a>]</span>
+<!--l. 162--><p class="indent" >   <span 
+class="ec-lmri-10x-x-109">Unified Configuration Interface</span>, or UCI, is used in OpenWrt as a uniform format for
+commonly used configuration files. UCI has a Lua bindings as well as a command line
+interface, to read and modify the configuration files. Rules for port forwarding are defined
+in the UCI compatible configuration file in:
+                                                                           
+
+                                                                           
+   <div class="verbatim" id="verbatim-1">
+&#x00A0;&#x00A0;&#x00A0;&#x00A0;/etc/config/firewall
+</div>
+<!--l. 167--><p class="nopar" >
+<!--l. 169--><p class="indent" >   A port forwarding rule which forwards external HTTP traffic over port 80 to the
+internal IP 192.168.1.214, is shown in figure <a 
+href="#x1-22002A.2">A.2<!--tex4ht:ref: fig:redirect_conf --></a>. The line <span 
+class="ec-lmri-10x-x-109">config redirect </span>defines the start
+of a section, a section contains several values and a UCI configuration file can have
+several such sections.
+<!--l. 172--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">2.1.2   </span> <a 
+ id="x1-60002.1.2"></a>OPKG</h4>
+<!--l. 173--><p class="noindent" >The package management system used in OpenWrt is Open PacKaGe Management, or
+<span 
+class="ec-lmri-10x-x-109">OPKG</span>. It is based off the discontinued <span 
+class="ec-lmri-10x-x-109">ipkg </span>and operates similar to <span 
+class="ec-lmri-10x-x-109">APT </span>and <span 
+class="ec-lmri-10x-x-109">dpkg </span>of
+Debian-based distributions. It targets GNU/Linux based operating systems for
+embedded devices and there are currently over 2000 OPKG packages available for
+OpenWrt.
+<!--l. 176--><p class="indent" >   The OpenWrt system and its packages are built using <span 
+class="ec-lmri-10x-x-109">GNU Autoconf</span>, which
+automates tasks associated with compiling larger software suites. This includes pulling in
+parts of the system from remote software repositories and automatically resolving
+dependencies on programs and libraries.
+<!--l. 179--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">2.1.3   </span> <a 
+ id="x1-70002.1.3"></a>Inteno Open Platform System</h4>
+<!--l. 180--><p class="noindent" >For Customer Premises Equipment like wireless gateways, Inteno Open Platform System
+offers an open-source Linux distribution based on OpenWrt. It uses the OpenWrt build
+system including cross-compilation toolchain to ensure compatibility with the ecosystem
+and upstream.
+<!--l. 183--><p class="indent" >   Inteno maintains and hosts a remote repository, which contains a frozen
+release of OpenWrt and compatible packages and patches. This ensures good
+compatibility with Inteno hardware and protection from breakage because of upstream
+code<span class="footnote-mark"><a 
+href="conf_id_gateways_kers-draft3.html#fn2x3"><sup class="textsuperscript">2</sup></a></span><a 
+ id="x1-7001f2"></a> .
+   <h4 class="subsectionHead"><span class="titlemark">2.1.4   </span> <a 
+ id="x1-80002.1.4"></a>Lua Configuration Interface</h4>
+                                                                           
+
+                                                                           
+<!--l. 187--><p class="noindent" >Lua Configuration Interface, or <span 
+class="ec-lmri-10x-x-109">LuCI</span>, is a suite of programs and libraries for extending
+OpenWrt using the Lua programming language and providing a web interface built with
+the Model-View Controller architecture. It originated in the OpenWrt project, but is now
+an independent project on its own.
+<!--l. 191--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">2.1.5   </span> <a 
+ id="x1-90002.1.5"></a>Model-View Controller</h4>
+<!--l. 192--><p class="noindent" >LuCI relies on the <span 
+class="ec-lmri-10x-x-109">Model-View Controller </span>software architecture pattern and separates
+data and its visual representation. It is divides in three parts with the model representing
+the data and storing in in UCI configuration files.
+                                                                           
+
+                                                                           
+   <h2 class="chapterHead"><span class="titlemark">Chapter&#x00A0;3</span><br /><a 
+ id="x1-100003"></a>Problem</h2>
+   <h3 class="sectionHead"><span class="titlemark">3.1   </span> <a 
+ id="x1-110003.1"></a>User experience</h3>
+<!--l. 197--><p class="noindent" >End users of Inteno CPE have expressed concern about the relative difficulty of port
+forwarding and configuration of their network gateway. The default settings page for port
+forwarding is currently located under the <span 
+class="ec-lmri-10x-x-109">Firewall </span>tab in the OpenWrt front end, the
+forwarding procedure involves looking up ports for the specific device or unit, and
+entering these on the web page forms.
+<!--l. 200--><p class="indent" >   These set of rules sometimes involve several ports and protocols, increasing the
+possibility for misstep and faulty configuration by the end user. If we could reduce the
+complexities of this common task of address translation and present it in an way that are
+easily understandable, then customer satisfaction would increase. Such tasks could be
+well suited for automation by software, especially for applications and devices which
+require several port forwarding rules, automating some of these steps will save time and
+bring overall value to the user experience.
+<!--l. 205--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">3.2   </span> <a 
+ id="x1-120003.2"></a>Customer support</h3>
+<!--l. 206--><p class="noindent" >Connectivity of the XBox 360 gaming console has been a common issue and the device is
+common among end users, this was also chosen as reference device to do tests and
+verifications against. One of the most commonly reported issues of end users, is
+setting up port forwarding for connecting their XBox 360 to the XBox Live
+network.
+                                                                           
+
+                                                                           
+<!--l. 209--><p class="indent" >
+                                                                           
+
+                                                                           
+   <h2 class="chapterHead"><span class="titlemark">Chapter&#x00A0;4</span><br /><a 
+ id="x1-130004"></a>Design</h2>
+<!--l. 211--><p class="noindent" >The overall design of the system consists of two parts, the service identification and port
+forwarding presets. These parts are connected through the underlying software and
+presented on the user interface.
+<!--l. 214--><p class="indent" >   As shown in figure&#x00A0;<a 
+href="#x1-130014.1">4.1<!--tex4ht:ref: fig:wizard-seq_dia --></a>, the communication between the parts of the port forwarding
+process is outlined. The user initiates the identification procedure and the identification
+process starts. When the results from the identification are returned the list of presets is
+sorted, based on identification and the user can review their options. By selecting the
+name of the service, the correct forwarding rules are loaded and presented to the user,
+who can then chose to apply them, after which they are written to the configuration files.
+<hr class="figure"><div class="figure" 
+>
+                                                                           
+
+                                                                           
+<a 
+ id="x1-130011"></a>
+                                                                           
+
+                                                                           
+<!--l. 220--><p class="noindent" ><img 
+src="conf_id_gateways_kers-draft0x.png" alt="PIC" class="graphics" width="426.79134pt" height="233.2563pt" ><!--tex4ht:graphics  
+name="conf_id_gateways_kers-draft0x.png" src="wizard-seq_dia.eps"  
+-->
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;4.1: </span><span  
+class="content">Sequential diagram of applying port forwarding rules</span></div><!--tex4ht:label?: x1-130011 -->
+                                                                           
+
+                                                                           
+<!--l. 223--><p class="indent" >   </div><hr class="endfigure">
+   <h3 class="sectionHead"><span class="titlemark">4.1   </span> <a 
+ id="x1-140004.1"></a>User interface</h3>
+<!--l. 228--><p class="noindent" >For a port forwarding interface page, the user is presented with detected nodes and their
+respective network services. Listed presets are sorted by the output from the service
+identification process, presenting the user with the most likely services at the top of the
+list.
+<!--l. 231--><p class="indent" >   To apply the port forwarding rule set, the user selects a node in the network and the
+service from the sorted list, then applies it. Instead of performing all the steps
+automatically, the user is required to interact and approve of the suggested changes. The
+service identification is there to help the users make choices, not deciding for
+them.
+                                                                           
+
+                                                                           
+   <h2 class="chapterHead"><span class="titlemark">Chapter&#x00A0;5</span><br /><a 
+ id="x1-150005"></a>Implementation</h2> The implementation consists of three general parts that
+work together in delivering easier forwarding rules configuration. As shown in figure&#x00A0;<a 
+href="#x1-130014.1">4.1<!--tex4ht:ref: fig:wizard-seq_dia --></a>,
+the three configuration files that together with user input, are used as sources for the
+final redirection rule in the firewall configuration file. The device detection updates the
+configuration file <span 
+class="ec-lmri-10x-x-109">devices </span>with newly discovered devices, this does not include applications
+running on computers or game specific forwarding rules, running on gaming consoles, this
+requires user intervention.
+   <h3 class="sectionHead"><span class="titlemark">5.1   </span> <a 
+ id="x1-160005.1"></a>Nmap</h3>
+<!--l. 244--><p class="noindent" >The program <span 
+class="ec-lmri-10x-x-109">Nmap </span>is a popular network discovery program, and was chosen as the
+engine for the service scanner implementation. The XBox 360 gaming console was chosen
+at Inteno&#8217;s suggestion, with the motivation that it is one of the devices that end users
+have had the most issues with, in regards to port forwarding. Nmap is capable of
+detecting several operating systems, embedded devices and network services. It
+scans
+<!--l. 250--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">5.1.1   </span> <a 
+ id="x1-170005.1.1"></a>Wrapper</h4>
+<!--l. 251--><p class="noindent" >Executing the Nmap scanning utility and returning results, is implemented as a shell
+script. In the development process of the wrapper, a shell script was written to test
+the functionality and extract data about the detected services. The original
+thought was to replace this with a Lua script, to make it more cohesive with the
+rest of the system. Due to lack of time, the rewrite was cancelled and a quick
+adaptation was made to to the script to return valid JSON for the JavaScript
+frontend.
+<!--l. 259--><p class="indent" >   While testing the service identification features of Nmap, there is no way for Nmap to
+positively identify an XBox 360. This failure was due to an inconclusive fingerprint, but
+using a technique called TCP fingerprinting which returned more data, the XBox 360
+could be identified. An extra scan using the Nmap <span 
+class="ec-lmri-10x-x-109">version scan</span>, was used to identify the
+XBox 360. Whenever the service is identified as <span 
+class="ec-lmri-10x-x-109">LSA-or-nterm</span>, the TCP ports 1026 and
+1027, were scanned, either of these are in use by the XBox 360.<span class="cite">[<a 
+href="#Xaretheysecure">6</a>]</span> The more thorough
+version scan is then matched for <span 
+class="ec-lmri-10x-x-109">XBox 360 UPnP</span>, which the wrapper is set to interpret
+as a positive match.
+<!--l. 266--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">5.2   </span> <a 
+ id="x1-180005.2"></a>Preset library</h3>
+<!--l. 267--><p class="noindent" >The preset library consists of common services and port data, that the user
+would want to set up forwarding rules for. Details of these ports and protocols
+                                                                           
+
+                                                                           
+are provided by the application developers, specifically for address translation
+reasons.
+<!--l. 271--><p class="indent" >   Using the <span 
+class="ec-lmri-10x-x-109">Unified Configuration System</span>, that is included in the OpenWrt distribution,
+all the basic commands for configuring the firewall rules were prototyped and
+explored. The rules were formatted to fit the UCI configuration file format and
+returned as JSON to the JavaScript frontend in an AJAX call through the Lua
+dispatcher.<span class="footnote-mark"><a 
+href="conf_id_gateways_kers-draft4.html#fn1x6"><sup class="textsuperscript">1</sup></a></span><a 
+ id="x1-18001f1"></a> 
+<!--l. 274--><p class="indent" >   Applying the rules requires the user to select the desired service from a list, and
+pressing a button which runs a JavaScript function, performing an AJAX call to the Lua
+backend, issuing the UCI calls.
+                                                                           
+
+                                                                           
+   <h2 class="chapterHead"><span class="titlemark">Chapter&#x00A0;6</span><br /><a 
+ id="x1-190006"></a>Results</h2> Scanning a Raspberry Pi installed with the options <span 
+class="ec-lmri-10x-x-109">web server</span>,
+<span 
+class="ec-lmri-10x-x-109">mail server </span>and <span 
+class="ec-lmri-10x-x-109">ssh server</span>, detect these services and ports as shown in figure <a 
+href="#x1-22000A">A<!--tex4ht:ref: fig:rasp_scan --></a>. The mail
+server option in the installer, enables identification on ports 110, 143, 993 and 995
+because of the various email delivery protocols.
+                                                                           
+
+                                                                           
+<!--l. 286--><p class="indent" >
+                                                                           
+
+                                                                           
+   <h2 class="chapterHead"><span class="titlemark">Chapter&#x00A0;7</span><br /><a 
+ id="x1-200007"></a>Conclusions</h2> The results shows that the system manages to identify the
+XBox 360 gaming console, using our extension built into the wrapper. Its services in
+terms of ports are well known and defined in the preset part of the implemented system.
+The Raspberry Pi running the Debian GNU/Linux distribution is successfully
+detected as such, all services selected during the installation are successfully
+detected.
+<!--l. 293--><p class="noindent" >The preset system will simplify the port forwarding procedure and provide the novice
+user with helpful hints, in an otherwise complex graphical environment. Device and
+service detection fits with the preset data and the combination of these results results
+in a qualified guess, which is presented in the user interface. This part of the
+system could be made production ready and included by default in the iopsys
+platform.
+<!--l. 297--><p class="indent" >   The identification process of the XBox 360 is not a generic Nmap solution, it requires
+a workaround implemented in our shell script wrapper. This behaviour is undesirable but
+perhaps acceptable, depending on the frequency of the issue. Considering the CPE
+operators various needs, we are unable to draw any conclusions as to weather it should be
+implemented or not.
+   <h3 class="sectionHead"><span class="titlemark">7.1   </span> <a 
+ id="x1-210007.1"></a>Further development</h3>
+<!--l. 303--><p class="noindent" >The solution using Nmap could be interpreted as illegal activity and attempts at
+exploiting the systems of a network administrator, this is a risk which could render the
+proposed solution undesirable. A solution to this would be to implement a less intrusive
+way of identifying services, like the passive fingerprinting technique used by p0f.<span class="cite">[<a 
+href="#Xp0f">4</a>]</span> The
+execution time of Nmap is an issue, on local networks with several devices the
+latency would be deemed too high. We propose that the service be adjusted to
+preload the identification part of the system, to provide a more responsive user
+experience.
+<!--l. 308--><p class="indent" >
+                                                                           
+
+                                                                           
+<!--l. 309--><p class="indent" >
+                                                                           
+
+                                                                           
+<!--l. 311--><p class="indent" >   <a 
+ id="likesection.1"></a><a 
+ id="Q1-1-23"></a>
+                                                                           
+
+                                                                           
+                                                                           
+
+                                                                           
+<a 
+ id="x1-21001r21"></a>
+   <h2 class="appendixHead"><span class="titlemark">Appendix&#x00A0;A</span><br /><a 
+ id="x1-22000A"></a>Nmap output</h2>
+<!--l. 315--><p class="noindent" ><hr class="figure"><div class="figure" 
+>
+                                                                           
+
+                                                                           
+<a 
+ id="x1-220011"></a>
+                                                                           
+
+                                                                           
+<div class="verbatim" id="verbatim-2">
+&#x00A0;&#x00A0;&#x00A0;PORT&#x00A0;&#x00A0;&#x00A0;&#x00A0;STATE&#x00A0;SERVICE&#x00A0;&#x00A0;REASON&#x00A0;&#x00A0;VERSION
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;22/tcp&#x00A0;&#x00A0;open&#x00A0;&#x00A0;ssh&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;syn-ack&#x00A0;OpenSSH&#x00A0;6.0p1&#x00A0;Debian&#x00A0;4&#x00A0;(protocol&#x00A0;2.0)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;80/tcp&#x00A0;&#x00A0;open&#x00A0;&#x00A0;http&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;syn-ack&#x00A0;Apache&#x00A0;httpd&#x00A0;2.2.22&#x00A0;((Debian))
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;110/tcp&#x00A0;open&#x00A0;&#x00A0;pop3&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;syn-ack&#x00A0;Dovecot&#x00A0;pop3d
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;111/tcp&#x00A0;open&#x00A0;&#x00A0;rpcbind&#x00A0;&#x00A0;syn-ack&#x00A0;2-4&#x00A0;(RPC&#x00A0;#100000)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;143/tcp&#x00A0;open&#x00A0;&#x00A0;imap&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;syn-ack&#x00A0;Dovecot&#x00A0;imapd
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;993/tcp&#x00A0;open&#x00A0;&#x00A0;ssl/imap&#x00A0;syn-ack&#x00A0;Dovecot&#x00A0;imapd
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;995/tcp&#x00A0;open&#x00A0;&#x00A0;ssl/pop3&#x00A0;syn-ack&#x00A0;Dovecot&#x00A0;pop3d
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;MAC&#x00A0;Address:&#x00A0;B8:27:EB:0C:A5:70&#x00A0;(Raspberry&#x00A0;Pi&#x00A0;Foundation)
+</div>
+<!--l. 328--><p class="nopar" >
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;A.1: </span><span  
+class="content"> <span 
+class="ec-lmr-10">Nmap version scan of the Raspberry Pi, identifying available services on the</span>
+<span 
+class="ec-lmr-10">open ports.  </span></span></div><!--tex4ht:label?: x1-220011 -->
+                                                                           
+
+                                                                           
+<!--l. 334--><p class="noindent" ></div><hr class="endfigure">
+<!--l. 336--><p class="indent" >   <hr class="figure"><div class="figure" 
+>
+                                                                           
+
+                                                                           
+<a 
+ id="x1-220022"></a>
+                                                                           
+
+                                                                           
+<div class="verbatim" id="verbatim-3">
+&#x00A0;&#x00A0;&#x00A0;config&#x00A0;redirect
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;option&#x00A0;target&#x00A0;&#8217;DNAT&#8217;
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;option&#x00A0;src&#x00A0;&#8217;wan&#8217;
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;option&#x00A0;dest&#x00A0;&#8217;lan&#8217;
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;option&#x00A0;proto&#x00A0;&#8217;tcp&#8217;
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;option&#x00A0;src_dport&#x00A0;&#8217;80&#8217;
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;option&#x00A0;dest_ip&#x00A0;&#8217;192.168.1.214&#8217;
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;option&#x00A0;dest_port&#x00A0;&#8217;80&#8217;
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;option&#x00A0;name&#x00A0;&#8217;Web&#x00A0;server&#8217;
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;
+</div>
+<!--l. 348--><p class="nopar" >
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;A.2: </span><span  
+class="content"> <span 
+class="ec-lmr-10">Port forwarding section in the UCI </span><span 
+class="ec-lmri-10">firewall </span><span 
+class="ec-lmr-10">configuration file  </span></span></div><!--tex4ht:label?: x1-220022 -->
+                                                                           
+
+                                                                           
+<!--l. 355--><p class="indent" >   </div><hr class="endfigure">
+                                                                           
+
+                                                                           
+<!--l. 1--><p class="indent" >
+                                                                           
+
+                                                                           
+   <h2 class="likechapterHead"><a 
+ id="x1-23000A"></a>Bibliography</h2><a 
+ id="likesection.2"></a><a 
+ id="Q1-1-28"></a>
+   <div class="thebibliography">
+   <p class="bibitem" ><span class="biblabel">
+ [1]<span class="bibsp">&#x00A0;&#x00A0;&#x00A0;</span></span><a 
+ id="Xinteno_gpl"></a>Inteno  gpl  support  page.     <a 
+href="http://www.inteno.se/Support/GPL.aspx" class="url" ><span 
+class="ec-lmtt-10x-x-109">http://www.inteno.se/Support/GPL.aspx</span></a>.
+   Accessed: 2013-05-21.
+   </p>
+   <p class="bibitem" ><span class="biblabel">
+ [2]<span class="bibsp">&#x00A0;&#x00A0;&#x00A0;</span></span><a 
+ id="XInteno"></a>New      business      possibilities      with      Open      Source      software.
+   <a 
+href="http://www.inteno.se/Portals/0/IntenoFiles/ProductDocs/241/689/iopsys_white_paper.pdf_20121015135755.pdf" class="url" ><span 
+class="ec-lmtt-10x-x-109">http://www.inteno.se/Portals/0/IntenoFiles/ProductDocs/241/689/iopsys_white_paper.pdf_20121015135755.pdf</span></a>.
+   Accessed: 2013-04-29.
+   </p>
+   <p class="bibitem" ><span class="biblabel">
+ [3]<span class="bibsp">&#x00A0;&#x00A0;&#x00A0;</span></span><a 
+ id="XOpenWrt:structure_design"></a>OpenWrt structure and design. <a 
+href="http://wiki.confine-project.eu/_media/soft:openwrt-talk-2012-06-01.pdf" class="url" ><span 
+class="ec-lmtt-10x-x-109">http://wiki.confine-project.eu/_media/soft:openwrt-talk-2012-06-01.pdf</span></a>.
+   Accessed: 2013-04-29.
+   </p>
+   <p class="bibitem" ><span class="biblabel">
+ [4]<span class="bibsp">&#x00A0;&#x00A0;&#x00A0;</span></span><a 
+ id="Xp0f"></a>p0f   homepage.       <a 
+href="http://lcamtuf.coredump.cx/p0f3/" class="url" ><span 
+class="ec-lmtt-10x-x-109">http://lcamtuf.coredump.cx/p0f3/</span></a>.       Accessed:
+   2013-05-22.
+   </p>
+   <p class="bibitem" ><span class="biblabel">
+ [5]<span class="bibsp">&#x00A0;&#x00A0;&#x00A0;</span></span><a 
+ id="Xportforward.com"></a>Port Forward homepage. <a 
+href="http://portforward.com/" class="url" ><span 
+class="ec-lmtt-10x-x-109">http://portforward.com/</span></a>. Accessed: 2013-05-14.
+   </p>
+   <p class="bibitem" ><span class="biblabel">
+ [6]<span class="bibsp">&#x00A0;&#x00A0;&#x00A0;</span></span><a 
+ id="Xaretheysecure"></a>Halvar Myrmo.  Game consoles - are they secure?  Master&#8217;s thesis, Gjøvik
+   University College.
+</p>
+   </div>
+    
+</body></html> 
+
+                                                                           
+
+                                                                           
+                                                                           
+
+

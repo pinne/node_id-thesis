@@ -70,7 +70,7 @@
 \begin{abstract}
    %why do we care about the problem?
 To set up port forwarding rules on network gateways, certain technical skills are required from end-users.
-These assumptions in the gateway software stack, can lead to an increase in support calls to the network operators and resellers of equipment, as well as a worsened user experience.
+These assumptions in the gateway software stack, can lead to an increase in support calls to the network operators and resellers of equipment, as well as a lessened user experience.
 Other issues include faulty configuration, leaving the network vulnerable to attacks.
    %what did you actually do to get your results?
 
@@ -79,13 +79,16 @@ We present an enhancement of the web-based graphical user interface in the OpenW
 This relieves end-users of looking up forwarding rules for ports and protocols to configure their gateway, basing their decisions on data collected by the network scanner or by using an application name instead of its ports.
 
    %what are the larger implications of your findings
-The implementation will reduce support costs for the service operators and improve the user experience.
+Using the Nmap utility for identifying services on the network, could be considered harmful activity by network admins and intrusion detection systems.
+The preset library is extensible and generic enough to be included in the default software suite shipping with the network equipment.
+This proposal could reduce support costs for the service operators and improve user experience and configuration of network gateways.
 
 \end{abstract}
 \newpage
 \blankpage
 
 \begin{foreignabstract}{swedish}
+   Sammanfattning på svenska tillkommer senare.
 
 \newpage
 \blankpage
@@ -97,54 +100,54 @@ The implementation will reduce support costs for the service operators and impro
 \pagestyle{newchap}
 \chapter{Introduction}
 %brief introduction to inteno and the product
-Inteno Broadband Technology is a company that supplies \emph{customer premises equipment} (CTE) for internet service providers.  
+Inteno Broadband Technology is a company that supplies \emph{customer premises equipment} (CPE) for internet service providers.  
 Their headquarters and research and development center is located in Stockholm, Sweden.
-Inteno Open Systems Platform is a Linux-based open source platform running on customer premises equipment.
-It is based on the OpenWrt distribution which targets embedded devices, specifically network gateways. \cite{Inteno}
+Inteno Open Systems Platform, or \emph{iopsys} is a GNU/Linux-based open source platform running on customer premises equipment.
+It is based on the OpenWrt distribution which targets embedded devices, specifically network gateways.\cite{Inteno}
 
 %identified a real problem (motivate that it is real and interesting)
-The technical support departments of partners and resellers of Intenos
-customer premises equipment, are looking to reduce support costs and improve customer experience. 
+The technical support departments of partners and resellers of Inteno CPE, are looking to reduce support costs and improve customer experience. 
 Support issues creates costs for the business and by reducing the number of support tickets and their processing time, these costs can be reduced.
 
 %come up with a solution (give a rough idea what the solution looks like)
 By simplifying configuration through abstracting common tasks for the end-user, the number of support calls can be reduced.
-Using automatic device identification and automating common tasks such as port forwarding, support costs can be reduced and end-user satisfaction is higher.
-Many common support issues could be automated by the software running on the customer premises equipment and by effective communication with the end-user through the user interface.
+Using automatic device identification and automating common tasks such as port forwarding, support costs can be reduced and end-user satisfaction improved.
+Many common support issues could be automated by the software running on the CPE and by effective communication with the end-user through the user interface.
+One such feature is automatic service discovery on the local network.
+The system identifies the ports and services running on the network devices, that the end-user might want to set up forwarding rules for.
 
 %how I actually solved the problem (high-level summary of results).
-The OpenWrt distribution provides a complete platform for compiling and
-deploying a gateway firmware image.
-By building a extensible library of presets for common port forwarding rules and developing a simple selection dialog, the amount of calls can be lowered while increasing customer satisfaction.
-
+By building a extensible library of presets for common port forwarding rules and developing a simple selection dialog, the end user can more efficiently set up port forwarding rules and configure their gateway.
+The system for service identification is a wrapper around \emph{Nmap}, that performs a scan of the network nodes and returns a list of available services.
+This information is in turn used to match against known presets and protocols, and offer the user a choice of applying the preset rules for the newly detected network device.
 %skriv klart angående att tack vare ramverket så kan åf lägga till egna regler.
-
+The preset system is extensible, allowing retailers to add their own devices and services as preset definitions, each with their specific forwarding rules.
 
 %\part{Important Results}
 
 \chapter{Background}
 
-Inteno produces hardware for customer premises equipment like network gateways and their direct customers are network operators and internet service providers.
-The research and development department at Inteno works on improving the platform, adding value to the end users and the operators.
+The research and development department at Inteno works on improving the platform, adding value to the end users, the operators and the larger OpenWrt software project.
+Because of the nature of OpenWrt's free software licence\footnote{GNU General Public License is a ``free as in freedom'' software licence}, the code is publicly released and available for download from Intenos webpage\cite{inteno_gpl}.
 
 There are simple ways in which to improve the user experience, developers of network gateway software often implement a set of presets of port forwarding rules for common applications.
-The interface presents the user with a list of applications in clear text and lets the user select an IP address, for which the forwarding rules should apply.
+The interface presents the user with a list of applications in plain text and lets the user select an IP address, for which the forwarding rules should apply.
 
 %skriv något om alternativa program typ port forwarding
 Alternative solutions to simplifying port forwarding include using standalone applications which run on a PC, connected to the local network.
 These applications has internal lists of port forwarding rules for common applications and devices, which is then applied for a specific IP address on the local network.
 \cite{portforward.com}
 
+%skriv möjligtvis något om alt. till Nmap, kanske p0f bör nämnas?
+
 %skriv något om alternativa program typ port scanner och guider på nätet
 To test the newly applied configurations, web-based or locally run port scanners can be used.
 They will scan the users external IP address for open ports and present which are open, this does not guarantee that the packets are routed to the correct internal address.
 
-\section{Current situation}
-The default settings page for port forwarding is currently located under the \emph{Firewall} tab, the forwarding procedure involves looking up ports for the specific device or unit.
-These set of rules sometimes involve several ports and protocols, increasing the possibility for misstep and faulty configuration by the end user.
-Such tasks are well suited for automation by the software suite, especially for applications and devices which require several port forwarding rules, automatic some of these steps will save time and bring overall value to the user experience.
-
 \section{Software suite}
+
+The newer Inteno devices ship with the OpenWrt distribution, which is a small GNU/Linux operating system.
+It provides the developer with the basic UNIX debugging tools and a POSIX compatible command-line interface shell.
 
 \subsection{OpenWrt}
 OpenWrt is a free and open-source GNU/Linux distribution, targeting embedded devices, specifically wireless routers, but can run on almost any set of hardware.
@@ -156,71 +159,78 @@ Allowing end users as well as service operators and hardware manufacturers to co
 It offers the BusyBox set of barebones UNIX tools, enabling advanced users to fully interact with their Linux system and providing developers with a familiar platform for debugging and testing their product.
 \cite{OpenWrt:structure_design}
 
-\subsection{OPKG}
-The package management system used in OpenWrt is \emph{OPKG}. It is based off the discontinued \emph{ipkg} and operates similar to \emph{APT} and \emph{dpkg} of Debian-based distributions.
-There are currently over 2000 OPKG packages available for OpenWrt.
-
-The OpenWrt system and its packages are built using \emph{GNU Autoconf}.
-
-\subsection{Inteno Open Platform System}
-For Customer Premises Equipment\footnote{commonly abbreviated as CPE} like wireless gateways, Inteno Open Platform System offers an open-source Linux distribution based on OpenWrt.
-It uses the OpenWrt build system including cross-compilation toolchain to ensure compatibility with the ecosystem and upstream.
-
-\subsection{Lua Configuration Interface}
-\emph{LuCI} is an suite of programs and libraries for extending OpenWrt using the Lua programming language.
-It originated in the OpenWrt project but has since grown and is now it's own project.
-
-The themes are accessed from the directory:
-
-\begin{verbatim}
-    root@Inteno:/usr/lib/lua/luci/view/themes/
-\end{verbatim}
-
-Rules for port forwarding are read from:
-
+\emph{Unified Configuration Interface}, or UCI, is used in OpenWrt as a uniform format for commonly used configuration files.
+UCI has a Lua bindings as well as a command line interface, to read and modify the configuration files.
+Rules for port forwarding are defined in the UCI compatible configuration file in:
 \begin{verbatim}
     /etc/config/firewall
 \end{verbatim}
 
-A port forwarding rule which forwards external HTTP traffic over port 80 to the local IP 192.168.1.214, as shown in \ref{fig:redirect_conf}.
+A port forwarding rule which forwards external HTTP traffic over port 80 to the internal IP 192.168.1.214, is shown in figure \ref{fig:redirect_conf}.
+The line \emph{config redirect} defines the start of a section, a section contains several values and a UCI configuration file can have several such sections.
 
-foo: \ref{fig:foo}.
+\subsection{OPKG}
+The package management system used in OpenWrt is Open PacKaGe Management, or \emph{OPKG}. It is based off the discontinued \emph{ipkg} and operates similar to \emph{APT} and \emph{dpkg} of Debian-based distributions.
+It targets GNU/Linux based operating systems for embedded devices and there are currently over 2000 OPKG packages available for OpenWrt.
+
+The OpenWrt system and its packages are built using \emph{GNU Autoconf}, which automates tasks associated with compiling larger software suites.
+This includes pulling in parts of the system from remote software repositories and automatically resolving dependencies on programs and libraries.
+
+\subsection{Inteno Open Platform System}
+For Customer Premises Equipment like wireless gateways, Inteno Open Platform System offers an open-source Linux distribution based on OpenWrt.
+It uses the OpenWrt build system including cross-compilation toolchain to ensure compatibility with the ecosystem and upstream.
+
+Inteno maintains and hosts a remote repository, which contains a frozen release of OpenWrt and compatible packages and patches.
+This ensures good compatibility with Inteno hardware and protection from breakage because of upstream code\footnote{Code released and maintained by the official project}.
+
+\subsection{Lua Configuration Interface}
+Lua Configuration Interface, or \emph{LuCI}, is a suite of programs and libraries for extending OpenWrt using the Lua programming language and providing a web interface built with the Model-View Controller architecture.
+It originated in the OpenWrt project, but is now an independent project on its own.
 
 
-The presentation markup for the current port forwarding page in the LuCI backend on the Gateway, is defined in the file:
-
-\begin{verbatim}
-    luci-inteno/applications/luci-firewall/luasrc/view/firewall/cbi_addforward.htm
-
-    libs/core/luasrc/model/firewall.lua :555
-\end{verbatim}
-
-in the functions:
-
-\begin{verbatim}
-    function redirect.*
-\end{verbatim}
+\subsection{Model-View Controller}
+LuCI relies on the \emph{Model-View Controller} software architecture pattern and separates data and its visual representation.
+It is divides in three parts with the model representing the data and storing in in UCI configuration files.
 
 \chapter{Problem}
    \section{User experience}
-Customers and operators of Inteno CPE have expressed concern about support costs for port forwarding and configuration in general.
-The 
+End users of Inteno CPE have expressed concern about the relative difficulty of port forwarding and configuration of their network gateway.
+The default settings page for port forwarding is currently located under the \emph{Firewall} tab in the OpenWrt front end, the forwarding procedure involves looking up ports for the specific device or unit, and entering these on the web page forms.
 
-   \section{Support costs}
+These set of rules sometimes involve several ports and protocols, increasing the possibility for misstep and faulty configuration by the end user.
+If we could reduce the complexities of this common task of address translation and present it in an way that are easily understandable, then customer satisfaction would increase.
+Such tasks could be well suited for automation by software, especially for applications and devices which require several port forwarding rules, automating some of these steps will save time and bring overall value to the user experience.
+
+
+   \section{Customer support}
+Connectivity of the XBox 360 gaming console has been a common issue and the device is common among end users, this was also chosen as reference device to do tests and verifications against.
+One of the most commonly reported issues of end users, is setting up port forwarding for connecting their XBox 360 to the XBox Live network.
 
 \chapter{Design}
-   \section{Human-computer interaction}
-This is a cite\cite{garrett2003elements}
 
-   \section{Forwarding page}
+The overall design of the system consists of two parts, the service identification and port forwarding presets.
+These parts are connected through the underlying software and presented on the user interface.
 
-See figure~\ref{fig:wizard-seq_dia} on page~\pageref{fig:wizard-seq_dia}.
+As shown in figure~\ref{fig:wizard-seq_dia}, the communication between the parts of the port forwarding process is outlined.
+The user initiates the identification procedure and the identification process starts.
+When the results from the identification are returned the list of presets is sorted, based on identification and the user can review their options.
+By selecting the name of the service, the correct forwarding rules are loaded and presented to the user, who can then chose to apply them, after which they are written to the configuration files.
 \begin{figure}[h!]
    \centering
    \includegraphics[width=15cm]{wizard-seq_dia}
    \caption{Sequential diagram of applying port forwarding rules}
    \label{fig:wizard-seq_dia}
 \end{figure}
+%   \section{Human-computer interaction}
+%This is a cite\cite{garrett2003elements}
+
+   \section{User interface}
+For a port forwarding interface page, the user is presented with detected nodes and their respective network services.
+Listed presets are sorted by the output from the service identification process, presenting the user with the most likely services at the top of the list.
+
+To apply the port forwarding rule set, the user selects a node in the network and the service from the sorted list, then applies it.
+Instead of performing all the steps automatically, the user is required to interact and approve of the suggested changes.
+The service identification is there to help the users make choices, not deciding for them.
 
 \chapter{Implementation}
 %explain your approach in a general overview
@@ -228,77 +238,122 @@ The implementation consists of three general parts that work together in deliver
 As shown in figure~\ref{fig:wizard-seq_dia}, the three configuration files that together with user input, are used as sources for the final redirection rule in the firewall configuration file.
 The device detection updates the configuration file \emph{devices} with newly discovered devices, this does not include applications running on computers or game specific forwarding rules, running on gaming consoles, this requires user intervention.
 
+%The OpenWrt distribution provides a complete platform for compiling and deploying a gateway firmware image.
+
+\section{Nmap}
+The program \emph{Nmap} is a popular network discovery program, and was chosen as the engine for the service scanner implementation.
+The XBox 360 gaming console was chosen at Inteno's suggestion, with the motivation that it is one of the devices that end users have had the most issues with, in regards to port forwarding.
+Nmap is capable of detecting several operating systems, embedded devices and network services.
+It scans 
+%skriv något om probes, fingerprinting och teknikerna som används för id
+
+\subsection{Wrapper}
+Executing the Nmap scanning utility and returning results, is implemented as a shell script.
+%skriv att du valde att göra shellhax istället för Lua
+In the development process of the wrapper, a shell script was written to test the functionality and extract data about the detected services.
+The original thought was to replace this with a Lua script, to make it more cohesive with the rest of the system.
+Due to lack of time, the rewrite was cancelled and a quick adaptation was made to to the script to return valid JSON for the JavaScript frontend.
+
 %discuss tradeoffs, discuss traps you've fallen into
+%skriv att xbox inte hittas och att du var tvungen att haxa
+While testing the service identification features of Nmap, there is no way for Nmap to positively identify an XBox 360.
+This failure was due to an inconclusive fingerprint, but using a technique called TCP fingerprinting which returned more data, the XBox 360 could be identified.
+An extra scan using the Nmap \emph{version scan}, was used to identify the XBox 360.
+Whenever the service is identified as \emph{LSA-or-nterm}, the TCP ports 1026 and 1027, were scanned, either of these are in use by the XBox 360.\cite{aretheysecure}
+The more thorough version scan is then matched for \emph{XBox 360 UPnP}, which the wrapper is set to interpret as a positive match.
+%se till att raden XBox 360 UPnP stämmer väl överens med verkligheten
+
+\section{Preset library}
+The preset library consists of common services and port data, that the user would want to set up forwarding rules for.
+Details of these ports and protocols are provided by the application developers, specifically for address translation reasons.
 
 %explain your design and limitations in greater detail
 Using the \emph{Unified Configuration System}, that is included in the OpenWrt distribution, all the basic commands for configuring the firewall rules were prototyped and explored.
+The rules were formatted to fit the UCI configuration file format and returned as JSON to the JavaScript frontend in an AJAX call through the Lua dispatcher.\footnote{The dispatcher is the \emph{Controller} in the MVC framework}
+
+Applying the rules requires the user to select the desired service from a list, and pressing a button which runs a JavaScript function, performing an AJAX call to the Lua backend, issuing the UCI calls.
+
+%\section{Dispatching commands}
 
 \chapter{Results}
-\section{Performance}
+%lägg till resultat från scanningen med tid och exempel
+Scanning a Raspberry Pi installed with the options \emph{web server}, \emph{mail server} and \emph{ssh server}, detect these services and ports as shown in figure \ref{fig:rasp_scan}.
+The mail server option in the installer, enables identification on ports 110, 143, 993 and 995 because of the various email delivery protocols.
+
+%\section{Performance}
+%skriv ned hur lång tid det tar att scanna
 
 \chapter{Conclusions}
 %discuss what we can learn from the results
-Some text
+The results shows that the system manages to identify the XBox 360 gaming console, using our extension built into the wrapper.
+Its services in terms of ports are well known and defined in the preset part of the implemented system.
+The Raspberry Pi running the Debian GNU/Linux distribution is successfully detected as such, all services selected during the installation are successfully detected.
 
 %draw real conclusions
+The preset system will simplify the port forwarding procedure and provide the novice user with helpful hints, in an otherwise complex graphical environment.
+Device and service detection fits with the preset data and the combination of these results results in a qualified guess, which is presented in the user interface.
+This part of the system could be made production ready and included by default in the iopsys platform.
 
-%explain how to fix shortcommings of work and how to fix them
+The identification process of the XBox 360 is not a generic Nmap solution, it requires a workaround implemented in our shell script wrapper.
+This behaviour is undesirable but perhaps acceptable, depending on the frequency of the issue.
+Considering the CPE operators various needs, we are unable to draw any conclusions as to weather it should be implemented or not.
 
 \section{Further development}
+%explain how to fix shortcommings of work and how to fix them
+The solution using Nmap could be interpreted as illegal activity and attempts at exploiting the systems of a network administrator, this is a risk which could render the proposed solution undesirable.
+A solution to this would be to implement a less intrusive way of identifying services, like the passive fingerprinting technique used by p0f.\cite{p0f}
+The execution time of Nmap is an issue, on local networks with several devices the latency would be deemed too high.
+We propose that the service be adjusted to preload the identification part of the system, to provide a more responsive user experience.
 
 \newpage
 \newpage
 \appendix
 \addappheadtotoc
-\chapter{Configuration files}\label{appA}
+\chapter{Nmap output}\label{appA}
    %\addcontentsline{toc}{section}{Configuration files}
+
+   \begin{figure}[ht]
+      \centering
+      \label{fig:rasp_scan}
+\begin{verbatim}
+   PORT    STATE SERVICE  REASON  VERSION
+   22/tcp  open  ssh      syn-ack OpenSSH 6.0p1 Debian 4 (protocol 2.0)
+   80/tcp  open  http     syn-ack Apache httpd 2.2.22 ((Debian))
+   110/tcp open  pop3     syn-ack Dovecot pop3d
+   111/tcp open  rpcbind  syn-ack 2-4 (RPC #100000)
+   143/tcp open  imap     syn-ack Dovecot imapd
+   993/tcp open  ssl/imap syn-ack Dovecot imapd
+   995/tcp open  ssl/pop3 syn-ack Dovecot pop3d
+   MAC Address: B8:27:EB:0C:A5:70 (Raspberry Pi Foundation)
+\end{verbatim}
+      \caption{
+         \small{
+Nmap version scan of the Raspberry Pi, identifying available services on the open ports.
+         }
+      }
+   \end{figure}
+
    \begin{figure}[ht]
       \centering
       \begin{verbatim}
-config redirect               
-        option target 'DNAT' 
-        option src 'wan'
-        option dest 'lan'
-        option proto 'tcp'
-        option src_dport '80'
-        option dest_ip '192.168.1.214'
-        option dest_port '80' 
-        option name 'Web server'
+   config redirect               
+           option target 'DNAT' 
+           option src 'wan'
+           option dest 'lan'
+           option proto 'tcp'
+           option src_dport '80'
+           option dest_ip '192.168.1.214'
+           option dest_port '80' 
+           option name 'Web server'
       \end{verbatim}
       \caption{
          \small{
-Port forwarding section in the \emph{firewall} configuration file
+Port forwarding section in the UCI \emph{firewall} configuration file
          }
       }
       \label{fig:redirect_conf}
    \end{figure}
 
-   \begin{figure}[ht]
-      \centering
-      \label{fig:foo}
-      \begin{verbatim}
-         foo bar baz
-      \end{verbatim}
-      \caption{
-         \small{
-Port forwarding section in the \emph{firewall} configuration file
-         }
-      }
-   \end{figure}
-%\chapter{RDF}\label{appA}
-%\begin{figure}[ht]
-%   \begin{center}
-%And here is a figure
-%      \caption{
-%         \small{
-%            Several statements describing the same resource.
-%         }
-%      }
-%      \label{RDF_4}
-%   \end{center}
-%\end{figure}
-%
-%that we refer to here: \ref{RDF_4}
 
 \bibliographystyle{plain}
 \bibliography{bibliography}
