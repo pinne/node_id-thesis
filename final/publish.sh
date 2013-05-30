@@ -1,9 +1,11 @@
 #!/bin/sh
-htlatex conf_id_gateways_kers-draft.tex
+target="simon@tapir.haninge.kth.se:public_html/final/"
+#target="192.168.0.14:public_html/final/"
 
-scp conf_id_gateways_kers-draft*.{html,css,png,pdf} \
-    simon@tapir.haninge.kth.se:public_html/draft/ 
-    #192.168.0.14:public_html/draft/
+htlatex conf_id_gateways_kers-final.tex
 
-rm conf_id_gateways_kers-draft.4ct
-rm conf_id_gateways_kers-draft.4tc
+scp conf_id_gateways_kers-final*.{html,css,png,pdf} $target
+
+rm conf_id_gateways_kers-final.4ct
+rm conf_id_gateways_kers-final.4tc
+

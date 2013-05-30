@@ -194,7 +194,7 @@ Rules for port forwarding are defined in the UCI compatible configuration file i
     /etc/config/firewall
 \end{verbatim}
 
-A port forwarding rule which forwards external HTTP traffic over port 80 to the internal IP 192.168.1.214, is shown in figure \ref{fig:redirect_conf}.
+A port forwarding rule which forwards external HTTP traffic over port 80 to the internal IP 192.168.1.214, is shown in figure \ref{fig:redirect_conf} in appendix \ref{appA}.
 The line \emph{config redirect} defines the start of a section, a section contains several values and a UCI configuration file can have several such sections.
 
 \subsection{OPKG}
@@ -302,6 +302,8 @@ Details of these ports and protocols are provided by the application developers,
 
 %explain your design and limitations in greater detail
 Using the \emph{Unified Configuration System}, that is included in the OpenWrt distribution, all the basic commands for configuring the firewall rules were prototyped and explored.
+A set of \emph{XBox 360} port forwarding rules from the preset configuration file is shown in figure \ref{fig:redirect_conf} in appendix \ref{appA}.
+
 The rules were formatted to fit the UCI configuration file format and returned as JSON to the JavaScript frontend in an AJAX call through the Lua dispatcher.\footnote{The dispatcher is the \emph{Controller} in the MVC framework}
 
 Applying the rules requires the user to select the desired service from a list, and pressing a button which runs a JavaScript function, performing an AJAX call to the Lua backend, issuing the UCI calls.
@@ -430,12 +432,16 @@ The identification process of the XBox 360 is not a generic Nmap solution, it re
 This behaviour is undesirable but perhaps acceptable, depending on the frequency of the issue.
 Considering the CPE operators various needs, we are unable to draw any conclusions as to weather it should be implemented or not.
 
+\newpage
 \section{Further development}
 %explain how to fix shortcommings of work and how to fix them
 The solution using Nmap could be interpreted as illegal activity and attempts at exploiting the systems of a network administrator, this is a risk which could render the proposed solution undesirable.
-A solution to this would be to implement a less intrusive way of identifying services, like the passive fingerprinting technique used by p0f.\cite{p0f}
+A fix for this would be to implement a less intrusive way of identifying services, reviewing the ARP tables which contains the cache of the address resolution protocol.
+One could filter possible devices by their manufacturers MAC address, with an already populated ARP table this procedure is unintrusive and fast.
+A more detailed Nmap \emph{version scan} could then be performed according to a configuration file, mapping MAC addresses to minimal Nmap commands.
+
 The execution time of Nmap is an issue, on local networks with several devices the latency would be deemed too high.
-We propose that the service be adjusted to preload the automatic identification results of the system which runs in the background, to provide a more responsive user experience.
+To address this issue one could adjust the service to preload the automatic identification results and have it run in the background, to provide a more responsive user experience with cached results.
 
 \newpage
 \newpage
@@ -463,6 +469,41 @@ Port forwarding section in the UCI \emph{firewall} configuration file
          }
       }
       \label{fig:redirect_conf}
+   \end{figure}
+
+   \begin{figure}[ht]
+      \centering
+      \begin{verbatim}
+   config device 'xbox360'
+      option name 'xbox360'
+      option description 'Xbox 360 Live'
+
+   config redirect
+      option device 'xbox360'
+      option proto 'udp'
+      option port '88'
+
+   config redirect
+      option device 'xbox360'
+      option proto 'tcp udp'
+      option port '3074'
+
+   config redirect
+      option device 'xbox360'
+      option proto 'tcp udp'
+      option port '53'
+
+   config redirect
+      option device 'xbox360'
+      option proto 'tcp'
+      option port '80'
+      \end{verbatim}
+      \caption{
+         \small{
+Preset for port forwarding sections in the UCI \emph{preset} configuration file
+         }
+      }
+      \label{fig:preset_conf}
    \end{figure}
 
 \bibliographystyle{plain}
