@@ -1,0 +1,19 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+Definitions	thesis-configuration_and_identification-simon_kers-draft.tex	/^\\subsection{Definitions}$/;"	t
+Inteno Open Platform System	thesis-configuration_and_identification-simon_kers-draft.tex	/^\\subsection{Inteno Open Platform System}$/;"	t
+Lua Configuration Interface	thesis-configuration_and_identification-simon_kers-draft.tex	/^\\subsection{Lua Configuration Interface}$/;"	t
+OPKG	thesis-configuration_and_identification-simon_kers-draft.tex	/^\\subsection{OPKG}$/;"	t
+OpenWrt	thesis-configuration_and_identification-simon_kers-draft.tex	/^\\subsection{OpenWrt}$/;"	t
+Preliminaries	thesis-configuration_and_identification-simon_kers-draft.tex	/^\\section{Preliminaries}$/;"	s
+Problem Statement	thesis-configuration_and_identification-simon_kers-draft.tex	/^\\subsection{Problem Statement}$/;"	t
+RDF_4	thesis-configuration_and_identification-simon_kers-draft.tex	/^      \\label{RDF_4}$/;"	l
+Remarks	thesis-configuration_and_identification-simon_kers-draft.tex	/^\\subsection{Remarks}$/;"	t
+The Main Theorem	thesis-configuration_and_identification-simon_kers-draft.tex	/^\\section{The Main Theorem}$/;"	s
+The Proof	thesis-configuration_and_identification-simon_kers-draft.tex	/^\\subsection{The Proof}$/;"	t
+appA	thesis-configuration_and_identification-simon_kers-draft.tex	/^\\chapter{RDF}\\label{appA}$/;"	l
+fig:wizard-seq_dia	thesis-configuration_and_identification-simon_kers-draft.tex	/^   \\label{fig:wizard-seq_dia}$/;"	l
