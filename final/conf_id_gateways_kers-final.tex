@@ -85,14 +85,13 @@ These parts combined relieves end-users of looking up forwarding rules for ports
    %what are the larger implications of your findings
 Using the Nmap utility for identifying services on the network, could be considered harmful activity by network admins and intrusion detection systems.
 The preset library is extensible and generic enough to be included in the default software suite shipping with the network equipment.
-Working within the centralized configuration system within OpenWrt, the preset design will add value and allow resellers to customize its services.
+Working within the centralized configuration system within OpenWrt, the preset design will add value and allow resellers to customize their services.
 This proposal could reduce support costs for the service operators and improve user experience and configuration of network gateways.
 
 \end{abstract}
 \newpage
 \blankpage
 
-% $#@! sammanfattningen saknar helt svensk version
 \begin{foreignabstract}{swedish}
 Vid vidarebefodring av portar i nätverksgateways, krävs ibland vissa tekniska förkunskaper av användaren.
 De höga kraven på kunskapsnivå kan bidra till ett ökat antal supportsamtal för återförsäljare och nätverksoperatörer.
@@ -115,8 +114,7 @@ Databasen med förinställningar är utbyggbar, fungerar och passar in tillräck
 %design will add value and allow resellers to customize its services.
 Via det centraliserade konfigurationssystemet i OpenWrt, kommer utformningen av systemet med förinställningar för port forwarding möjliggöra för komplementering av nättjänster och enheter från återförsäljare. 
 %This proposal could reduce support costs for the service operators and improve user experience and configuration of network gateways.
-Systemet kan minska supportkostnader för bredbandsleverantörer och bidra till en
-förbättrad användarupplevelse vid konfiguration av nätverksgateways.
+Systemet kan minska supportkostnader för bredbandsleverantörer och bidra till en förbättrad användarupplevelse vid konfiguration av nätverksgateways.
 
 \newpage
 \blankpage
@@ -129,8 +127,8 @@ förbättrad användarupplevelse vid konfiguration av nätverksgateways.
 \chapter{Introduction}
 %brief introduction to inteno and the product
 Inteno Broadband Technology is a company that supplies \emph{customer premises equipment} (CPE) for internet service providers.  
-Their headquarters and research and development center is located in Stockholm, Sweden.
-Inteno Open Systems Platform, or \emph{iopsys} is a GNU/Linux-based open source platform running on customer premises equipment.
+Their headquarters and \emph{research and development center} is located in Stockholm, Sweden.
+Inteno Open Systems Platform, or \emph{iopsys}, is a GNU/Linux-based open source platform running on customer premises equipment.
 It is based on the OpenWrt distribution which targets embedded devices, specifically network gateways.\cite{Inteno}
 
 %identified a real problem (motivate that it is real and interesting)
@@ -142,7 +140,7 @@ By simplifying configuration through abstracting common tasks for the end-user, 
 Using automatic device identification and automating common tasks such as port forwarding, will also lead to savings in support along with a better user experience.
 Many common support issues could be automated by the software running on the CPE and by effective communication with the end-user through the user interface.
 One such feature is automatic service discovery on the local network.
-The system identifies the ports and services running on the network devices, that the end-user might want to set up forwarding rules for.
+A system that identifies the ports and services running on the network devices, that the end-user might want to set up forwarding rules for.
 
 %how I actually solved the problem (high-level summary of results).
 By building a extensible library of presets for common port forwarding rules and developing a simple selection dialog, the end user can more efficiently set up port forwarding rules and configure their gateway.
