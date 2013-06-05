@@ -1,0 +1,46 @@
+deadline 16:e för nya versionen
+
+lit.studie av användargränssnitt
+motivera val, t.ex. programmeringsspråk (Lua)
+vad jag har gjort framgår inte
+stycka upp intro, inspireras av mallen
+
+mål:
+    utvärderingar för OPKG
+        varför opkg?
+        varför luci-application?
+    jämför hur grafiska gränssnittet ser ut
+
+
+background, vilket världsproblem kommer det här lösa?
+    fånga läsaren
+-    flytta problem hit? | nej? delar av problem kanske?
+
++ stick in theory efter background, flytta delar från background dit
+    "teoretiskt referensram" - motivera
++        stolpa upp teknik som programmeringsspråk, lua, shell scripts
++            lua, skriv, lägg till bibliography
+        LuCI
+    
+implementation
+    flytta in design
+    metodmässigt: hur är systemet uppbyggt
+    var mer detaljerad!
+    visa övergripande bild av systemet
+
+resultat:
+    det här har jag tagit fram
+    visa upp vad du gjort
+    analysera
+
+    diskussion:
+        hade du gjort andra val? flytta delar från conclusions
+        tala om resultatet
+
+conclusion:
+    kortfattat sammanfattning av dina resultat
+    målen ska verifieras från målsättningarna, har vi uppfyllt dom? varför har
+    dom inte kunnat uppfyllats inte?
+    viktigaste resultatet
+    max en halv sida
+
