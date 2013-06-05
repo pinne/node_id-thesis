@@ -176,6 +176,7 @@ They will scan the users external IP address for open ports and present which ar
 
 The newer Inteno devices ship with the OpenWrt distribution, which is a small GNU/Linux operating system.
 It provides the developer with the basic UNIX debugging tools and a POSIX compatible command-line interface shell.
+As common with free software, the OpenWrt exists in an ecosystem of applications and tools, in this chapter a few of these parts are discussed.
 
 \subsection{OpenWrt}
 OpenWrt is a free and open-source GNU/Linux distribution, targeting embedded devices, specifically wireless routers, but can run on almost any set of hardware.
@@ -209,7 +210,8 @@ For Customer Premises Equipment like wireless gateways, Inteno Open Platform Sys
 It uses the OpenWrt build system including cross-compilation toolchain to ensure compatibility with the ecosystem and upstream.
 
 Inteno maintains and hosts a remote repository, which contains a frozen release of OpenWrt and compatible packages and patches.
-This ensures good compatibility with Inteno hardware and protection from breakage because of upstream code\footnote{Code released and maintained by the official project}.
+Freezing an ever changing open source codebase means forking an existing version, submitting more conservative patches to the system and focusing on smaller changes.
+This leads to good compatibility with Inteno hardware and protection from breakage because of upstream\footnote{Code released and maintained by the official project} code changes.
 
 \subsection{Lua Configuration Interface}
 Lua Configuration Interface, or \emph{LuCI}, is a suite of programs and libraries for extending OpenWrt using the Lua programming language and providing a web interface built with the Model-View Controller architecture.
@@ -219,6 +221,7 @@ It originated in the OpenWrt project, but is now an independent project on its o
 \subsection{Model-View Controller}
 LuCI relies on the \emph{Model-View Controller} software architecture pattern and separates data and its visual representation.
 It is divides in three parts with the model representing the data and storing in in UCI configuration files.
+
 \chapter{Problem}
    \section{User experience}
 End users of Inteno CPE have expressed concern about the relative difficulty of port forwarding and configuration of their network gateway.
