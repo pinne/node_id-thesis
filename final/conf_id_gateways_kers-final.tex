@@ -143,7 +143,7 @@ One such feature is automatic service discovery on the local network.
 A system that identifies the ports and services running on the network devices, that the end-user might want to set up forwarding rules for.
 
 %how I actually solved the problem (high-level summary of results).
-By building a extensible library of presets for common port forwarding rules and developing a simple selection dialog, the end user can more efficiently set up port their firewall redirection rules and general configuration of their gateway.
+By building a library of presets for common port forwarding rules and developing a simple selection dialog, the end user can more efficiently set up port their firewall redirection rules and general configuration of their gateway.
 The system for service identification is a wrapper around \emph{Nmap}, that performs a scan of the network nodes and returns a list of available services.
 This information is in turn used to match against known presets and protocols, and offer the user a choice of applying the preset rules for the newly detected network device.
 %skriv klart angående att tack vare ramverket så kan åf lägga till egna regler.
@@ -153,7 +153,7 @@ The preset system is extensible, allowing retailers to add their own devices and
 
 \chapter{Background}
 
-The research and development department at Inteno works on improving the platform, adding value to the end users, the operators and the larger OpenWrt software project.
+The research and development department at Inteno works on improving the platform, adding value to the end users, the operators and the larger OpenWrt software ecosystem.
 Because of the nature of OpenWrt's free software licence\footnote{GNU General Public License is a ``free as in freedom'' software licence}, the code is publicly released and available for download from Intenos webpage\cite{inteno_gpl}.
 
 There are simple ways in which to improve the user experience, developers of network gateway software often implement a set of presets of port forwarding rules for common applications.
