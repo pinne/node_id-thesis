@@ -172,6 +172,16 @@ These applications has internal lists of port forwarding rules for common applic
 To test the newly applied configurations, web-based or locally run port scanners can be used.
 They will scan the users external IP address for open ports and present which are open, this does not guarantee that the packets are routed to the correct internal address.
 
+\section{Programming languages}
+\subsection{Lua}
+Lua is a programming language that's intended to be embeddable and extensible, it is implemented in C and enables the developer to employ different programming techniques with its multi-paradigm approach.
+The programming languages it is distributed with a permissive free software licence\cite{mit-license}, while being open source allowing use within proprietary software.
+The language is dynamically typed, which means that the underlying variable type is determined at runtime and supports features such as memory management, closures and first-class functions.\nocite{ierusalimschy2006programming}
+%motivera valet av Lua, Model-View Controller framework LuCI använder Lua?
+
+Since the web user interface of OpenWrt uses Lua, it was beneficial to implement as much of the application in the programming language, as a Lua Configuration Interface module.
+See section \ref{sec:LuCI} for details on \emph{Lua Configuration Interface}, or LuCI.
+
 \section{Software suite}
 
 The newer Inteno devices ship with the OpenWrt distribution, which is a small GNU/Linux operating system.
@@ -213,7 +223,7 @@ Inteno maintains and hosts a remote repository, which contains a frozen release 
 Freezing an ever changing open source codebase means forking an existing version, submitting more conservative patches to the system and focusing on smaller changes.
 This leads to good compatibility with Inteno hardware and protection from breakage because of upstream\footnote{Code released and maintained by the official project} code changes.
 
-\subsection{Lua Configuration Interface}
+\subsection{Lua Configuration Interface}\label{sec:LuCI}
 Lua Configuration Interface, or \emph{LuCI}, is a suite of programs and libraries for extending OpenWrt using the Lua programming language and providing a web interface built with the Model-View Controller architecture.
 It originated in the OpenWrt project, but is now an independent project on its own.
 
