@@ -126,6 +126,7 @@ Systemet kan minska supportkostnader för bredbandsleverantörer och bidra till 
 \pagestyle{newchap}
 \chapter{Introduction}
 %brief introduction to inteno and the product
+\section{Background}
 Inteno Broadband Technology is a company that supplies \emph{customer premises equipment} (CPE) for internet service providers.  
 Their headquarters and \emph{research and development center} is located in Stockholm, Sweden.
 Inteno Open Systems Platform, or \emph{iopsys}, is a GNU/Linux-based open source platform running on customer premises equipment.
@@ -135,13 +136,16 @@ It is based on the OpenWrt distribution which targets embedded devices, specific
 The technical support departments of partners and resellers of Inteno CPE, are looking to reduce support costs and improve customer experience. 
 Support issues creates costs for the business and by reducing the number of support tickets and their processing time, these costs can be reduced.
 
+\section{Goals}
 %come up with a solution (give a rough idea what the solution looks like)
 By simplifying configuration through abstracting common tasks for the end-user, the number of support calls can be reduced.
 Using automatic device identification and automating common tasks such as port forwarding, will also lead to savings in support along with a better user experience.
 Many common support issues could be automated by the software running on the CPE and by effective communication with the end-user through the user interface.
 One such feature is automatic service discovery on the local network.
+\section{Definition}
 A system that identifies the ports and services running on the network devices, that the end-user might want to set up forwarding rules for.
 
+\section{Solutions}
 %how I actually solved the problem (high-level summary of results).
 By building a library of presets for common port forwarding rules and developing a simple selection dialog, the end user can more efficiently set up port their firewall redirection rules and general configuration of their gateway.
 The system for service identification is a wrapper around \emph{Nmap}, that performs a scan of the network nodes and returns a list of available services.
