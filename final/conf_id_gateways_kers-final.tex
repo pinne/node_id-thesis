@@ -185,13 +185,22 @@ They will scan the users external IP address for open ports and present which ar
 
 \section{Programming languages}
 \subsection{Lua}
-Lua is a programming language that's intended to be embeddable and extensible, it is implemented in C and enables the developer to employ different programming techniques with its multi-paradigm approach.
+Lua is a programming language that is intended to be embeddable and extensible, it is implemented in C and enables the developer to employ different programming techniques with its multi-paradigm approach.
 The programming languages it is distributed with a permissive free software licence\cite{mit-license}, while being open source allowing use within proprietary software.
 The language is dynamically typed, which means that the underlying variable type is determined at runtime and supports features such as memory management, closures and first-class functions.\nocite{ierusalimschy2006programming}
 %motivera valet av Lua, Model-View Controller framework LuCI använder Lua?
 
 Since the web user interface of OpenWrt uses Lua, it was beneficial to implement as much of the application in the programming language, as a Lua Configuration Interface module.
 See section \ref{sec:LuCI} for details on \emph{Lua Configuration Interface}, or LuCI.
+
+\subsection{Almquist shell}
+Adhering to the POSIX standards, Almquist shell\footnote{Also called \emph{sh}, \emph{A shell} or \emph{ash}} on OpenWrt it is the default operating system command-line interface, scripting language and command processor.
+It has less features than \emph{bash} and sometimes requires a strict and sometimes more verbose scripting style, without the permissiveness of bash idioms, such practices are referred to as \emph{bashism} and are often incompatible with ash.
+
+Shell scripting allows the developer to aggregate the power of a range of UNIX programs, using redirection to route the output of one program to the input of another, and with the shell prompt as an interactive development environment it allows for rapid prototyping.
+The permissiveness and features of bash, has brought along handy constructs such as \emph{process substitution}, which is unavailable in ash.
+Instead the developer has to resort to manually handling named pipes, which creates a temporary buffer in which the processes can exchange data.
+An example redirecting the output from a command a named pipe, and processing the output of that command is available in appendix \ref{fig:fifo}.
 
 \section{Software suite}
 
@@ -527,6 +536,28 @@ Preset for port forwarding sections in the UCI \emph{preset} configuration file
          }
       }
       \label{fig:preset_conf}
+   \end{figure}
+
+\chapter{Shell scripting}\label{appB}
+   \begin{figure}[ht]
+      \centering
+      \begin{verbatim}
+[ ! -p /tmp/fifo ] && mkfifo /tmp/fifo
+nmap -O --osscan-guess --fuzzy $1 > /tmp/fifo &
+while read -r line
+do
+  case "$line" in
+    # perform operation on line
+  esac
+done < /tmp/fifo
+rm /tmp/fifo
+      \end{verbatim}
+      \caption{
+         \small{
+Using a named pipe to redirect the output of one program to a temporary file and reading it line by line, performing operations.
+         }
+      }
+      \label{fig:fifo}
    \end{figure}
 
 \bibliographystyle{plain}
