@@ -79,9 +79,15 @@
 \def\trita{\gdef\thetrita}
 \def\kthlogo{\gdef\thekthlogo}
 \def\blurb{\gdef\theblurb}
+\def\school{\gdef\theschool}
+\def\about{\gdef\theabout}
+\def\businesslogo{\gdef\thebusinesslogo} 
 \let\thesubtitle\relax
 \def\thekthlogo{kth_svv}
 \let\theblurb\relax
+\let\theschool\relax
+\let\thetheabout\relax
+\def\widthmargin{0.9} % 0 - 1.0
 \def\maketitle{%
   \begingroup
   \sffamily
@@ -89,21 +95,31 @@
   \pagestyle{plain}
   %\renewcommand*{\thepage}{title-\arabic{page}}
   \noindent
-  \parbox[b][0.6\textheight]{\textwidth}{\centering\noindent
+  \parbox[b]{\widthmargin\textwidth}{\raggedleft\noindent
     %\scalebox{0.192}{\includegraphics{\thekthlogo}}\par
+    \large\theabout
+  }\par\noindent
+  \parbox[b][0.1\textheight]{\widthmargin\textwidth}{\raggedleft\noindent
+     \thebusinesslogo
+  }\par\noindent
+  \parbox[b][0.4\textheight]{\widthmargin\textwidth}{\raggedleft\noindent
     \vskip1cm
     \LARGE\bfseries\thetitle\par
-    \vfill
+    \vskip1cm
     \normalsize\mdseries\thesubtitle\par
-    \vfill
+    \vskip1cm
     \large\MakeUppercase{\theauthor}\par
   }\par
   \vfill\noindent
-  \parbox[b]{\textwidth}{\centering\noindent
+  \parbox[b]{\widthmargin\textwidth}{\raggedleft\noindent
     \theblurb\par
+    \thetrita\par
+  }
+  \vskip0.4cm\noindent
+  \parbox[b]{\widthmargin\textwidth}{\raggedleft\noindent
+    \theschool\par
   }
   \vfill
-  \centerline{\thetrita}
   \rmfamily
   \cleardoublepage
   \endgroup
