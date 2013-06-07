@@ -1,5 +1,6 @@
 \RequirePackage{ifpdf}
-\documentclass[a4paper,11pt]{kth-bcs}
+%\documentclass[a4paper,11pt]{kth-bcs}
+\documentclass[g5paper,11pt]{kth-bcs}
 \usepackage[T1]{fontenc}
 \usepackage{textcomp}
 \usepackage{lmodern}
@@ -8,6 +9,7 @@
 \usepackage{modifications}
 \usepackage{url}
 \usepackage{graphicx}
+\usepackage{xcolor}
 
 % reduce margins, more in line with STH printed G5 printing
 \usepackage[top=1.2in, bottom=0.9in, left=0.6in, right=0.6in]{geometry}
@@ -18,10 +20,38 @@
 \usepackage{xcolor}
 \definecolor{dark-red}{rgb}{0.4,0.15,0.15}
 \definecolor{dark-blue}{rgb}{0.15,0.15,0.4}
+\definecolor{light-green}{rgb}{0.3,0.6,0.3}
 \definecolor{medium-blue}{rgb}{0,0,0.5}
+\definecolor{light-gray}{gray}{0.80}
+
 \hypersetup{
     colorlinks, linkcolor={dark-red},
     citecolor={dark-blue}, urlcolor={medium-blue}
+}
+
+\usepackage{listings}
+\lstset{ commentstyle=\color{light-green}
+       , keywordstyle=\color{dark-blue}
+       , basicstyle=\footnotesize\ttfamily
+       %, breaklines=true
+       , framextopmargin=50pt
+       , frame=bottomline
+       }
+
+% highlighting source code rows in listing
+\newcommand{\reducedstrut}{\vrule width 0pt height .9\ht\strutbox depth .9\dp\strutbox\relax}
+\newcommand{\highlight}[1]{%
+  \begingroup
+%  \setlength{\fboxsep}{0pt}%  
+  \colorbox{light-gray!20}{#1\/}%
+  \endgroup
+}
+\newcommand{\highlightgreen}[1]{%
+  \begingroup
+%  \setlength{\fboxsep}{0pt}%  
+%  \colorbox{light-green!20}{\reducedstrut#1\/}%
+  \colorbox{light-green!20}{#1\/}%
+  \endgroup
 }
 
 % enable blank pages by:
@@ -351,40 +381,13 @@ Applying the rules requires the user to select the desired service from a list, 
 
 \chapter{Results}
 % $#@! Jämför även gärna med resultatet av en normal scanning.
-
 %lägg till resultat från scanningen med tid och exempel
-Scanning a Raspberry Pi installed with the options \emph{web server}, \emph{mail server} and \emph{ssh server}, detect these services and ports as shown in figure \ref{fig:rasp_scan}.
-The mail server option in the installer, enables identification on ports 110, 143, 993 and 995 because of the various email delivery protocols.
-
-   \begin{figure}[ht]
-      \centering
-      \label{fig:rasp_scan}
-\begin{verbatim}
-   PORT    STATE SERVICE  REASON  VERSION
-   22/tcp  open  ssh      syn-ack OpenSSH 6.0p1 Debian 4 (protocol 2.0)
-   80/tcp  open  http     syn-ack Apache httpd 2.2.22 ((Debian))
-   110/tcp open  pop3     syn-ack Dovecot pop3d
-   111/tcp open  rpcbind  syn-ack 2-4 (RPC #100000)
-   143/tcp open  imap     syn-ack Dovecot imapd
-   993/tcp open  ssl/imap syn-ack Dovecot imapd
-   995/tcp open  ssl/pop3 syn-ack Dovecot pop3d
-   MAC Address: B8:27:EB:0C:A5:70 (Raspberry Pi Foundation)
-\end{verbatim}
-      \caption{
-         \small{
-Nmap version scan of the Raspberry Pi, identifying available services on the open ports.
-         }
-      }
-   \end{figure}
-The front-end with select the first service from the dropdown list of presets and present the user with the choice to apply its forwarding rules.
-
-\newpage
 \section{Operating system scan}
 As shown in figure \ref{fig:nmapos}, the scan is unable to identify the correct operating system. The scan had a duration of 43.74 seconds.
 
    \begin{figure}[ht]
       \centering
-      \begin{verbatim}
+      \begin{lstlisting}[escapechar=!]
 root@Inteno:~# time nmap -O --osscan-guess --fuzzy 192.168.1.218
 
 Starting Nmap 5.51 ( http://nmap.org ) at 2013-05-28 18:03 CEST
@@ -392,27 +395,25 @@ Nmap scan report for 192.168.1.218
 Host is up (0.00061s latency).
 Not shown: 999 filtered ports
 PORT     STATE SERVICE
-1026/tcp open  LSA-or-nterm
+!\highlight{1026/tcp~open~~LSA-or-nterm}!
 MAC Address: 00:22:48:40:11:FE (Microsoft)
 Warning: OSScan results may be unreliable because we could not find at least 1
 open and 1 closed port
 Device type: general purpose|switch
-Running (JUST GUESSING): IBM OS/2 4.X (92%), HP OpenVMS 7.X|8.X (88%), HP embedded
-(87%), Fujitsu Siemens ReliantUNIX (86%), Compaq Tru64 UNIX 5.X (85%)
-Aggressive OS guesses: IBM OS/2 Warp 2.0 (92%), HP OpenVMS 7.2 (88%), HP ProCurve
-2524 switch (J4813A) (87%), HP ProCurve 4104gl or 4108gl switch (87%), Fujitsu
-Siemens ReliantUNIX-N (SINIX-N) on RM400 (86%), Compaq Tru64 UNIX 5.1B or HP OpenVMS
-8.2 - 8.3 (85%), HP OpenVMS 8.3 (85%), HP OpenVMS 7.3 (85%), HP OpenVMS 7.2-1 (85%)
-No exact OS matches for host (test conditions non-ideal).
+Running (JUST GUESSING): IBM OS/2 4.X (92!\%), HP OpenVMS !
+Aggressive OS guesses: IBM OS/2 Warp 2.0 (92\%), HP OpenVMS !\\!
+!\highlight{No exact OS matches for host (test conditions non-ideal).}!
 Network Distance: 1 hop
-
 OS detection performed. Please report any incorrect results at
 http://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 41.67 seconds
-real	0m 43.74s
-user	0m 19.50s
-sys	0m 5.57s
-      \end{verbatim}
+!\highlightgreen{%
+real  0m 35.78s}!
+!\highlightgreen{%
+user  0m 18.00s}!
+!\highlightgreen{%
+sys \ 0m 2.37s}!
+      \end{lstlisting}
       \caption{
          \small{
 Raw output of first Nmap scan of XBox 360, failing to guess target operating system
@@ -426,14 +427,14 @@ Raw output of first Nmap scan of XBox 360, failing to guess target operating sys
 By issuing a version scan, this run of Nmap is able to positively identify the service \emph{XBox 360 XML UPnP (Serial number 757502283805)} in 13 seconds, as shown in figure \ref{fig:nmapxbox}.
    \begin{figure}[ht]
       \centering
-      \begin{verbatim}
+      \begin{lstlisting}[escapechar=!]
 root@Inteno:~# time nmap -sV -p 1026-1027 192.168.1.218
 
 Starting Nmap 5.51 ( http://nmap.org ) at 2013-05-28 18:06 CEST
 Nmap scan report for 192.168.1.218
 Host is up (0.00081s latency).
 PORT     STATE    SERVICE VERSION
-1026/tcp open     upnp    XBox 360 XML UPnP (Serial number 757502283805)
+!\highlight{1026/tcp open     upnp    XBox 360 XML UPnP (Serial number 757502283805)}!
 1027/tcp filtered IIS
 MAC Address: 00:22:48:40:11:FE (Microsoft)
 Service Info: Device: game console
@@ -441,10 +442,13 @@ Service Info: Device: game console
 Service detection performed. Please report any incorrect results at
 http://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 12.89 seconds
-real	0m 13.02s
-user	0m 4.09s
-sys	0m 1.44s
-      \end{verbatim}
+!\highlightgreen{%
+real  0m 13.02s}!
+!\highlightgreen{%
+user  0m 4.09s}!
+!\highlightgreen{%
+sys \ 0m 1.44s}!
+      \end{lstlisting}
       \caption{
 	 \small{
        Raw output of deeper Nmap scan of XBox 360, positively identifying it with \emph{XBox 360 UPnP}
@@ -453,14 +457,40 @@ sys	0m 1.44s
       \label{fig:nmapxbox}
    \end{figure}
 
+The results shows that the system manages to identify the XBox 360 gaming console, using the extra scan issued by the wrapper, the device can positively be identified correctly.
+Its services in terms of ports are well known and defined in the preset part of the implemented system.
+
+\section{Linux server}
+Scanning a Raspberry Pi installed with the options \emph{web server}, \emph{mail server} and \emph{ssh server}, detect these services and ports as shown in figure \ref{fig:rasp_scan}.
+The mail server option in the installer, enables identification on ports 110, 143, 993 and 995 because of the various email delivery protocols.
+
+   \begin{figure}[ht]
+      \centering
+      \label{fig:rasp_scan}
+\begin{lstlisting}
+PORT    STATE SERVICE  REASON  VERSION
+22/tcp  open  ssh      syn-ack OpenSSH 6.0p1 Debian 4 ...
+80/tcp  open  http     syn-ack Apache httpd 2.2.22    ...
+110/tcp open  pop3     syn-ack Dovecot pop3d
+111/tcp open  rpcbind  syn-ack 2-4 (RPC #100000)
+143/tcp open  imap     syn-ack Dovecot imapd
+993/tcp open  ssl/imap syn-ack Dovecot imapd
+995/tcp open  ssl/pop3 syn-ack Dovecot pop3d
+MAC Address: B8:27:EB:0C:A5:70 (Raspberry Pi Foundation)
+\end{lstlisting}
+      \caption{
+         \small{
+Nmap version scan of the Raspberry Pi, identifying available services on the open ports.
+         }
+      }
+   \end{figure}
+The Raspberry Pi running the Debian GNU/Linux distribution is successfully detected as such, all services selected during the installation are successfully detected.
+The front-end with select the first service from the dropdown list of presets and present the user with the choice to apply its forwarding rules.
 %\section{Performance}
 %skriv ned hur lång tid det tar att scanna
 
 \chapter{Conclusions}
 %discuss what we can learn from the results
-The results shows that the system manages to identify the XBox 360 gaming console, using our extension built into the wrapper.
-Its services in terms of ports are well known and defined in the preset part of the implemented system.
-The Raspberry Pi running the Debian GNU/Linux distribution is successfully detected as such, all services selected during the installation are successfully detected.
 
 %draw real conclusions
 The preset system will simplify the port forwarding procedure and provide the novice user with helpful hints, in an otherwise complex graphical environment.
@@ -491,17 +521,17 @@ To address this issue one could adjust the service to preload the automatic iden
 
    \begin{figure}[ht]
       \centering
-      \begin{verbatim}
-   config redirect               
-           option target 'DNAT' 
-           option src 'wan'
-           option dest 'lan'
-           option proto 'tcp'
-           option src_dport '80'
-           option dest_ip '192.168.1.214'
-           option dest_port '80' 
-           option name 'Web server'
-      \end{verbatim}
+      \begin{lstlisting}
+    config redirect               
+            option target 'DNAT' 
+            option src 'wan'
+            option dest 'lan'
+            option proto 'tcp'
+            option src_dport '80'
+            option dest_ip '192.168.1.214'
+            option dest_port '80' 
+            option name 'Web server'
+      \end{lstlisting}
       \caption{
          \small{
 Port forwarding section in the UCI \emph{firewall} configuration file
@@ -512,31 +542,31 @@ Port forwarding section in the UCI \emph{firewall} configuration file
 
    \begin{figure}[ht]
       \centering
-      \begin{verbatim}
-   config device 'xbox360'
-      option name 'xbox360'
-      option description 'Xbox 360 Live'
+      \begin{lstlisting}
+    config device 'xbox360'
+            option name 'xbox360'
+            option description 'Xbox 360 Live'
 
-   config redirect
-      option device 'xbox360'
-      option proto 'udp'
-      option port '88'
+    config redirect
+            option device 'xbox360'
+            option proto 'udp'
+            option port '88'
 
-   config redirect
-      option device 'xbox360'
-      option proto 'tcp udp'
-      option port '3074'
+    config redirect
+            option device 'xbox360'
+            option proto 'tcp udp'
+            option port '3074'
 
-   config redirect
-      option device 'xbox360'
-      option proto 'tcp udp'
-      option port '53'
+    config redirect
+            option device 'xbox360'
+            option proto 'tcp udp'
+            option port '53'
 
-   config redirect
-      option device 'xbox360'
-      option proto 'tcp'
-      option port '80'
-      \end{verbatim}
+    config redirect
+            option device 'xbox360'
+            option proto 'tcp'
+            option port '80'
+      \end{lstlisting}
       \caption{
          \small{
 Preset for port forwarding sections in the UCI \emph{preset} configuration file
@@ -548,17 +578,30 @@ Preset for port forwarding sections in the UCI \emph{preset} configuration file
 \chapter{Shell scripting}\label{appB}
    \begin{figure}[ht]
       \centering
-      \begin{verbatim}
-[ ! -p /tmp/fifo ] && mkfifo /tmp/fifo
-nmap -O --osscan-guess --fuzzy $1 > /tmp/fifo &
-while read -r line
-do
-  case "$line" in
-    # perform operation on line
-  esac
-done < /tmp/fifo
-rm /tmp/fifo
-      \end{verbatim}
+      \lstset{language=sh}
+      \begin{lstlisting}
+    # create a named pipe, if it does not exist
+    [ ! -p /tmp/fifo ] && mkfifo /tmp/fifo
+    # scan target, pipe the output into a named pipe
+    nmap -O --osscan-guess --fuzzy $1 > /tmp/fifo &
+    while read -r line
+    do
+      case "$line" in
+        *"open"*) # on open ports, perform:
+          # extraction of service name and ports
+          SERVICE=$(echo "$line" | awk '{print $3}')
+          PORT=$(echo "$line" | awk -F "/" '{print $1}')
+          # check if port is a number
+          if [ "$PORT" -eq "$PORT" ] 2>/dev/null; then
+            # append to RESULT
+            RESULT="$RESULT\"$SERVICE\": $PORT, "
+          fi
+        ;;
+      esac
+    done < /tmp/fifo
+    rm /tmp/fifo
+    # return RESULT
+      \end{lstlisting}
       \caption{
          \small{
 Using a named pipe to redirect the output of one program to a temporary file and reading it line by line, performing operations.
