@@ -43,7 +43,7 @@
 \newcommand{\highlight}[1]{%
   \begingroup
 %  \setlength{\fboxsep}{0pt}%  
-  \colorbox{light-gray!20}{#1\/}%
+  \colorbox{light-gray!20}{\footnotesize\ttfamily#1\/}%
   \endgroup
 }
 \newcommand{\highlightgreen}[1]{%
@@ -462,7 +462,8 @@ Starting Nmap 5.51 ( http://nmap.org ) at 2013-05-28 18:06 CEST
 Nmap scan report for 192.168.1.218
 Host is up (0.00081s latency).
 PORT     STATE    SERVICE VERSION
-!\highlight{1026/tcp open     upnp    XBox 360 XML UPnP (Serial number 757502283805)}!
+!\highlight{
+1026/tcp open     upnp    XBox 360 XML UPnP (Serial number 757502283805)}!
 1027/tcp filtered IIS
 MAC Address: 00:22:48:40:11:FE (Microsoft)
 Service Info: Device: game console
@@ -488,14 +489,15 @@ sys \ 0m 1.44s}!
 The results shows that the system manages to identify the XBox 360 gaming console, using the extra scan issued by the wrapper, the device can positively be identified correctly.
 Its services in terms of ports are well known and defined in the preset part of the implemented system.
 
+\newpage
 \section{Linux server}
 Scanning a Raspberry Pi installed with the options \emph{web server}, \emph{mail server} and \emph{ssh server}, detect these services and ports as shown in figure \ref{fig:rasp_scan}.
 The mail server option in the installer, enables identification on ports 110, 143, 993 and 995 because of the various email delivery protocols.
 
-   \begin{figure}[ht]
+   \begin{figure}[t]
       \centering
       \label{fig:rasp_scan}
-\begin{lstlisting}
+      \begin{lstlisting}[escapechar=!]
 PORT    STATE SERVICE  REASON  VERSION
 22/tcp  open  ssh      syn-ack OpenSSH 6.0p1 Debian 4 ...
 80/tcp  open  http     syn-ack Apache httpd 2.2.22    ...
