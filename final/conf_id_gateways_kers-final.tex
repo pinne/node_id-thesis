@@ -196,6 +196,7 @@ Support issues creates costs for the business and by reducing the number of supp
 By simplifying configuration through abstracting common tasks for the end-user, the number of support calls can be reduced.
 Using automatic device identification and automating common tasks such as port forwarding, will also lead to savings in support along with a better user experience.
 Many common support issues could be automated by the software running on the CPE and by effective communication with the end-user through the user interface, these improvements would also aid first-line support when guiding the customer over phone.
+The project goals can be summarized as:
 
 \begin{itemize}
    \item Preset library of port forwarding rules
@@ -203,23 +204,29 @@ Many common support issues could be automated by the software running on the CPE
    \item Internal DNS translation of the gateway IP address
 \end{itemize}
 
-\section{Definition}
-To reduce the amount of support calls, a feature of automatic service discovery on the local network would be developed, achieving a more user friendly operation.
-A system that identifies the ports and services running on the network devices, that the end-user might want to set up forwarding rules for.
+\section{Delimitations}
+% what to accomplish
+% mention literature study? if I ever finish it
+One purpose of this degree project is to achieve a more user friendly operation by adding automatic service discovery on the local network to the OpenWrt system, this will reduce the amount of support calls.
+A system which identifies the ports and services running on the network devices, works alongside the preset library for port forwarding, will be integrated into the Lua Configuration Interface of OpenWrt.
+The internal DNS translation system will work independently from the rest of the project, it will not be dependant on either the preset library or the service detection.
+
+% what not to accomplish
+It is assumed that operation of the device is user friendlier, where the end-user receive helpful hints in the configuration process.
+The internal DNS translation for reaching the front-end of the CPE through an internal domain name, does not account for various browser implementations of the address bar, which could sometimes interpret a domain address as a search query.
 
 \section{Solutions}
 %how I actually solved the problem (high-level summary of results).
 By building a library of presets for common port forwarding rules and developing a simple selection dialog, the end user can more efficiently set up port their firewall redirection rules and general configuration of their gateway.
 A limited range of settings and helpful hints are presented in the forwarding dialog.
 
-The system for service identification is a wrapper around \emph{Nmap}, that performs a scan of the network nodes and returns a list of available services.
+For the system of service identification, a wrapper around \emph{Nmap} is implemented, which performs a scan of the network nodes and returns a list of available services.
 This information is in turn used to match against the known presets and protocols, and offer the user a choice of applying the preset rules for the newly detected network device.
-%skriv klart angående att tack vare ramverket så kan åf lägga till egna regler.
+% skriv klart angående att tack vare ramverket så kan åf lägga till egna regler.
 The preset system is extensible, allowing retailers to add their own devices and services as preset definitions, each with their specific forwarding rules.
 
 DNS translation of the gateway IP address, allows easy access through the web browser by simply entering a word in the address bar, which should be easier for users than remembering or figuring out its IP.
-
-%\part{Important Results}
+This works by translating the gateways internal IP address to a domain name and keeping it up to date when the IP is modified.
 
 \chapter{Background}
 
