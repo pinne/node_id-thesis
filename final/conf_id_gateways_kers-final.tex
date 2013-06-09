@@ -218,10 +218,10 @@ The internal DNS translation for reaching the front-end of the CPE through an in
 \section{Solutions}
 %how I actually solved the problem (high-level summary of results).
 By building a library of presets for common port forwarding rules and developing a simple selection dialog, the end user can more efficiently set up port their firewall redirection rules and general configuration of their gateway.
-A limited range of settings and helpful hints are presented in the forwarding dialog.
+A limited range of settings and automatic portforwarding settings are presented to the user.
 
-For the system of service identification, a wrapper around \emph{Nmap} is implemented, which performs a scan of the network nodes and returns a list of available services.
-This information is in turn used to match against the known presets and protocols, and offer the user a choice of applying the preset rules for the newly detected network device.
+For the system of service identification, a wrapper around a port scanner is implemented, which performs a scan of the network nodes and returns a list of available services.
+This information is in turn used to match against the known presets and protocols, and offers the user a choice of applying the preset rules for the newly detected network device.
 % skriv klart angående att tack vare ramverket så kan åf lägga till egna regler.
 The preset system is extensible, allowing retailers to add their own devices and services as preset definitions, each with their specific forwarding rules.
 
