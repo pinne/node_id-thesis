@@ -231,15 +231,13 @@ This works by translating the gateways internal IP address to a domain name and 
 \chapter{Background}
 
 The research and development department at Inteno works on improving the platform, adding value to the end users, the operators and the larger OpenWrt software ecosystem.
-Because of the nature of OpenWrt's free software licence\footnote{GNU General Public License is a ``free as in freedom'' software licence}, the code is publicly released and available for download from Intenos webpage\cite{inteno_gpl}.
+Because of the nature of OpenWrt's free software licence\cite{gnu-license}, the code is publicly released and available for download from Intenos webpage.\cite{inteno_gpl}
 
 There are simple ways in which to improve the user experience, developers of network gateway software often implement a set of presets of port forwarding rules for common applications.
-The interface presents the user with a list of applications in plain text and lets the user select an IP address, for which the forwarding rules should apply.
+The interface presents the user with a list of application names and lets the user select an IP address, for which the forwarding rules should apply.
 
-Alternative solutions to simplifying port forwarding include using standalone applications which run on a PC, connected to the local network.
-These applications has internal lists of port forwarding rules for common applications and devices, which is then applied for a specific IP address on the local network.
-\cite{portforward.com}
-
+Working from the theory that a good user experience lies in the details, iterative improvements of the system is the preferred way to address it.
+This project contributes to the ongoing work of improving details of user experience, strengthening the product and saving costs for support.
 
 \chapter{Theory}
 %skriv något om alternativa program typ port forwarding
@@ -248,6 +246,10 @@ These applications has internal lists of port forwarding rules for common applic
 %skriv något om alternativa program typ port scanner och guider på nätet
 To test the newly applied configurations, web-based or locally run port scanners can be used.
 They will scan the users external IP address for open ports and present which are open, this does not guarantee that the packets are routed to the correct internal address.
+
+Alternative solutions to simplifying port forwarding include using standalone applications which run on a PC, connected to the local network.
+These applications has internal lists of port forwarding rules for common applications and devices, which is then applied for a specific IP address on the local network.
+\cite{portforward.com}
 
 \section{Programming languages}
 \subsection{Lua}
