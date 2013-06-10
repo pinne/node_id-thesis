@@ -243,40 +243,55 @@ This project contributes to the ongoing work of improving details of user experi
 \chapter{Theory}
 %skriv något om alternativa program typ port forwarding
 %skriv möjligtvis något om alt. till Nmap, kanske p0f bör nämnas?
+%skriv om val: fördelar, nackdelar               RESONERA!
+%skriv om lösningsmetoder: fördelar, nackdelar   RESONERA!
+%referera saker som styrker dina val till andra uppsatser eller böcker
 
 %skriv något om alternativa program typ port scanner och guider på nätet
 To test the newly applied configurations, web-based or locally run port scanners can be used.
 They will scan the users external IP address for open ports and present which are open, this does not guarantee that the packets are routed to the correct internal address.
 
-Alternative solutions to simplifying port forwarding include using standalone applications which run on a PC, connected to the local network.
-These applications has internal lists of port forwarding rules for common applications and devices, which is then applied for a specific IP address on the local network.
-\cite{portforward.com}
-
 \section{Design and layout}
 %skriva lite literaturstudie om design av användargränssnitt
 User interface and the graphical and sometimes physical design, is an important part of the brand and ease of use of products.
 %cite dont blame yourself if the product is confusing
-Improving the graphical interface in electronic devices and its software, can cause irritations with the product and leave the user with a sense of hopelessness and self-blame.
-It is important to communicate a clear usage to the user.\cite[p.~34]{norman2002design}
+Improving the graphical interface in electronic devices and its software, can cause irritations with the product and leave the user with a sense of hopelessness and self-blame.\cite[p.~34]{norman2002design}
+It is important to communicate a clear usage that is as unambiguous as possible to the user, this was decided to be the most important part of the layout.
+This was the main goal of the user experience, removing the possibility of misstep and communicating clearly, citing Krug's second law of usability\cite[p.~41]{krug2006don}, ``It doesn’t matter how many times I have to click, as long as each click is a mindless, unambiguous choice''.
 
-\begin{figure}[h!]
+\begin{figure}[h]
    \centering
    %                       left bot  right top
-   \includegraphics[trim = 0mm 140mm 90mm 0mm, clip, width=15cm]{before}
-   \caption{Flow chart for user interaction when selecting port forwarding on conventional firewall page}
+   \includegraphics[trim = 0mm 140mm 90mm 0mm, clip, width=10cm]{before}
+   \caption{Flowchart for user interaction when selecting port forwarding on conventional firewall page}
    \label{fig:before}
 \end{figure}
 
+In figure \ref{fig:before}, we see a conceptual flowchart of the all the steps in the current user interaction when port forwarding, the two parts called ``Look it up!'' can delay the configuration of the port forwarding.
+The mental steps and actions within the gray area of figure \ref{fig:before}, will form a loop every time the service has several protocols and ports.
 
-\begin{figure}[h!]
+In addition to the ``Look it up!'' steps, in the example of the XBox 360 -- which has four ports -- the user have to perform seven additional actions for the three remaining ports:
+\begin{itemize}
+   \item Select host
+   \item Enter protocol and port
+   \item Enter description
+\end{itemize}
+
+\begin{figure}[h]
    \centering
    %                       left bot  right top
-   \includegraphics[trim = 0mm 170mm 80mm 0mm, clip, width=15cm]{after}
-   \caption{Flow chart for user interaction when selecting port forwarding on wizard page}
-   \label{fig:before}
+   \includegraphics[trim = 0mm 174mm 80mm 0mm, clip, width=10cm]{after}
+   \caption{Flowchart for user interaction when selecting port forwarding on wizard page}
+   \label{fig:after}
 \end{figure}
 
+Alternative solutions to simplifying port forwarding include using standalone applications which run on a PC, connected to the local network.
+These applications has internal lists of port forwarding rules for common applications and devices, which is then applied for a specific IP address on the local network.
+\cite{portforward.com}
 
+Alternative solutions to simplifying port forwarding include using standalone applications which run on a PC, connected to the local network.
+These applications has internal lists of port forwarding rules for common applications and devices, which is then applied for a specific IP address on the local network.
+\cite{portforward.com}
 
 \section{Programming languages}
 \subsection{Lua}
