@@ -5,6 +5,7 @@ Inserting diagrams
 make your diagram, export it to .tex
 
 exit the exported tex diagram, in the beginning add:
+
     \documentclass{article}
     \usepackage[margin=0in]{geometry}
     \usepackage{tikz}
@@ -23,6 +24,7 @@ In LaTeX preamble:
     \usepackage{tikz}
 
 Insert diagram where you want it in the LaTeX document:
+
     \begin{figure}[h!]
     \centering
        % trim image as needed|left|botm|right|top|                  image name
