@@ -10,6 +10,7 @@
 \usepackage{url}
 \usepackage{graphicx}
 \usepackage{xcolor}
+\usepackage{tikz}
 
 % reduce margins, more in line with STH printed G5 printing
 \usepackage[top=1.2in, bottom=0.9in, left=0.6in, right=0.6in]{geometry}
@@ -70,7 +71,7 @@
 \makeoddfoot{center}{}{\thepage}{}
 
 \DeclareGraphicsExtensions{.eps}
-%\DeclareGraphicsExtensions{.png}
+\usepackage{pdfpages}
 
 \about{%
    This degree project was performed with Inteno Broadband Technology\\
@@ -250,6 +251,32 @@ They will scan the users external IP address for open ports and present which ar
 Alternative solutions to simplifying port forwarding include using standalone applications which run on a PC, connected to the local network.
 These applications has internal lists of port forwarding rules for common applications and devices, which is then applied for a specific IP address on the local network.
 \cite{portforward.com}
+
+\section{Design and layout}
+%skriva lite literaturstudie om design av användargränssnitt
+User interface and the graphical and sometimes physical design, is an important part of the brand and ease of use of products.
+%cite dont blame yourself if the product is confusing
+Improving the graphical interface in electronic devices and its software, can cause irritations with the product and leave the user with a sense of hopelessness and self-blame.
+It is important to communicate a clear usage to the user.\cite[p.~34]{norman2002design}
+
+\begin{figure}[h!]
+   \centering
+   %                       left bot  right top
+   \includegraphics[trim = 0mm 140mm 90mm 0mm, clip, width=15cm]{before}
+   \caption{Flow chart for user interaction when selecting port forwarding on conventional firewall page}
+   \label{fig:before}
+\end{figure}
+
+
+\begin{figure}[h!]
+   \centering
+   %                       left bot  right top
+   \includegraphics[trim = 0mm 170mm 80mm 0mm, clip, width=15cm]{after}
+   \caption{Flow chart for user interaction when selecting port forwarding on wizard page}
+   \label{fig:before}
+\end{figure}
+
+
 
 \section{Programming languages}
 \subsection{Lua}
