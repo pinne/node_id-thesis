@@ -4,7 +4,7 @@ Inserting diagrams
 
 make your diagram, export it to .tex
 
-exit the exported tex diagram, in the beginning add:
+edit the exported tex diagram, in the beginning add:
 
     \documentclass{article}
     \usepackage[margin=0in]{geometry}
@@ -12,6 +12,7 @@ exit the exported tex diagram, in the beginning add:
     \begin{document}
 
 append to the end of the tex diagram:
+
     \end{document}
 
 run in terminal:
