@@ -360,8 +360,7 @@ Such tasks could be well suited for automation by software, especially for appli
 Connectivity of the XBox 360 gaming console has been a common issue and the device is common among end users, this was also chosen as reference device to do tests and verifications against.
 One of the most commonly reported issues of end users, is setting up port forwarding for connecting their XBox 360 to the XBox Live network.
 
-\chapter{Design}
-
+\chapter{Implementation}
 The overall design of the system consists of two parts, the service identification and port forwarding presets.
 These parts are connected through the underlying software and presented on the user interface.
 
@@ -386,7 +385,6 @@ To apply the port forwarding rule set, the user selects a node in the network an
 Instead of performing all the steps automatically, the user is required to interact and approve of the suggested changes.
 The service identification is there to help the users make choices, not deciding for them.
 
-\chapter{Implementation}
 %explain your approach in a general overview
 The implementation consists of three general parts that work together in delivering easier forwarding rules configuration.
 As shown in figure~\ref{fig:wizard-seq_dia}, the three configuration files that together with user input, are used as sources for the final redirection rule in the firewall configuration file.
@@ -426,7 +424,6 @@ The more thorough version scan is then matched for \emph{XBox 360 UPnP}, which t
 The preset library consists of common services and port data, that the user would want to set up forwarding rules for.
 Details of these ports and protocols are provided by the application developers, specifically for address translation reasons.
 
-%explain your design and limitations in greater detail
 Using the \emph{Unified Configuration System}, that is included in the OpenWrt distribution, all the basic commands for configuring the firewall rules were prototyped and explored.
 A set of \emph{XBox 360} port forwarding rules from the preset configuration file is shown in figure \ref{fig:redirect_conf} in appendix \ref{appA}.
 
