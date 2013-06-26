@@ -239,7 +239,7 @@ This works by translating the gateways internal IP address to a domain name and 
 \chapter{Background}
 
 The research and development department at Inteno works on improving the platform, adding value to the end users, the operators and the larger OpenWrt software ecosystem.
-Because of the nature of OpenWrt's free software licence\cite{gnu-license}, the code is publicly released and available for download from Intenos webpage.\cite{inteno_gpl}
+By the nature of OpenWrt's free software licence\cite{gnu-license}, the code is publicly released and available for download from Intenos webpage.\cite{inteno_gpl}
 
 There are simple ways in which to improve the user experience, developers of network gateway software often implement a set of presets of port forwarding rules for common applications.
 The interface presents the user with a list of application names and lets the user select an IP address, for which the forwarding rules should apply.
@@ -254,10 +254,6 @@ This project contributes to the ongoing work of improving details of user experi
 %skriv om lösningsmetoder: fördelar, nackdelar   RESONERA!
 %referera saker som styrker dina val till andra uppsatser eller böcker
 
-%skriv något om alternativa program typ port scanner och guider på nätet
-To test the newly applied configurations, web-based or locally run port scanners can be used.
-They will scan the users external IP address for open ports and present which are open, this does not guarantee that the packets are routed to the correct internal address.
-
 \section{Design and layout}
 %skriva lite literaturstudie om design av användargränssnitt
 User interface and the graphical and sometimes physical design, is an important part of the brand and ease of use of products.
@@ -266,15 +262,18 @@ Improving the graphical interface in electronic devices and its software, can ca
 It is important to communicate a clear usage that is as unambiguous as possible to the user, this was decided to be the most important part of the layout.
 This was the main goal of the user experience, removing the possibility of misstep and communicating clearly, citing Krug's second law of usability\cite[p.~41]{krug2006don}, ``It doesn’t matter how many times I have to click, as long as each click is a mindless, unambiguous choice''.
 
+\section{Current firewall tab}
+The current firewall tab in the user interface is the main target for
+
 \begin{figure}[h]
    \centering
-   %                       left bot  right top
+   %                       left down right top
    \includegraphics[trim = 0mm 140mm 90mm 0mm, clip, width=10cm]{before}
-   \caption{Flowchart for user interaction when selecting port forwarding on conventional firewall page}
+   \caption{Flowchart for user interaction when selecting port forwarding on the conventional port forwarding tab}
    \label{fig:before}
 \end{figure}
 
-In figure \ref{fig:before}, we see a conceptual flowchart of the all the steps in the current user interaction when port forwarding, the two parts called ``Look it up!'' can delay the configuration of the port forwarding.
+In figure \ref{fig:before}, we see a conceptual flowchart of the all the steps in the current user interaction when port forwarding, the two parts called ``Look it up!'' requires a switch of context which can delay the configuration of the port forwarding.
 The mental steps and actions within the gray area of figure \ref{fig:before}, will form a loop every time the service has several protocols and ports.
 
 In addition to the ``Look it up!'' steps, in the example of the XBox 360 -- which has four ports -- the user have to perform seven additional actions for the three remaining ports:
@@ -284,20 +283,22 @@ In addition to the ``Look it up!'' steps, in the example of the XBox 360 -- whic
    \item Enter description
 \end{itemize}
 
+This degree project presents a more guiding and interactive approach, which results in fewer mental steps
 \begin{figure}[h]
    \centering
-   %                       left bot  right top
+   %                       left down right top
    \includegraphics[trim = 0mm 174mm 80mm 0mm, clip, width=10cm]{after}
    \caption{Flowchart for user interaction when selecting port forwarding on wizard page}
    \label{fig:after}
 \end{figure}
 
-Alternative solutions to simplifying port forwarding include using standalone applications which run on a PC, connected to the local network.
-These applications has internal lists of port forwarding rules for common applications and devices, which is then applied for a specific IP address on the local network.
-\cite{portforward.com}
+\section{Alternative using a locally run application}
+%skriv något om alternativa program typ port scanner och guider på nätet
+To test the newly applied configurations, web-based or locally run port scanners can be used.
+They will scan the users external IP address for open ports and present which are open, this does not guarantee that the packets are routed to the correct internal address.
 
 Alternative solutions to simplifying port forwarding include using standalone applications which run on a PC, connected to the local network.
-These applications has internal lists of port forwarding rules for common applications and devices, which is then applied for a specific IP address on the local network.
+These applications has internal lists of port forwarding rules for common applications and devices, which is then applied for a specific IP address on the local network.\cite{portforward.com}
 \cite{portforward.com}
 
 \section{Programming languages}
