@@ -299,7 +299,7 @@ They will scan the users external IP address for open ports and present which ar
 
 Alternative solutions to simplifying port forwarding include using standalone applications which run on a PC, connected to the local network.
 These applications has internal lists of port forwarding rules for common applications and devices, which is then applied for a specific IP address on the local network.\cite{portforward.com}
-\cite{portforward.com}
+
 
 \section{Programming languages}
 \subsection{Lua}
@@ -319,6 +319,8 @@ Shell scripting allows the developer to aggregate the power of a range of UNIX p
 The permissiveness and features of bash, has brought along handy constructs such as \emph{process substitution}, which is unavailable in ash.
 Instead the developer has to resort to manually handling named pipes, which creates a temporary buffer in which the processes can exchange data.
 An example redirecting the output from a command a named pipe, and processing the output of that command is available in appendix \ref{fig:fifo}.
+
+\subsection{JavaScript}
 
 \section{Software suite}
 
@@ -364,7 +366,6 @@ This leads to good compatibility with Inteno hardware and protection from breaka
 Lua Configuration Interface, or \emph{LuCI}, is a suite of programs and libraries for extending OpenWrt using the Lua programming language and providing a web interface built with the Model-View Controller architecture.
 It originated in the OpenWrt project, but is now an independent project on its own.
 
-
 \subsection{Model-View Controller}
 LuCI relies on the \emph{Model-View Controller} software architecture pattern and separates data and its visual representation.
 It is divides in three parts with the model representing the data and storing in in UCI configuration files.
@@ -393,7 +394,7 @@ When the results from the identification are returned the list of presets is sor
 By selecting the name of the service, the correct forwarding rules are loaded and presented to the user, who can then chose to apply them, after which they are written to the configuration files.
 \begin{figure}[h!]
    \centering
-   \includegraphics[width=15cm]{wizard-seq_dia}
+   \includegraphics[trim = 0mm 190mm 30mm 0mm, clip, width=15cm]{wizard-seq_dia}
    \caption{Sequential diagram of applying port forwarding rules}
    \label{fig:wizard-seq_dia}
 \end{figure}
@@ -411,7 +412,7 @@ The service identification is there to help the users make choices, not deciding
 %explain your approach in a general overview
 The implementation consists of three general parts that work together in delivering easier forwarding rules configuration.
 As shown in figure~\ref{fig:wizard-seq_dia}, the three configuration files that together with user input, are used as sources for the final redirection rule in the firewall configuration file.
-The device detection updates the configuration file \emph{devices} with newly discovered devices, this does not include applications running on computers or game specific forwarding rules, running on gaming consoles, this requires user intervention.
+The service detection wrapper returns the newly discovered services, these can then be matched against a preset of forwarding rules.
 
 %The OpenWrt distribution provides a complete platform for compiling and deploying a gateway firmware image.
 
@@ -424,7 +425,8 @@ Nmap is capable of detecting several operating systems, embedded devices and net
 
 Using Nmap is quite intrusive and could be detected as an attack by intrusion detection software, used to monitor the network for illicit behavior.
 An alternative approach is using passive fingerprinting of network traffic, one such utility if P0f which uses passive scanning of traffic.\cite{p0f}
-Inteno routers are configured with cut-through switching, which effectively hides the packet information from software processing and analyzing techniques.
+However, in order to provide low latency, the Inteno routers are configured with cut-through switching, which would render the passive fingerprinting of P0f ineffective.
+Cut-through switching, as opposed to store and forward, starts forwarding the packets before it has been fully received, this hides hides the packet information from software processing and analyzing techniques.
 
 \subsection{Wrapper}
 Executing the Nmap scanning utility and returning results, is implemented as a shell script.
@@ -440,14 +442,14 @@ While testing the service identification features of Nmap, there is no way for N
 This failure was due to an inconclusive fingerprint, but using the flag called version scan -- run with arguments \emph{-sV} -- Nmap interrogates ports and returns more information than a regular operating system scan.
 The extra scan using the Nmap \emph{version scan}, was successfully used to identify the XBox 360.
 Whenever the service is identified as \emph{LSA-or-nterm}, the TCP ports 1026 and 1027, were scanned, either of these are in use by the XBox 360.\cite{aretheysecure}
-The more thorough version scan is then matched for \emph{XBox 360 UPnP}, which the wrapper is set to interpret as a positive match.
+A more thorough version scan is issued for the device and then matched for \emph{XBox 360 UPnP}, which the wrapper is set to interpret as a positive match and returns its service name\footnote{The XBox 360 is labeled \emph{xbox360} in the configuration presets}.
 %se till att raden XBox 360 UPnP stämmer väl överens med verkligheten
 
 \section{Preset library}
 The preset library consists of common services and port data, that the user would want to set up forwarding rules for.
 Details of these ports and protocols are provided by the application developers, specifically for address translation reasons.
 
-Using the \emph{Unified Configuration System}, that is included in the OpenWrt distribution, all the basic commands for configuring the firewall rules were prototyped and explored.
+Using the \emph{Unified Configuration System}, which is included in the OpenWrt distribution, all the basic commands for configuring the firewall rules were prototyped and explored.
 A set of \emph{XBox 360} port forwarding rules from the preset configuration file is shown in figure \ref{fig:redirect_conf} in appendix \ref{appA}.
 
 The rules were formatted to fit the UCI configuration file format and returned as JSON to the JavaScript frontend in an AJAX call through the Lua dispatcher.\footnote{The dispatcher is the \emph{Controller} in the MVC framework}
