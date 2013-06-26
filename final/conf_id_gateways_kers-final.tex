@@ -462,7 +462,16 @@ Applying the rules requires the user to select the desired service from a list, 
 % $#@! Jämför även gärna med resultatet av en normal scanning.
 %lägg till resultat från scanningen med tid och exempel
 \section{Operating system scan}
-As shown in figure \ref{fig:nmapos}, the scan is unable to identify the correct operating system. The scan had a duration of 43.74 seconds.
+The results of the basic operating system scan of XBox 360 is shown in figure \ref{fig:nmapos}.
+Note that the line:
+\begin{lstlisting}[escapechar=!]
+No exact OS matches for host (test conditions non-ideal).
+\end{lstlisting}
+%fixa till det här
+    
+The scan is unable to identify the correct operating system against the XBox 360.
+
+The scan had a duration of 43.74 seconds.
 
    \begin{figure}[ht]
       \centering
@@ -476,8 +485,8 @@ Not shown: 999 filtered ports
 PORT     STATE SERVICE
 !\highlight{1026/tcp~open~~LSA-or-nterm}!
 MAC Address: 00:22:48:40:11:FE (Microsoft)
-Warning: OSScan results may be unreliable because we could not find at least 1
-open and 1 closed port
+Warning: OSScan results may be unreliable because we could not find at
+least 1 open and 1 closed port
 Device type: general purpose|switch
 Running (JUST GUESSING): IBM OS/2 4.X (92!\%), HP OpenVMS !
 Aggressive OS guesses: IBM OS/2 Warp 2.0 (92\%), HP OpenVMS !\\!
@@ -689,6 +698,7 @@ Preset for port forwarding sections in the UCI \emph{preset} configuration file
       \caption{
          \small{
 Using a named pipe to redirect the output of one program to a temporary file and reading it line by line, performing operations.
+This example parses the output of Nmap and returns the results as a JSON string.
          }
       }
       \label{fig:fifo}
