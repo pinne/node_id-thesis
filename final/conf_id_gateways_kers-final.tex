@@ -195,26 +195,33 @@ Support issues creates costs for the business and by reducing the number of supp
 \section{Goals}
 %come up with a solution (give a rough idea what the solution looks like)
 By simplifying configuration through abstracting common tasks for the end-user, the number of support calls can be reduced.
-Using automatic device identification and automating common tasks such as port forwarding, will also lead to savings in support along with a better user experience.
+Using automatic device identification and automating common tasks such as port forwarding, will result in savings in support along with a better user experience.
+The project will investigate the simplification of usability, when configuring port forwarding and evaluate the changes.
 Many common support issues could be automated by the software running on the CPE and by effective communication with the end-user through the user interface, these improvements would also aid first-line support when guiding the customer over phone.
+In order to even begin configuring the device, the correct IP address to the CPE has to be typed in the web browsers address bar.
+A script which performs an automatic DNS translation from domain name to its LAN IP address will be developed.
 The project goals can be summarized as:
 
 \begin{itemize}
    \item Preset library of port forwarding rules
    \item Automatic detection of services on the local network devices
+   \item Evaluate usability
    \item Internal DNS translation of the gateway IP address
 \end{itemize}
 
 \section{Delimitations}
 % what to accomplish
 % mention literature study? if I ever finish it
-One purpose of this degree project is to achieve a more user friendly operation by adding automatic service discovery on the local network to the OpenWrt system, this will reduce the amount of support calls.
-A system which identifies the ports and services running on the network devices, works alongside the preset library for port forwarding, will be integrated into the Lua Configuration Interface of OpenWrt.
+One purpose of this degree project is to achieve a more user friendly operation by adding automatic service discovery on the local network to the OpenWrt system, this aims to reduce the amount of support calls.
+A system which identifies the ports and services running on the network devices is developed, this works alongside the preset library for port forwarding, to reduce the amount and duration of support calls.
+These parts will work together, integrated into the web-based interface of OpenWrt.
 The internal DNS translation system will work independently from the rest of the project, it will not be dependant on either the preset library or the service detection.
 
 % what not to accomplish
-It is assumed that operation of the device is user friendlier, where the end-user receive helpful hints in the configuration process.
+It is assumed that operation of the device is user friendlier, when the end-user receive helpful hints and a more interactive workflow in the configuration process.
 The internal DNS translation for reaching the front-end of the CPE through an internal domain name, does not account for various browser implementations of the address bar, which could sometimes interpret a domain address as a search query.
+Evaluation of usability is meant to be qualitative and focuses on reason rather than test groups.
+The actual effect on support costs is out of the scope of this degree project.
 
 \section{Solutions}
 %how I actually solved the problem (high-level summary of results).
@@ -226,8 +233,8 @@ This information is in turn used to match against the known presets and protocol
 % skriv klart angående att tack vare ramverket så kan åf lägga till egna regler.
 The preset system is extensible, allowing retailers to add their own devices and services as preset definitions, each with their specific forwarding rules.
 
-DNS translation of the gateway IP address, allows easy access through the web browser by simply entering a word in the address bar, which should be easier for users than remembering or figuring out its IP.
-This works by translating the gateways internal IP address to a domain name and keeping it up to date when the IP is modified.
+DNS translation of the gateway IP address, allows easy access through the web browser by simply entering a domain name in the address bar, which should be easier for users than remembering or figuring out its IP.
+This works by translating the gateways internal IP address to a domain name and keeping it up to date whenever the IP is changed.
 
 \chapter{Background}
 
