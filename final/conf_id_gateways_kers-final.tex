@@ -77,7 +77,7 @@
    This degree project was performed with Inteno Broadband Technology\\
    Inteno contact: Strhuan Blomquist\\
 }
-\businesslogo{\includegraphics[width=4cm]{Inteno}}
+\businesslogo{\includegraphics[width=4cm]{Inteno.eps}}
 \trita{TRITA-STH 2013:22}                    % KTH provides you a trita number
 \date{June 2013}
 \blurb{%
@@ -268,7 +268,7 @@ The current firewall tab in the user interface is the main target for
 \begin{figure}[h]
    \centering
    %                       left down right top
-   \includegraphics[trim = 0mm 140mm 90mm 0mm, clip, width=10cm]{before}
+   \includegraphics[trim = 0mm 140mm 90mm 0mm, clip, width=10cm]{before.eps}
    \caption{Flowchart for user interaction when selecting port forwarding on the conventional port forwarding tab}
    \label{fig:before}
 \end{figure}
@@ -283,11 +283,15 @@ In addition to the ``Look it up!'' steps, in the example of the XBox 360 -- whic
    \item Enter description
 \end{itemize}
 
-This degree project presents a more guiding and interactive approach, which results in fewer mental steps
+One goal of this degree project is presenting a more guiding and interactive approach, which results in fewer mental steps
+
+\section{Guided firewall tab}
+In the projects improved port forwarding dialog, the user is confronted with fewer mental steps.
+As shown in figure \ref{fig:after}, 
 \begin{figure}[h]
    \centering
    %                       left down right top
-   \includegraphics[trim = 0mm 174mm 80mm 0mm, clip, width=10cm]{after}
+   \includegraphics[trim = 0mm 174mm 80mm 0mm, clip, width=10cm]{after.eps}
    \caption{Flowchart for user interaction when selecting port forwarding on wizard page}
    \label{fig:after}
 \end{figure}
@@ -299,7 +303,6 @@ They will scan the users external IP address for open ports and present which ar
 
 Alternative solutions to simplifying port forwarding include using standalone applications which run on a PC, connected to the local network.
 These applications has internal lists of port forwarding rules for common applications and devices, which is then applied for a specific IP address on the local network.\cite{portforward.com}
-
 
 \section{Programming languages}
 \subsection{Lua}
@@ -394,7 +397,7 @@ When the results from the identification are returned the list of presets is sor
 By selecting the name of the service, the correct forwarding rules are loaded and presented to the user, who can then chose to apply them, after which they are written to the configuration files.
 \begin{figure}[h!]
    \centering
-   \includegraphics[trim = 0mm 190mm 30mm 0mm, clip, width=15cm]{wizard-seq_dia}
+   \includegraphics[trim = 0mm 190mm 30mm 0mm, clip, width=15cm]{wizard-seq_dia.eps}
    \caption{Sequential diagram of applying port forwarding rules}
    \label{fig:wizard-seq_dia}
 \end{figure}
@@ -408,6 +411,9 @@ Listed presets are sorted by the output from the service identification process,
 To apply the port forwarding rule set, the user selects a node in the network and the service from the sorted list, then applies it.
 Instead of performing all the steps automatically, the user is required to interact and approve of the suggested changes.
 The service identification is there to help the users make choices, not deciding for them.
+
+\includegraphics{ss-scanning-shadow.png}
+
 
 %explain your approach in a general overview
 The implementation consists of three general parts that work together in delivering easier forwarding rules configuration.
