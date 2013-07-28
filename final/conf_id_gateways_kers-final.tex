@@ -15,7 +15,8 @@
 % reduce margins, more in line with STH printed G5 printing
 \usepackage[top=1.2in, bottom=0.9in, left=0.6in, right=0.6in]{geometry}
 
-\usepackage[dvipdfm,bookmarks]{hyperref}
+%\usepackage[dvipdfm,bookmarks]{hyperref}
+\usepackage{hyperref}
 
 % use sane colors for hyperlinks
 \usepackage{xcolor}
@@ -77,7 +78,7 @@
    This degree project was performed with Inteno Broadband Technology\\
    Inteno contact: Strhuan Blomquist\\
 }
-\businesslogo{\includegraphics[width=4cm]{Inteno.eps}}
+\businesslogo{\includegraphics[width=4cm]{Inteno}}
 \trita{TRITA-STH 2013:22}                    % KTH provides you a trita number
 \date{June 2013}
 \blurb{%
@@ -268,7 +269,7 @@ The current firewall tab in the user interface is the main target for
 \begin{figure}[h]
    \centering
    %                       left down right top
-   \includegraphics[trim = 0mm 140mm 90mm 0mm, clip, width=10cm]{before.eps}
+   \includegraphics[trim = 0mm 140mm 90mm 0mm, clip, width=10cm]{before}
    \caption{Flowchart for user interaction when selecting port forwarding on the conventional port forwarding tab}
    \label{fig:before}
 \end{figure}
@@ -291,7 +292,7 @@ As shown in figure \ref{fig:after},
 \begin{figure}[h]
    \centering
    %                       left down right top
-   \includegraphics[trim = 0mm 174mm 80mm 0mm, clip, width=10cm]{after.eps}
+   \includegraphics[trim = 0mm 174mm 80mm 0mm, clip, width=10cm]{after}
    \caption{Flowchart for user interaction when selecting port forwarding on wizard page}
    \label{fig:after}
 \end{figure}
@@ -397,7 +398,7 @@ When the results from the identification are returned the list of presets is sor
 By selecting the name of the service, the correct forwarding rules are loaded and presented to the user, who can then chose to apply them, after which they are written to the configuration files.
 \begin{figure}[h!]
    \centering
-   \includegraphics[trim = 0mm 190mm 30mm 0mm, clip, width=15cm]{wizard-seq_dia.eps}
+   \includegraphics[trim = 0mm 190mm 30mm 0mm, clip, width=15cm]{wizard-seq_dia}
    \caption{Sequential diagram of applying port forwarding rules}
    \label{fig:wizard-seq_dia}
 \end{figure}
@@ -411,8 +412,6 @@ Listed presets are sorted by the output from the service identification process,
 To apply the port forwarding rule set, the user selects a node in the network and the service from the sorted list, then applies it.
 Instead of performing all the steps automatically, the user is required to interact and approve of the suggested changes.
 The service identification is there to help the users make choices, not deciding for them.
-
-\includegraphics{ss-scanning-shadow.png}
 
 
 %explain your approach in a general overview
