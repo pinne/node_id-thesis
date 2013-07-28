@@ -1,9 +1,9 @@
 deadline 16:e för nya versionen
 
 lit.studie av användargränssnitt
-motivera val, t.ex. programmeringsspråk (Lua)
+-motivera val, t.ex. programmeringsspråk (Lua)
 vad jag har gjort framgår inte
-stycka upp intro, inspireras av mallen
++stycka upp intro, inspireras av mallen
 
 mål:
     utvärderingar för OPKG
@@ -13,8 +13,8 @@ mål:
 
 
 background, vilket världsproblem kommer det här lösa?
-    fånga läsaren
--    flytta problem hit? | nej? delar av problem kanske?
++   fånga läsaren
++    flytta problem hit? | nej? delar av problem kanske?
 
 + stick in theory efter background, flytta delar från background dit
     "teoretiskt referensram" - motivera
@@ -23,10 +23,11 @@ background, vilket världsproblem kommer det här lösa?
         LuCI
     
 implementation
-    flytta in design
++    flytta in design
     metodmässigt: hur är systemet uppbyggt
     var mer detaljerad!
     visa övergripande bild av systemet
+    fixa bilder | hur fan lägger man in png?
 
 resultat:
     det här har jag tagit fram
