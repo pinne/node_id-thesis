@@ -264,7 +264,7 @@ It is important to communicate a clear usage that is as unambiguous as possible 
 This was the main goal of the user experience, removing the possibility of misstep and communicating clearly, citing Krug's second law of usability\cite[p.~41]{krug2006don}, ``It doesn’t matter how many times I have to click, as long as each click is a mindless, unambiguous choice''.
 
 \section{Current firewall tab}
-The current firewall tab in the user interface is the main target for
+%Beskriv hur läget är, vad som är på tok osv
 
 \begin{figure}[h]
    \centering
@@ -306,11 +306,11 @@ As shown in figure \ref{fig:after},
 
 \section{Alternative using a locally run application}
 %skriv något om alternativa program typ port scanner och guider på nätet
-To test the newly applied configurations, web-based or locally run port scanners can be used.
-They will scan the users external IP address for open ports and present which are open, this does not guarantee that the packets are routed to the correct internal address.
+To test the newly applied configurations, web-based or locally run port scanners can be used, as opposed to a gateway-centric port forwarding solution presented by this report.
+They will scan the users external IP address for open ports and present which are open, however this does not guarantee that the packets are routed to the correct internal address.
 
 Alternative solutions to simplifying port forwarding include using standalone applications which run on a PC, connected to the local network.
-These applications has internal lists of port forwarding rules for common applications and devices, which is then applied for a specific IP address on the local network.\cite{portforward.com}
+These applications also use internal lists of port forwarding rules for common applications and devices, which is then applied for a specific IP address on the local network.\cite{portforward.com}
 
 \section{Programming languages}
 \subsection{Lua}
@@ -319,6 +319,7 @@ The programming languages it is distributed with a permissive free software lice
 The language is dynamically typed, which means that the underlying variable type is determined at runtime and supports features such as memory management, closures and first-class functions.\nocite{ierusalimschy2006programming}
 %motivera valet av Lua, Model-View Controller framework LuCI använder Lua?
 
+Implementation-wise the language is small in size yet expressive, which makes it suitable for higher level programming in embedded systems such as network gateways.
 Since the web user interface of OpenWrt uses Lua, it was beneficial to implement as much of the application in the programming language, as a Lua Configuration Interface module.
 See section \ref{sec:LuCI} for details on \emph{Lua Configuration Interface}, or LuCI.
 
@@ -412,10 +413,13 @@ When the results from the identification are returned the list of presets is sor
 %   \section{Human-computer interaction}
 %This is a cite\cite{garrett2003elements}
 
+By selecting the name of the service, the correct forwarding rules are loaded and presented to the user, who can then chose to apply them, after which they are written to the configuration files.
+
+The port forwarding wizard works with the standard OpenWrt configuration files\footnote{OpenWrt can be configured using Unified Configuration System, or UCI. It also provides a command-line utility and provides an API for programming languages such as C and Lua} and uses nmap as its backend for discovering and identifying services on the local network.
+
    \section{User interface}
 For a port forwarding interface page, the user is presented with detected nodes and their corresponding network services, as shown in figure~\ref{fig:scanning}.
 Listed presets are sorted by the output from the service identification process, presenting the user with the most likely services at the top of the list.
-
 To apply the port forwarding rule set, the user selects a node in the network and the service from the sorted list, then applies it.
 
 
@@ -508,16 +512,15 @@ Applying the rules requires the user to select the desired service from a list, 
 \section{Operating system scan}
 The results of the basic operating system scan of XBox 360 is shown in figure \ref{fig:nmapos}.
 Note that the line:
-\begin{lstlisting}[escapechar=!]
-No exact OS matches for host (test conditions non-ideal).
-\end{lstlisting}
+\begin{verbatim}
+   No exact OS matches for host (test conditions non-ideal).
+\end{verbatim}
 %fixa till det här
     
-The scan is unable to identify the correct operating system against the XBox 360.
+We observe that the scan is unable to identify the correct operating system against the XBox 360 and had a duration of 35.78 seconds.
+A more thorough scan is required to detect the gaming console in question.
 
-The scan had a duration of 43.74 seconds.
-
-   \begin{figure}[ht]
+   \begin{figure}[h!]
       \centering
       \begin{lstlisting}[escapechar=!]
 root@Inteno:~# time nmap -O --osscan-guess --fuzzy 192.168.1.218
@@ -557,7 +560,7 @@ Raw output of first Nmap scan of XBox 360, failing to guess target operating sys
 \newpage
 \section{Version scan}
 By issuing a version scan, this run of Nmap is able to positively identify the service \emph{XBox 360 XML UPnP (Serial number 757502283805)} in 13 seconds, as shown in figure \ref{fig:nmapxbox}.
-   \begin{figure}[ht]
+   \begin{figure}[h!]
       \centering
       \begin{lstlisting}[escapechar=!]
 root@Inteno:~# time nmap -sV -p 1026-1027 192.168.1.218
@@ -584,19 +587,20 @@ sys \ 0m 1.44s}!
       \end{lstlisting}
       \caption{
 	 \small{
-       Raw output of deeper Nmap scan of XBox 360, positively identifying it with \emph{XBox 360 UPnP}
+       Raw output of deeper Nmap scan of XBox 360, positively identifying it as \emph{XBox 360 UPnP}
 	 }
       }
       \label{fig:nmapxbox}
    \end{figure}
 
+This exhaustive scan takes longer to complete per port, but is limited to a small range.
 The results shows that the system manages to identify the XBox 360 gaming console, using the extra scan issued by the wrapper, the device can positively be identified correctly.
 Its services in terms of ports are well known and defined in the preset part of the implemented system.
 
-\newpage
 \section{Linux server}
-Scanning a Raspberry Pi installed with the options \emph{web server}, \emph{mail server} and \emph{ssh server}, detect these services and ports as shown in figure \ref{fig:rasp_scan}.
+Scanning a faily standard GNU/Linux operating system\footnote{The operating system running on the Raspberry Pi is the recommended Raspbian, a Debian based distribution} running on the Raspberry Pi installed with the options \emph{web server}, \emph{mail server} and \emph{ssh server}, detect these services and ports as shown in figure \ref{fig:rasp_scan}.
 The mail server option in the installer, enables identification on ports 110, 143, 993 and 995 because of the various email delivery protocols.
+Every major network service is discovered, on the GNU/Linux system.
 
    \begin{figure}[h]
       \centering
@@ -632,10 +636,9 @@ This part of the system could be made production ready and included by default i
 Service detection fits with the preset data and the combination of these results results in a qualified guess about services the users might want forwarded.
 Detection is currently slow and tweaking the scan arguments any more were outside the scope of this project.
 
-The identification process of the XBox 360 is not a generic Nmap solution, it requires a workaround implemented in our shell script wrapper.
+The identification process of the XBox 360 is not a generic Nmap solution, it requires a workaround implemented in the shell script wrapper.
 This behaviour is undesirable but perhaps acceptable, depending on the frequency of the issue.
 Considering the CPE operators various needs, we are unable to draw any conclusions as to weather it should be implemented as part of the default distribution or not.
-
 
 \newpage
 \section{Further development}
