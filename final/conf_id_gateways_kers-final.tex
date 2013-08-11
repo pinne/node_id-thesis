@@ -113,22 +113,22 @@
 \begin{abstract}
    %why do we care about the problem?
 To set up port forwarding rules on network gateways, certain technical skills are required from end-users.
-These assumptions in the gateway software stack, can lead to an increase in support calls to the network operators and resellers of equipment.
+These assumptions in the gateway software stack, can lead to an increase in support calls to the network operators and resellers of customer premises equipment.
 The user interface itself is also an important part of the product and a complicated interface will contribute to a lessened user experience.
-Other risks with an overwhelming user interface include faulty configuration by the user, leaving the network vulnerable to attacks.
+Other risks with an overwhelming user interface include faulty configuration by the user, leaving the network vulnerable to potential attacks.
 
    %what did you actually do to get your results?
 
    %what did you learn/invent/create?
 We present an enhancement of the current port forwarding settings, with an extensible library of presets.
-To help users with detecting available services, a wrapper for a network scanner was implemented, to detect devices and services on the local network.
-These parts combined relieves end-users of looking up forwarding rules for ports and protocols to configure their gateway, basing their decisions on data collected by the network scanner or by using an applications name instead of its ports.
+To help users with detecting available services, a wrapper for a network scanner was implemented, for detecting devices and services on the local network.
+These parts combined relieves end-users of looking up forwarding rules for ports and protocols to configure their gateway, basing their decisions on data collected by the network scanner or by using an applications name instead of looking up its ports.
 
    %what are the larger implications of your findings
 Using the Nmap utility for identifying services on the network, could be considered harmful activity by network admins and intrusion detection systems.
 The preset library is extensible and generic enough to be included in the default software suite shipping with the network equipment.
-Working within the centralized configuration system within OpenWrt, the preset design will add value and allow resellers to customize their services.
-This proposal could reduce support costs for the service operators and improve user experience and configuration of network gateways.
+Working within the unified configuration system within OpenWrt, the preset design will add value and allow resellers to customize their services.
+This proposal could reduce support costs for the service operators and improve user experience in configuring network gateways.
 
 \end{abstract}
 \newpage
@@ -142,7 +142,7 @@ Användargränssnittet i sig är också en viktig del i produkten och ett kompli
 Övriga problem med komplicerade användargränssnitt är risken för felaktig konfiguration, vilket kan utsätta nätverket för attacker.
 
 %We present an enhancement of the current port forwarding settings, with an extensible library of presets.
-En förbättring av nuvarande \emph{port forwarding}-inställningar presenteras, tillsammans med ett utbyggbart bibliotek med förinställda regler.
+En förändring av nuvarande \emph{port forwarding}-inställningar presenteras, tillsammans med ett utbyggbart bibliotek med förinställda regler.
 %To help users with detecting available services, a wrapper for a network scanner was implemented, to detect devices and services on the local network.
 För att hjälpa användare att identifiera enheter och sätta rätt inställningar, utvecklades en wrapper för en portskanner, vilken kan identifiera enheter och nättjänster i den lokala nätverket.
 %These parts combined relieves end-users of looking up forwarding rules for ports and protocols to configure their gateway, basing their decisions on data collected by the network scanner or by using an applications name instead of its ports.
