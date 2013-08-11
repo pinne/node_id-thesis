@@ -71,15 +71,14 @@
 \makeevenfoot{center}{}{\thepage}{}
 \makeoddfoot{center}{}{\thepage}{}
 
-\DeclareGraphicsExtensions{.eps}
-\usepackage{pdfpages}
+\DeclareGraphicsExtensions{.pdf,.png}
 
 \about{%
    This degree project was performed with Inteno Broadband Technology\\
    Inteno contact: Strhuan Blomquist\\
 }
-\businesslogo{\includegraphics[width=4cm]{Inteno}}
-\trita{TRITA-STH 2013:22}                    % KTH provides you a trita number
+\businesslogo{\includegraphics[width=4cm,natwidth=2.570in,natheight=0.580in]{Inteno}}
+\trita{TRITA-STH 2013:22}                % KTH provides you a trita number
 \date{June 2013}
 \blurb{%
    Bachelor of Science in Engineering\\  % Degree in English
@@ -99,6 +98,7 @@
 \foreigntitle{Konfiguration och enhetsidentifiering på nätverksgateways}
 \author{Simon Kers}
 
+\makeindex
 \begin{document}
 
 \frontmatter
@@ -269,7 +269,15 @@ The current firewall tab in the user interface is the main target for
 \begin{figure}[h]
    \centering
    %                       left down right top
-   \includegraphics[trim = 0mm 140mm 90mm 0mm, clip, width=10cm]{before}
+   \includegraphics[width=15cm]{ss-before-shadow}
+   \caption{Current port forwarding dialog, the user is burdened with identifying and applying rules for every port of the service}
+   \label{fig:before}
+\end{figure}
+
+\begin{figure}[h]
+   \centering
+   %                       left down right top
+   \includegraphics[trim = 0mm 140mm 90mm 0mm, clip, width=10cm,natwidth=2.570in,natheight=0.580in]{before}
    \caption{Flowchart for user interaction when selecting port forwarding on the conventional port forwarding tab}
    \label{fig:before}
 \end{figure}
@@ -291,8 +299,7 @@ In the projects improved port forwarding dialog, the user is confronted with few
 As shown in figure \ref{fig:after}, 
 \begin{figure}[h]
    \centering
-   %                       left down right top
-   %\includegraphics[trim = 0mm 174mm 80mm 0mm, clip, width=10cm]{after}
+   \includegraphics[trim = 0mm 174mm 80mm 0mm, clip, width=10cm,natwidth=2.570in,natheight=0.580in]{after}
    \caption{Flowchart for user interaction when selecting port forwarding on wizard page}
    \label{fig:after}
 \end{figure}
@@ -395,24 +402,56 @@ These parts are connected through the underlying software and presented on the u
 As shown in figure~\ref{fig:wizard-seq_dia}, the communication between the parts of the port forwarding process is outlined.
 The user initiates the identification procedure and the identification process starts.
 When the results from the identification are returned the list of presets is sorted, based on identification and the user can review their options.
-By selecting the name of the service, the correct forwarding rules are loaded and presented to the user, who can then chose to apply them, after which they are written to the configuration files.
+
 \begin{figure}[h!]
    \centering
-   \includegraphics[trim = 0mm 190mm 30mm 0mm, clip, width=15cm]{wizard-seq_dia}
-   \caption{Sequential diagram of applying port forwarding rules}
+   \includegraphics[trim = 0mm 195mm 30mm 0mm, clip, width=15cm,natwidth=1.0in,natheight=1.0in]{wizard-seq_dia}
+   \caption{Sequential diagram of applying port forwarding rules, the User box represents the view or the user interaction part of the implementation}
    \label{fig:wizard-seq_dia}
 \end{figure}
 %   \section{Human-computer interaction}
 %This is a cite\cite{garrett2003elements}
 
    \section{User interface}
-For a port forwarding interface page, the user is presented with detected nodes and their respective network services.
+For a port forwarding interface page, the user is presented with detected nodes and their corresponding network services, as shown in figure~\ref{fig:scanning}.
 Listed presets are sorted by the output from the service identification process, presenting the user with the most likely services at the top of the list.
 
 To apply the port forwarding rule set, the user selects a node in the network and the service from the sorted list, then applies it.
+
+
+% places two figures side by side
+\begin{figure}[h]
+   \begin{minipage}[b]{0.45\linewidth}
+      \centering
+      \includegraphics[width=\textwidth]{ss-scanning-shadow}
+   \end{minipage}
+   \hspace{0.5cm}
+   \begin{minipage}[b]{0.45\linewidth}
+      \centering
+      \includegraphics[width=7cm]{ss-scanned-shadow}
+   \end{minipage}
+   \caption{Screenshots of scanning the local network for available services}
+   \label{fig:scanning}
+\end{figure}
+
+\begin{figure}[h]
+   \centering
+   %                       left down right top
+   \includegraphics[width=7cm]{ss-applying-shadow}
+   \caption{Screenshot of applying the forwarding rules}
+   \label{fig:applying}
+\end{figure}
+
 Instead of performing all the steps automatically, the user is required to interact and approve of the suggested changes.
 The service identification is there to help the users make choices, not deciding for them.
 
+\begin{figure}[h]
+   \centering
+   %                       left down right top
+   \includegraphics[width=13cm]{ss-results-shadow.png}
+   \caption{Results visible from the conventional firewall configuration page}
+   \label{fig:scanning}
+\end{figure}
 
 %explain your approach in a general overview
 The implementation consists of three general parts that work together in delivering easier forwarding rules configuration.
@@ -559,7 +598,7 @@ Its services in terms of ports are well known and defined in the preset part of 
 Scanning a Raspberry Pi installed with the options \emph{web server}, \emph{mail server} and \emph{ssh server}, detect these services and ports as shown in figure \ref{fig:rasp_scan}.
 The mail server option in the installer, enables identification on ports 110, 143, 993 and 995 because of the various email delivery protocols.
 
-   \begin{figure}[t]
+   \begin{figure}[h]
       \centering
       \label{fig:rasp_scan}
       \begin{lstlisting}[escapechar=!]
