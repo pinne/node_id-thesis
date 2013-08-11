@@ -269,21 +269,27 @@ This was the main goal of the user experience, removing the possibility of misst
 \begin{figure}[h]
    \centering
    %                       left down right top
-   \includegraphics[width=15cm]{ss-before-shadow}
+   \includegraphics[width=17cm]{ss-before-shadow}
    \caption{Current port forwarding dialog, the user is burdened with identifying and applying rules for every port of the service}
    \label{fig:before}
 \end{figure}
 
-\begin{figure}[h]
-   \centering
-   %                       left down right top
-   \includegraphics[trim = 0mm 140mm 90mm 0mm, clip, width=10cm,natwidth=2.570in,natheight=0.580in]{before}
-   \caption{Flowchart for user interaction when selecting port forwarding on the conventional port forwarding tab}
-   \label{fig:before}
+\begin{figure}[h] % usability flowchart, side-by-side
+   \begin{minipage}[b]{0.45\linewidth}
+      \centering
+      \includegraphics[trim = 4mm 140mm 90mm 0mm, clip, width=8cm,natwidth=2.570in,natheight=0.580in]{before}
+   \end{minipage}
+%   \hspace{0.5cm}
+   \begin{minipage}[b]{0.45\linewidth}
+      \centering
+      \includegraphics[trim = 0mm 174mm 80mm 0mm, clip, width=10cm,natwidth=2.570in,natheight=0.580in]{after}
+   \end{minipage}
+   \caption{Flowchart for configuring port forwarding, illustrating differences in user interaction with the conventional port forwarding tab (left chart), to the one presented in this paper (right chart)}
+   \label{fig:usability}
 \end{figure}
 
-In figure \ref{fig:before}, we see a conceptual flowchart of the all the steps in the current user interaction when port forwarding, the two parts called ``Look it up!'' requires a switch of context which can delay the configuration of the port forwarding.
-The mental steps and actions within the gray area of figure \ref{fig:before}, will form a loop every time the service has several protocols and ports.
+In figure \ref{fig:usability}, we see a conceptual flowchart of the all the steps in the current user interaction when port forwarding, the two parts called ``Look it up!'' requires a switch of context which can delay the configuration of the port forwarding.
+The mental steps and actions within the gray area of figure \ref{fig:usability}, will form a loop every time the service has several protocols and ports.
 
 In addition to the ``Look it up!'' steps, in the example of the XBox 360 -- which has four ports -- the user have to perform seven additional actions for the three remaining ports:
 \begin{itemize}
@@ -296,13 +302,7 @@ One goal of this degree project is presenting a more guiding and interactive app
 
 \section{Guided firewall tab}
 In the projects improved port forwarding dialog, the user is confronted with fewer mental steps.
-As shown in figure \ref{fig:after}, 
-\begin{figure}[h]
-   \centering
-   \includegraphics[trim = 0mm 174mm 80mm 0mm, clip, width=10cm,natwidth=2.570in,natheight=0.580in]{after}
-   \caption{Flowchart for user interaction when selecting port forwarding on wizard page}
-   \label{fig:after}
-\end{figure}
+As shown in figure \ref{fig:usability}, 
 
 \section{Alternative using a locally run application}
 %skriv något om alternativa program typ port scanner och guider på nätet
