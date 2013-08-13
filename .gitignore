@@ -2,6 +2,7 @@
 .*.swp
 *.d
 *~
+*.autosave
 
 *.acn
 *.acr
