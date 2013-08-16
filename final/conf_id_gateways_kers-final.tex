@@ -421,7 +421,7 @@ When the results from the identification are returned the list of presets is sor
 \begin{figure}[h!]
    \centering
    \includegraphics[trim = 0mm 195mm 30mm 0mm, clip, width=15cm,natwidth=1.0in,natheight=1.0in]{wizard-seq_dia}
-   \caption{Sequential diagram of applying port forwarding rules, the User box represents the view or the user interaction part of the implementation}
+   \caption{Sequential diagram of applying port forwarding rules, the User box represents the view or the user interaction part of the implementation.}
    \label{fig:wizard-seq_dia}
 \end{figure}
 %   \section{Human-computer interaction}
@@ -432,7 +432,7 @@ By selecting the name of the service, the correct forwarding rules are loaded an
 The port forwarding wizard works with the standard OpenWrt configuration files\footnote{OpenWrt can be configured using Unified Configuration System, or UCI. It also provides a command-line utility and provides an API for programming languages such as C and Lua} and uses nmap as its backend for discovering and identifying services on the local network.
 
    \section{User interface}
-For a port forwarding interface page, the user is presented with detected nodes and their corresponding network services, as shown in figure~\ref{fig:scanning}.
+For a port forwarding interface page, the user is presented with detected nodes and their corresponding network services, as shown in figure~\ref{fig:scannin}.
 Listed presets are sorted by the output from the service identification process, presenting the user with the most likely services at the top of the list.
 To apply the port forwarding rule set, the user selects a node in the network and the service from the sorted list, then applies it.
 
@@ -448,15 +448,15 @@ To apply the port forwarding rule set, the user selects a node in the network an
       \centering
       \includegraphics[width=7cm]{ss-scanned-shadow}
    \end{minipage}
-   \caption{Screenshots of scanning the local network for available services}
-   \label{fig:scanning}
+   \caption{Screenshots of scanning the local network for available services.}
+   \label{fig:scannin}
 \end{figure}
 
 \begin{figure}[h]
    \centering
    %                       left down right top
    \includegraphics[width=7cm]{ss-applying-shadow}
-   \caption{Screenshot of applying the forwarding rules}
+   \caption{Screenshot of applying the forwarding rules.}
    \label{fig:applying}
 \end{figure}
 
@@ -467,8 +467,8 @@ The service identification is there to help the users make choices, not deciding
    \centering
    %                       left down right top
    \includegraphics[width=13cm]{ss-results-shadow.png}
-   \caption{Results visible from the conventional firewall configuration page}
-   \label{fig:scanning}
+   \caption{Results visible from the conventional firewall configuration page.}
+   \label{fig:results}
 \end{figure}
 
 %explain your approach in a general overview
@@ -565,7 +565,7 @@ sys \ 0m 2.37s}!
       \end{lstlisting}
       \caption{
          \small{
-Raw output of first Nmap scan of XBox 360, failing to guess target operating system
+Raw output of first Nmap scan of XBox 360, failing to guess target operating system.
          }
       }
       \label{fig:nmapos}
@@ -601,7 +601,7 @@ sys \ 0m 1.44s}!
       \end{lstlisting}
       \caption{
 	 \small{
-       Raw output of deeper Nmap scan of XBox 360, positively identifying it as \emph{XBox 360 UPnP}
+       Raw output of deeper Nmap scan of XBox 360, positively identifying it as \emph{XBox 360 UPnP}.
 	 }
       }
       \label{fig:nmapxbox}
@@ -688,7 +688,7 @@ To address this issue one could adjust the service to preload the automatic iden
       \end{lstlisting}
       \caption{
          \small{
-Port forwarding section in the UCI \emph{firewall} configuration file
+Port forwarding section in the UCI \emph{firewall} configuration file.
          }
       }
       \label{fig:redirect_conf}
@@ -723,7 +723,7 @@ Port forwarding section in the UCI \emph{firewall} configuration file
       \end{lstlisting}
       \caption{
          \small{
-Preset for port forwarding sections in the UCI \emph{preset} configuration file
+Preset for port forwarding sections in the UCI \emph{preset} configuration file.
          }
       }
       \label{fig:preset_conf}
