@@ -183,15 +183,24 @@ Finally I would like to thank everyone involved in free and open-source software
 \pagestyle{newchap}
 \chapter{Introduction}
 %brief introduction to inteno and the product
-%\section{Background}
+\section{Background}
 Inteno Broadband Technology is a company that supplies \emph{customer premises equipment} (CPE) for internet service providers.  
 Their headquarters and \emph{research and development center} is located in Stockholm, Sweden.
 Inteno Open Systems Platform, or \emph{iopsys}, is a Linux-based open source platform running on their CPE.
 It is based on the OpenWrt distribution which targets embedded devices, specifically network gateways.\cite{Inteno}
 
+The research and development department at Inteno works on improving the platform, adding value to the end users, the operators and the larger OpenWrt software ecosystem.
+By the nature of OpenWrt's free software licence\cite{gnu-license}, the code is publicly released and available for download from Intenos webpage.\cite{inteno_gpl}
+
+There are simple ways in which to improve the user experience, developers of network gateway software often implement a set of presets of port forwarding rules for common applications.
+The interface presents the user with a list of application names and lets the user select an IP address, for which the forwarding rules should apply.
+
+Working from the theory that a good user experience lies in the details, iterative improvements of the system is the preferred way to address it.
+This project contributes to the ongoing work of improving details of user experience, strengthening the product and saving costs for support.
+
 %identified a real problem (motivate that it is real and interesting)
 The technical support departments of partners and resellers of Inteno CPE, are looking to reduce support costs and improve customer experience. 
-Support issues creates costs for the business and by reducing the number of support tickets and their processing time, these costs can be reduced.
+Support issues creates costs for the business and by reducing the number of support tickets and their processing time, these can be reduced.
 
 \section{Goals}
 %come up with a solution (give a rough idea what the solution looks like)
@@ -236,17 +245,6 @@ The preset system is extensible, allowing retailers to add their own devices and
 
 DNS translation of the gateway IP address, allows easy access through the web browser by simply entering a domain name in the address bar, which should be easier for users than remembering or figuring out its IP.
 This works by translating the gateways internal IP address to a domain name and keeping it up to date whenever the IP is changed.
-
-\chapter{Background}
-
-The research and development department at Inteno works on improving the platform, adding value to the end users, the operators and the larger OpenWrt software ecosystem.
-By the nature of OpenWrt's free software licence\cite{gnu-license}, the code is publicly released and available for download from Intenos webpage.\cite{inteno_gpl}
-
-There are simple ways in which to improve the user experience, developers of network gateway software often implement a set of presets of port forwarding rules for common applications.
-The interface presents the user with a list of application names and lets the user select an IP address, for which the forwarding rules should apply.
-
-Working from the theory that a good user experience lies in the details, iterative improvements of the system is the preferred way to address it.
-This project contributes to the ongoing work of improving details of user experience, strengthening the product and saving costs for support.
 
 \chapter{Theory}
 %skriv något om alternativa program typ port forwarding
