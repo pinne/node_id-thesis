@@ -260,15 +260,31 @@ User interface and the graphical and sometimes physical design, is an important 
 Improving the graphical interface in electronic devices and its software, can cause irritations with the product and leave the user with a sense of hopelessness and self-blame.\cite[p.~34]{norman2002design}
 It is important to communicate a clear usage that is as unambiguous as possible to the user, this was decided to be the most important part of the layout.
 This was the main goal of the user experience, removing the possibility of misstep and communicating clearly, citing Krug's second law of usability\cite[p.~41]{krug2006don}, ``It doesn’t matter how many times I have to click, as long as each click is a mindless, unambiguous choice''.
+This lead to the idea of a port forwarding wizard.
+
+\section{Measuring improvements}
+For evaluating usability a more qualitative approach was chosen as opposed to testing on humans.
+The main motivation behind the qualitative analysis is that the workflow is independent of producing prototypes and mockups for a testing group.
+This allowed for a more sequential approach in delivering the module and provided time to familiarize with the OpenWrt ecosystem before implementing the user interface.
+On request of Inteno, the basic usability scenario chosen for evaluation was configuring port forwarding of the XBox 360.
+
+Disadvantages of not using actual usability tests with people, includes developers missing out on valuable feedback from the people they are designing it for.
+The iterative process of producing a prototype, having users test is and improving the design based on feedback is lost.
 
 \section{Current firewall tab}
 %Beskriv hur läget är, vad som är på tok osv
+There are a few issues with the current firewall tab for novice users.
+It requires the user to acquire all the ports necessary for the network service and in the case of our reference unit, this increases the chance of missteps and faulty configuration.
+Another issue that has been identified are the tedious steps involved in applying the rules through the web interface.
+For the device or network service to function properly, the user has to add a forwarding rule for each required port.
+A screenshot of the port forwarding form in the web interface is shown in figure \ref{fig:before}, in the case of our reference unit, the XBox 360, this requires four such steps.
+The general idea is reducing as many of these harder choices or replacing them with simpler ones.
 
 \begin{figure}[h]
    \centering
    %                       left down right top
    \includegraphics[width=17cm]{ss-before-shadow}
-   \caption{Current port forwarding dialog, the user is burdened with identifying and applying rules for every port of the service}
+   \caption{Current port forwarding dialog, the user is burdened with identifying and applying rules for every port of the service.}
    \label{fig:before}
 \end{figure}
 
@@ -282,7 +298,7 @@ This was the main goal of the user experience, removing the possibility of misst
       \centering
       \includegraphics[trim = 0mm 174mm 80mm 0mm, clip, width=10cm,natwidth=2.570in,natheight=0.580in]{after}
    \end{minipage}
-   \caption{Flowchart for configuring port forwarding, illustrating differences in user interaction with the conventional port forwarding tab (left chart), to the one presented in this paper (right chart)}
+   \caption{Flowchart for configuring port forwarding, illustrating differences in user interaction with the conventional port forwarding tab (left), to the one presented in this paper (right).}
    \label{fig:usability}
 \end{figure}
 
@@ -296,7 +312,7 @@ In addition to the ``Look it up!'' steps, in the example of the XBox 360 -- whic
    \item Enter description
 \end{itemize}
 
-One goal of this degree project is presenting a more guiding and interactive approach, which results in fewer mental steps
+The main purpose of the usability improvements presented in this project, is presenting a more guiding and interactive approach, resulting in fewer mental steps.
 
 \section{Guided firewall tab}
 In the projects improved port forwarding dialog, the user is confronted with fewer mental steps.
