@@ -651,20 +651,23 @@ Service detection fits with the preset data and the combination of these results
 Detection is currently slow and tweaking the scan arguments any more were outside the scope of this project.
 
 The identification process of the XBox 360 is not a generic Nmap solution, it requires a workaround implemented in the shell script wrapper.
-This behaviour is undesirable but perhaps acceptable, depending on the frequency of the issue.
+This behaviour is not optimal but perhaps acceptable, depending on the frequency of the issue of future devices not delivering sufficient data for Nmap fingerprinting.
 Considering the CPE operators various needs, we are unable to draw any conclusions as to weather it should be implemented as part of the default distribution or not.
+
+The choice of not employing usability testing and working in an iterative process while developing the design was a mistake.
+The scope of usability enhancement were however relatively small and we conclude that the results of the improvements made to the graphical user interface are positive in terms of usability.
 
 \newpage
 \section{Further development}
 %explain how to fix shortcommings of work and how to fix them
-The solution using Nmap could be interpreted as illegal activity and attempts at exploiting the systems of a network administrator, this is a risk which could render the proposed solution undesirable.
+The solution using Nmap could be interpreted as illegal activity and attempts at exploiting the systems of network administrators and intrusion detection systems, this is a risk which could render the proposed solution undesirable.
 A fix for this would be to implement a less intrusive way of identifying services, reviewing the ARP tables which contains the cache of the address resolution protocol.
 One could filter possible devices by their manufacturers MAC address, with an already populated ARP table this procedure is unintrusive and fast.
-A more detailed Nmap \emph{version scan} could then be performed according to a configuration file, mapping MAC addresses to minimal Nmap commands.
+A more detailed Nmap \emph{version scan} could then be performed according to a configuration file, mapping MAC addresses of known device manufacturers to more lightweight Nmap scans.
 It would be a better fit for our reference model, but more error-prone and less generic than using Nmap.
 
-The execution time of Nmap is an issue, on local networks with several devices the latency would be deemed too high, for many use cases.
-To address this issue one could adjust the service to preload the automatic identification results and have it run in the background, to provide a more responsive user experience with the cached results.
+The execution time of Nmap is an issue, on local networks with several devices the latency would be deemed too high, for several use cases.
+To address this issue one could adjust the service to preload the automatic identification results and have it run in the background, to provide a more responsive user experience using the cached results.
 
 \newpage
 \newpage
