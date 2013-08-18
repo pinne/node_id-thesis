@@ -349,6 +349,10 @@ Instead the developer has to resort to manually handling named pipes, which crea
 An example redirecting the output from a command a named pipe, and processing the output of that command is available in appendix \ref{fig:fifo}.
 
 \subsection{JavaScript}
+JavaScript is a common interpreted programming language mostly used in client-side web development.
+For the LuCI web interface in OpenWrt, the view can be extended using JavaScript\footnote{Just like in ordinary web design} to include custom graphical elements and interaction logic in the Model-View Controller framework.
+LuCI can perform much of the heavy lifting when it comes to interactive pages, but it supplies support routines for AJAX operations through their \emph{xhr.js} library.
+For a code example on how to perform an XMLHttpRequest, sending data from JavaScript to the Lua backend and receiving an answer, please refer to figure~\ref{fig:javascript}.
 
 \section{Software suite}
 
@@ -734,7 +738,7 @@ Preset for port forwarding sections in the UCI \emph{preset} configuration file.
       \label{fig:preset_conf}
    \end{figure}
 
-\chapter{Shell scripting}\label{appB}
+\chapter{Programming and shell scripting}\label{appB}
    \begin{figure}[ht]
       \centering
       \lstset{language=sh}
@@ -769,6 +773,25 @@ This example parses the output of Nmap and returns the results as a JSON string.
       }
       \label{fig:fifo}
    \end{figure}
+
+   \begin{figure}[h!]
+   \centering
+      \lstset{language=java}
+      \begin{lstlisting}
+xhr.get('<%=luci.dispatcher.build_url("admin","wizard")%>/get_list/'+argument, null,
+    function(reply) {
+        // Perform operation on 'reply'
+    }
+);
+      \end{lstlisting}
+      \caption{
+         \small{
+Example of calling the LuCI dispatcher from client-side JavaScript with an argument, using xhr.js.
+         }
+      }
+      \label{fig:javascript}
+   \end{figure}
+
 
 \bibliographystyle{plain}
 \bibliography{bibliography}
