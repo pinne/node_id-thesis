@@ -417,9 +417,9 @@ The controller part of the LuCI MVC framework is the dispatching tree.
 It associates input events with logic in the model, and contains a tree of dispatching actions which is most apparent in the display of the dropdown menus of the web site.
 
 \subsection{Dnsmasq}
-% TODO
 In order for the user to have access to the web interface by a domain name instead of an IP address, we use DNS.
 Dnsmasq is a lightweight DNS server, using the $/etc/hosts$ file to translate IP addresses on the local network to domain names.\cite{dnsmasq}
+The simple operation of Dnsmasq is suitable for serving address translations on smaller networks, such as LAN.
 
 \chapter{Implementation}
 The overall design of the system consists of two parts, the service identification and port forwarding presets.
@@ -487,9 +487,18 @@ The implementation consists of three general parts that work together in deliver
 As shown in figure~\ref{fig:wizard-seq_dia}, the three configuration files that together with user input, are used as sources for the final redirection rule in the firewall configuration file.
 The service detection wrapper returns the newly discovered services, these can then be matched against a preset of forwarding rules.
 
+\section{Internal DNS}
+The implementation of the internal IP address translation is a small and simple improvement of the user experience.
+In order for the end user to reach the web interface they need to find out and enter the IP address of the gateway.
+DNS works by translating hard to remember IP addresses to memorable domain names, by using the lightweight DNS forwarder Dnsmasq we can make the web interface easier to access.
+Being a standard part of most operating systems, the hosts file keeps a localized record of address translations.
+On most Unix-like operating systems the hosts file is assessable from $/etc/hosts$, and consist of a text file that list IP addresses and their corresponding domain name.
+
+This small usability improvement consists of a shell script that keeps the routers current IP up to date with the domain name $login.lan$.
+Since any DNS request passes through the router, Dnsmasq can translate the domain name to its own IP address.
+The source code of this implementation is available in figure~\ref{fig:dnsmasq}.
 %The OpenWrt distribution provides a complete platform for compiling and deploying a gateway firmware image.
 
-\newpage
 % $#@! Jag kan inte hitta hur metodval för att lösa uppgiften har gjorts. Du använder dig av Nmap och en Wrapper, men undersökte du andra möjligheter och varför fasnade du i sådana fall för just den här lösningen? 
 \section{Nmap}
 The program \emph{Nmap} is a popular network discovery program, and was chosen as the engine for the service scanner implementation.
@@ -843,7 +852,7 @@ main
 Script that keeps the IP address translation for the local network up to date, allowing users to access the gateway by visiting $http://login.lan$ in their web browsers address bar.
          }
       }
-      \label{fig:javascript}
+      \label{fig:dnsmasq}
    \end{figure}
 
 \bibliographystyle{plain}
