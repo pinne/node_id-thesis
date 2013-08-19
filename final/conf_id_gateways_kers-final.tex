@@ -419,6 +419,11 @@ When sticking to CBI models, most of the code and design effort can be put into 
 The controller part of the LuCI MVC framework is the dispatching tree.
 It is an hierarchical representation of 
 
+\subsection{Dnsmasq}
+% TODO
+In order for the user to have access to the web interface by a domain name instead of an IP address, we use DNS.
+Dnsmasq is a lightweight DNS server, using the $/etc/hosts$ file to translate IP addresses on the local network to domain names.\cite{dnsmasq}
+
 \chapter{Implementation}
 The overall design of the system consists of two parts, the service identification and port forwarding presets.
 These parts are connected through the underlying software and presented on the user interface.
@@ -795,6 +800,52 @@ Example of calling the LuCI dispatcher from client-side JavaScript with an argum
       \label{fig:javascript}
    \end{figure}
 
+   \begin{figure}[h!]
+   \centering
+      \lstset{language=sh}
+      \begin{lstlisting}
+#!/bin/sh
+#update hosts file to enable access through "http://login.lan/" from LAN PC
+
+string="login.lan login"
+HOSTS=/etc/hosts
+IP=`uci get network.lan.ipaddr`
+
+reload_dns() {
+    /etc/init.d/dnsmasq reload &
+}
+
+main() {
+    ROW=0
+    while read LINE; do
+        ROW=$((ROW+1))
+
+        case $LINE in
+            # Already up to date, exit
+            "$string")
+                exit;;
+
+            # Change to current IP, reload
+            *"$string")
+                sed -i -e "$ROW s/.*/$IP\ $string/g" $HOSTS
+                reload_dns
+                exit;;
+        esac
+    done < $HOSTS
+
+    # Add new entry
+    echo "$IP $string" >> $HOSTS
+}
+
+main
+      \end{lstlisting}
+      \caption{
+         \small{
+Script that keeps the IP address translation for the local network up to date, allowing users to access the gateway by visiting $http://login.lan$ in their web browsers address bar.
+         }
+      }
+      \label{fig:javascript}
+   \end{figure}
 
 \bibliographystyle{plain}
 \bibliography{bibliography}
