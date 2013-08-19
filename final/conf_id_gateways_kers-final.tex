@@ -382,10 +382,7 @@ It offers the BusyBox set of barebones UNIX tools, enabling advanced users to fu
 
 \emph{Unified Configuration Interface}, or UCI, is used in OpenWrt as a uniform format for commonly used configuration files.
 UCI has a Lua bindings as well as a command line interface, to read and modify the configuration files.
-Rules for port forwarding are defined in the UCI compatible configuration file in:
-\begin{verbatim}
-    /etc/config/firewall
-\end{verbatim}
+Rules for port forwarding are defined in the UCI compatible configuration file in $/etc/config/firewall$.
 
 A port forwarding rule which forwards external HTTP traffic over port 80 to the internal IP 192.168.1.214, is shown in figure \ref{fig:redirect_conf} in appendix \ref{appA}.
 The line \emph{config redirect} defines the start of a section, a section contains several values and a UCI configuration file can have several such sections.
@@ -417,7 +414,7 @@ When sticking to CBI models, most of the code and design effort can be put into 
 
 % TODO
 The controller part of the LuCI MVC framework is the dispatching tree.
-It is an hierarchical representation of 
+It associates input events with logic in the model, and contains a tree of dispatching actions which is most apparent in the display of the dropdown menus of the web site.
 
 \subsection{Dnsmasq}
 % TODO
@@ -492,6 +489,7 @@ The service detection wrapper returns the newly discovered services, these can t
 
 %The OpenWrt distribution provides a complete platform for compiling and deploying a gateway firmware image.
 
+\newpage
 % $#@! Jag kan inte hitta hur metodval för att lösa uppgiften har gjorts. Du använder dig av Nmap och en Wrapper, men undersökte du andra möjligheter och varför fasnade du i sådana fall för just den här lösningen? 
 \section{Nmap}
 The program \emph{Nmap} is a popular network discovery program, and was chosen as the engine for the service scanner implementation.
@@ -680,8 +678,9 @@ One could filter possible devices by their manufacturers MAC address, with an al
 A more detailed Nmap \emph{version scan} could then be performed according to a configuration file, mapping MAC addresses of known device manufacturers to more lightweight Nmap scans.
 It would be a better fit for our reference model, but more error-prone and less generic than using Nmap.
 
-The execution time of Nmap is an issue, on local networks with several devices the latency would be deemed too high, for several use cases.
+The execution time of Nmap is an issue, on local networks with several devices the latency would be deemed too high for several use cases.
 To address this issue one could adjust the service to preload the automatic identification results and have it run in the background, to provide a more responsive user experience using the cached results.
+But allowing such background jobs that are not system-critical will most likely be deemed too wasteful on embedded systems.
 
 \newpage
 \newpage
