@@ -328,7 +328,7 @@ In figure~\ref{fig:usability}, we see a conceptual flowchart of the all the step
       \centering
       \includegraphics[trim = 0mm 174mm 80mm 0mm, clip, width=10cm,natwidth=2.570in,natheight=0.580in]{after}
    \end{minipage}
-   \caption{Flowchart for configuring port forwarding, illustrating differences in user interaction with the conventional port forwarding tab (left), to the one presented in this paper (right).}
+   \caption{Usability flowchart for configuring port forwarding, illustrating differences in user interaction with the conventional port forwarding tab (left), to the one presented in this paper (right).}
    \label{fig:usability}
 \end{figure}
 
@@ -359,17 +359,18 @@ The permissiveness and features of bash, has brought along handy constructs such
 Instead the developer has to resort to manually handling named pipes, which creates a temporary buffer in which the processes can exchange data.
 An example redirecting the output from a command a named pipe, and processing the output of that command is available in appendix \ref{fig:fifo}.
 
-\subsection{JavaScript}
+\subsection{JavaScript} \label{javascript}
 JavaScript is a common interpreted programming language mostly used in client-side web development.
-For the LuCI web interface in OpenWrt, the view can be extended using JavaScript\footnote{Just like in ordinary web design} to include custom graphical elements and interaction logic in the Model-View Controller framework.
+For the LuCI web interface in OpenWrt, the view can be extended using JavaScript\footnote{Just like in ordinary web design} to include custom graphical elements and interaction logic to the Model-View Controller framework.
 LuCI can perform much of the heavy lifting when it comes to interactive pages, but it supplies support routines for AJAX operations through their \emph{xhr.js} library.
-For a code example on how to perform an XMLHttpRequest, sending data from JavaScript to the Lua backend and receiving an answer, please refer to figure~\ref{fig:javascript}.
+AJAX calls are used extensively in the module, because of the difficulty of writing interaction logic sticking to the LuCI CBI models.
+For an example on how to perform an XMLHttpRequest, sending data from JavaScript to the Lua backend and receiving an answer, please refer to figure~\ref{fig:javascript}.
 
 \section{Software suite}
 
 The newer Inteno devices ship with the OpenWrt distribution, which is a small GNU/Linux operating system.
 It provides the developer with the basic UNIX debugging tools and a POSIX compatible command-line interface shell.
-As common with free software, the OpenWrt exists in an ecosystem of applications and tools, in this chapter a few of these parts are discussed.
+As common with free software, the OpenWrt exists in an ecosystem of applications and tools, in this section a few of these parts are discussed.
 
 \subsection{OpenWrt}
 OpenWrt is a free and open-source GNU/Linux distribution, targeting embedded devices, specifically wireless routers, but can run on almost any set of hardware.
@@ -425,7 +426,7 @@ The simple operation of Dnsmasq is suitable for serving address translations on 
 The overall design of the system consists of two parts, the service identification and port forwarding presets.
 These parts are connected through the underlying software and presented on the user interface.
 
-As shown in figure~\ref{fig:wizard-seq_dia}, the communication between the parts of the port forwarding process is outlined.
+Communication between the parts of the port forwarding process is outlined in figure~\ref{fig:wizard-seq_dia}.
 The user initiates the identification procedure and the identification process starts.
 When the results from the identification are returned the list of presets is sorted, based on identification and the user can review their options.
 
@@ -477,14 +478,12 @@ The service identification is there to help the users make choices, not deciding
 \begin{figure}[h]
    \centering
    %                       left down right top
-   \includegraphics[width=13cm]{ss-results-shadow.png}
+   \includegraphics[width=10cm]{ss-results-shadow.png}
    \caption{Results visible from the conventional firewall configuration page.}
    \label{fig:results}
 \end{figure}
 
-%explain your approach in a general overview
-The implementation consists of three general parts that work together in delivering easier forwarding rules configuration.
-As shown in figure~\ref{fig:wizard-seq_dia}, the three configuration files that together with user input, are used as sources for the final redirection rule in the firewall configuration file.
+As shown in figure~\ref{fig:wizard-seq_dia}, the two configuration files that together with user input, are used as sources for the final redirection rule in the firewall configuration file.
 The service detection wrapper returns the newly discovered services, these can then be matched against a preset of forwarding rules.
 
 \section{Internal DNS}
@@ -515,14 +514,14 @@ Cut-through switching, as opposed to store and forward, starts forwarding the pa
 Executing the Nmap scanning utility and returning results, is implemented as a shell script.
 %skriv att du valde att göra shellhax istället för Lua
 In the development process of the wrapper, a shell script was written to test the functionality and extract data about the detected services.
-The original thought was to replace this with a Lua script, to make it more cohesive with the rest of the system.
+The original intent was to replace this with a Lua script, for a more consistent codebase in regards to the rest of the system.
 Due to lack of time, the rewrite was cancelled and a quick adaptation was made to to the script to return valid JSON for the JavaScript frontend.
 
 % $#@! Det vore även upplysande att se ett exempel på resultatet av en sådan extrascanning som beskrivs längst ned på sidan 11 alternativt hänvisa till information som du presenterar i Appendix.
 %discuss tradeoffs, discuss traps you've fallen into
 %skriv att xbox inte hittas och att du var tvungen att haxa
 While testing the service identification features of Nmap, there is no way for Nmap to positively identify an XBox 360.
-This failure was due to an inconclusive fingerprint, but using the flag called version scan -- run with arguments \emph{-sV} -- Nmap interrogates ports and returns more information than a regular operating system scan.
+This failure was due to an inconclusive fingerprint, but using the flag called version scan -- run with arguments \emph{-sV} -- Nmap interrogates ports more thoroughly and returns more information than a regular operating system scan.
 The extra scan using the Nmap \emph{version scan}, was successfully used to identify the XBox 360.
 Whenever the service is identified as \emph{LSA-or-nterm}, the TCP ports 1026 and 1027, were scanned, either of these are in use by the XBox 360.\cite{aretheysecure}
 A more thorough version scan is issued for the device and then matched for \emph{XBox 360 UPnP}, which the wrapper is set to interpret as a positive match and returns its service name\footnote{The XBox 360 is labeled \emph{xbox360} in the configuration presets}.
@@ -534,10 +533,23 @@ Details of these ports and protocols are provided by the application developers,
 
 Using the \emph{Unified Configuration System}, which is included in the OpenWrt distribution, all the basic commands for configuring the firewall rules were prototyped and explored.
 A set of \emph{XBox 360} port forwarding rules from the preset configuration file is shown in figure \ref{fig:redirect_conf} in appendix \ref{appA}.
-
 The rules were formatted to fit the UCI configuration file format and returned as JSON to the JavaScript frontend in an AJAX call through the Lua dispatcher.\footnote{The dispatcher is the \emph{Controller} in the MVC framework}
 
+For the scope of this project the following services is added to the preset library:
+\begin{itemize}
+   \item Xbox360
+   \item HTTP traffic
+   \item POP3 email
+   \item FTP traffic
+   \item SSH traffic
+   \item IMAP email
+   \item IMAP3 email
+   \item IMAPS email
+   \item POP3S email
+\end{itemize}
+
 Applying the rules requires the user to select the desired service from a list, and pressing a button which runs a JavaScript function, performing an AJAX call to the Lua backend, issuing the UCI calls.
+See section~\ref{javascript} for examples of how JavaScript is used in the LuCI module.
 
 %\section{Dispatching commands}
 
@@ -783,8 +795,7 @@ Preset for port forwarding sections in the UCI \emph{preset} configuration file.
       \end{lstlisting}
       \caption{
          \small{
-Using a named pipe to redirect the output of one program to a temporary file and reading it line by line, performing operations.
-This example parses the output of Nmap and returns the results as a JSON string.
+Wrapper for Nmap, by using a named pipe to redirect the output of one program to a temporary file and reading it line by line, the wrapper parses the output and formats it as a JSON string.
          }
       }
       \label{fig:fifo}
