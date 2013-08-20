@@ -424,11 +424,11 @@ The simple operation of Dnsmasq is suitable for serving address translations on 
 
 \chapter{Implementation}
 The overall design of the system consists of two parts, the service identification and port forwarding presets.
-These parts are connected through the LuCI dispatcher\footnote{Not shown in diagram}, and the model.
-Communication between the parts of the port forwarding process is outlined in figure~\ref{fig:wizard-seq_dia}.
+These parts are connected by the LuCI dispatcher\footnote{Not shown in diagram} and the model.
+Communication between the different parts of the port forwarding process is outlined in figure~\ref{fig:wizard-seq_dia}.
 The user initiates the identification procedure and the identification process starts.
 Nmap and its wrapper script is represented by the $package:detect$ process in the digram, it receives a call from the dispatcher that originates in an AJAX call from the view.
-A scan is performed in the background which %TODO
+A scan is then performed in the background by Nmap, which %TODO
 When the results from the identification are returned the list of presets is sorted, based on identification and the user can review their options.
 
 \begin{figure}[h!]
@@ -481,22 +481,9 @@ Instead of performing all the steps automatically, the user is required to inter
 The service identification is there to help the users make choices, not deciding for them.
 
 Visible in the sequential diagram of figure~\ref{fig:wizard-seq_dia} are the two UCI configuration $/etc/config/firewall$ and $/etc/config/preset$, located on the router filesystem.
-The preset file the source of the final redirection rule in the firewall configuration file.
 The service detection wrapper returns the newly discovered services, these can then be matched against a preset of forwarding rules.
+The final redirection rules in the firewall configuration file are thus constructed from the preset library, the network service scan and the users choice.
 
-\section{Internal DNS}
-The implementation of the internal IP address translation is a small and simple improvement of the user experience.
-In order for the end user to reach the web interface they need to find out and enter the IP address of the gateway.
-DNS works by translating hard to remember IP addresses to memorable domain names, by using the lightweight DNS forwarder Dnsmasq we can make the web interface easier to access.
-Being a standard part of most operating systems, the hosts file keeps a localized record of address translations.
-On most Unix-like operating systems the hosts file is assessable from $/etc/hosts$, and consist of a text file that list IP addresses and their corresponding domain name.
-
-This small usability improvement consists of a shell script that keeps the routers current IP up to date with the domain name $login.lan$.
-Since any DNS request passes through the router, Dnsmasq can translate the domain name to its own IP address.
-The source code of this implementation is available in figure~\ref{fig:dnsmasq}.
-%The OpenWrt distribution provides a complete platform for compiling and deploying a gateway firmware image.
-
-% $#@! Jag kan inte hitta hur metodval för att lösa uppgiften har gjorts. Du använder dig av Nmap och en Wrapper, men undersökte du andra möjligheter och varför fasnade du i sådana fall för just den här lösningen? 
 \section{Nmap}
 The program \emph{Nmap} is a popular network discovery program, and was chosen as the engine for the service scanner implementation.
 The XBox 360 gaming console was chosen at Inteno's suggestion, with the motivation that it is one of the devices that end users have had the most issues with, in regards to port forwarding.
@@ -551,6 +538,21 @@ See section~\ref{javascript} for examples of how JavaScript is used in the LuCI 
 
 %\section{Dispatching commands}
 
+\section{Internal DNS}
+The implementation of the internal IP address translation is a small and simple improvement of the user experience.
+In order for the end user to reach the web interface they need to find out and enter the IP address of the gateway.
+DNS works by translating hard to remember IP addresses to memorable domain names.
+By using the lightweight DNS forwarder Dnsmasq we can make the web interface easier to access.
+Being a standard part of most operating systems, the hosts file keeps a localized record of address translations.
+On most Unix-like operating systems the hosts file is assessable from $/etc/hosts$, and consist of a text file that list IP addresses and their corresponding domain name.
+
+This small usability improvement consists of a shell script that keeps the routers current IP up to date with the domain name $login.lan$.
+The script gets its current IP address from the UCI command-line interface, it then proceeds to iterate through the lines of the hosts file, updating the IP address associated with the $login.lan$ hostname.
+Since any DNS request passes through the router, Dnsmasq will now translate the human-memorable name to its own IP address.
+The source code of this implementation is available in figure~\ref{fig:dnsmasq}.
+%The OpenWrt distribution provides a complete platform for compiling and deploying a gateway firmware image.
+
+% $#@! Jag kan inte hitta hur metodval för att lösa uppgiften har gjorts. Du använder dig av Nmap och en Wrapper, men undersökte du andra möjligheter och varför fasnade du i sådana fall för just den här lösningen? 
 \chapter{Results}
 % $#@! Jämför även gärna med resultatet av en normal scanning.
 %lägg till resultat från scanningen med tid och exempel
@@ -811,7 +813,7 @@ xhr.get('<%=luci.dispatcher.build_url("admin","wizard")%>/get_list/'+argument, n
       \end{lstlisting}
       \caption{
          \small{
-Example of calling the LuCI dispatcher from client-side JavaScript with an argument, using xhr.js.
+Example of calling the LuCI dispatcher from client-side JavaScript with an argument, using the XMLHttpRequest helper class $xhr.js$ of LuCI.
          }
       }
       \label{fig:javascript}
