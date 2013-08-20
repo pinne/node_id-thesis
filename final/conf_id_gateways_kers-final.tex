@@ -424,10 +424,11 @@ The simple operation of Dnsmasq is suitable for serving address translations on 
 
 \chapter{Implementation}
 The overall design of the system consists of two parts, the service identification and port forwarding presets.
-These parts are connected through the underlying software and presented on the user interface.
-
+These parts are connected through the LuCI dispatcher\footnote{Not shown in diagram}, and the model.
 Communication between the parts of the port forwarding process is outlined in figure~\ref{fig:wizard-seq_dia}.
 The user initiates the identification procedure and the identification process starts.
+Nmap and its wrapper script is represented by the $package:detect$ process in the digram, it receives a call from the dispatcher that originates in an AJAX call from the view.
+A scan is performed in the background which %TODO
 When the results from the identification are returned the list of presets is sorted, based on identification and the user can review their options.
 
 \begin{figure}[h!]
@@ -444,7 +445,7 @@ By selecting the name of the service, the correct forwarding rules are loaded an
 The port forwarding wizard works with the standard OpenWrt configuration files\footnote{OpenWrt can be configured using Unified Configuration System, or UCI. It also provides a command-line utility and provides an API for programming languages such as C and Lua} and uses nmap as its backend for discovering and identifying services on the local network.
 
    \section{User interface}
-For a port forwarding interface page, the user is presented with detected nodes and their corresponding network services, as shown in figure~\ref{fig:scannin}.
+For a port forwarding interface page, the user is presented with detected nodes and their corresponding network services, as shown in figure~\ref{fig:scanning}.
 Listed presets are sorted by the output from the service identification process, presenting the user with the most likely services at the top of the list.
 To apply the port forwarding rule set, the user selects a node in the network and the service from the sorted list, then applies it.
 
@@ -461,29 +462,26 @@ To apply the port forwarding rule set, the user selects a node in the network an
       \includegraphics[width=7cm]{ss-scanned-shadow}
    \end{minipage}
    \caption{Screenshots of scanning the local network for available services.}
-   \label{fig:scannin}
+   \label{fig:scanning}
 \end{figure}
 
 \begin{figure}[h]
-   \centering
-   %                       left down right top
-   \includegraphics[width=7cm]{ss-applying-shadow}
-   \caption{Screenshot of applying the forwarding rules.}
-   \label{fig:applying}
+   \begin{minipage}[b]{0.40\linewidth}
+      \centering
+      \includegraphics[width=7cm]{ss-applying-shadow}
+   \end{minipage}
+   \begin{minipage}[b]{0.50\linewidth}
+      \includegraphics[width=10cm]{ss-results-shadow.png}
+   \end{minipage}
+   \caption{Screenshots of applying the forwarding rules and viewing the resulting redirection rules on the conventional firewall configuration page.}
+   \label{fig:results}
 \end{figure}
 
 Instead of performing all the steps automatically, the user is required to interact and approve of the suggested changes.
 The service identification is there to help the users make choices, not deciding for them.
 
-\begin{figure}[h]
-   \centering
-   %                       left down right top
-   \includegraphics[width=10cm]{ss-results-shadow.png}
-   \caption{Results visible from the conventional firewall configuration page.}
-   \label{fig:results}
-\end{figure}
-
-As shown in figure~\ref{fig:wizard-seq_dia}, the two configuration files that together with user input, are used as sources for the final redirection rule in the firewall configuration file.
+Visible in the sequential diagram of figure~\ref{fig:wizard-seq_dia} are the two UCI configuration $/etc/config/firewall$ and $/etc/config/preset$, located on the router filesystem.
+The preset file the source of the final redirection rule in the firewall configuration file.
 The service detection wrapper returns the newly discovered services, these can then be matched against a preset of forwarding rules.
 
 \section{Internal DNS}
