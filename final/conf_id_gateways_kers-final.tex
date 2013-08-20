@@ -561,82 +561,82 @@ Note that the line:
    No exact OS matches for host (test conditions non-ideal).
 \end{verbatim}
 %fixa till det här
-    
+
 We observe that the scan is unable to identify the correct operating system against the XBox 360 and had a duration of 35.78 seconds.
 A more thorough scan is required to detect the gaming console in question.
 
-   \begin{figure}[h!]
-      \centering
-      \begin{lstlisting}[escapechar=!]
-root@Inteno:~# time nmap -O --osscan-guess --fuzzy 192.168.1.218
+\begin{figure}[h!]
+   \centering
+   \begin{lstlisting}[escapechar=!]
+   root@Inteno:~# time nmap -O --osscan-guess --fuzzy 192.168.1.218
 
-Starting Nmap 5.51 ( http://nmap.org ) at 2013-05-28 18:03 CEST
-Nmap scan report for 192.168.1.218
-Host is up (0.00061s latency).
-Not shown: 999 filtered ports
-PORT     STATE SERVICE
-!\highlight{1026/tcp~open~~LSA-or-nterm}!
-MAC Address: 00:22:48:40:11:FE (Microsoft)
-Warning: OSScan results may be unreliable because we could not find at
-least 1 open and 1 closed port
-Device type: general purpose|switch
-Running (JUST GUESSING): IBM OS/2 4.X (92!\%), HP OpenVMS !
-Aggressive OS guesses: IBM OS/2 Warp 2.0 (92\%), HP OpenVMS !\\!
-!\highlight{No exact OS matches for host (test conditions non-ideal).}!
-Network Distance: 1 hop
-OS detection performed. Please report any incorrect results at
-http://nmap.org/submit/ .
-Nmap done: 1 IP address (1 host up) scanned in 41.67 seconds
-!\highlightgreen{%
-real  0m 35.78s}!
-!\highlightgreen{%
-user  0m 18.00s}!
-!\highlightgreen{%
-sys \ 0m 2.37s}!
-      \end{lstlisting}
-      \caption{
-         \small{
-Raw output of first Nmap scan of XBox 360, failing to guess target operating system.
-         }
+   Starting Nmap 5.51 ( http://nmap.org ) at 2013-05-28 18:03 CEST
+   Nmap scan report for 192.168.1.218
+   Host is up (0.00061s latency).
+   Not shown: 999 filtered ports
+   PORT     STATE SERVICE
+   !\highlight{1026/tcp~open~~LSA-or-nterm}!
+   MAC Address: 00:22:48:40:11:FE (Microsoft)
+   Warning: OSScan results may be unreliable because we could not find at
+   least 1 open and 1 closed port
+   Device type: general purpose|switch
+   Running (JUST GUESSING): IBM OS/2 4.X (92!\%), HP OpenVMS !
+   Aggressive OS guesses: IBM OS/2 Warp 2.0 (92\%), HP OpenVMS !\\!
+   !\highlight{No exact OS matches for host (test conditions non-ideal).}!
+   Network Distance: 1 hop
+   OS detection performed. Please report any incorrect results at
+   http://nmap.org/submit/ .
+   Nmap done: 1 IP address (1 host up) scanned in 41.67 seconds
+   !\highlightgreen{%
+   real  0m 35.78s}!
+   !\highlightgreen{%
+   user  0m 18.00s}!
+   !\highlightgreen{%
+   sys \ 0m 2.37s}!
+   \end{lstlisting}
+   \caption{
+      \small{
+         Raw output of first Nmap scan of XBox 360, failing to guess target operating system.
       }
-      \label{fig:nmapos}
-   \end{figure}
+   }
+   \label{fig:nmapos}
+\end{figure}
 
 \newpage
 \section{Version scan}
 By issuing a version scan, this run of Nmap is able to positively identify the service \emph{XBox 360 XML UPnP (Serial number 757502283805)} in 13 seconds, as shown in figure \ref{fig:nmapxbox}.
-   \begin{figure}[h!]
-      \centering
-      \begin{lstlisting}[escapechar=!]
-root@Inteno:~# time nmap -sV -p 1026-1027 192.168.1.218
+\begin{figure}[h!]
+   \centering
+   \begin{lstlisting}[escapechar=!]
+   root@Inteno:~# time nmap -sV -p 1026-1027 192.168.1.218
 
-Starting Nmap 5.51 ( http://nmap.org ) at 2013-05-28 18:06 CEST
-Nmap scan report for 192.168.1.218
-Host is up (0.00081s latency).
-PORT     STATE    SERVICE VERSION
-!\highlight{
-1026/tcp open     upnp    XBox 360 XML UPnP (Serial number 757502283805)}!
-1027/tcp filtered IIS
-MAC Address: 00:22:48:40:11:FE (Microsoft)
-Service Info: Device: game console
+   Starting Nmap 5.51 ( http://nmap.org ) at 2013-05-28 18:06 CEST
+   Nmap scan report for 192.168.1.218
+   Host is up (0.00081s latency).
+   PORT     STATE    SERVICE VERSION
+   !\highlight{
+   1026/tcp open     upnp    XBox 360 XML UPnP (Serial number 757502283805)}!
+   1027/tcp filtered IIS
+   MAC Address: 00:22:48:40:11:FE (Microsoft)
+   Service Info: Device: game console
 
-Service detection performed. Please report any incorrect results at
-http://nmap.org/submit/ .
-Nmap done: 1 IP address (1 host up) scanned in 12.89 seconds
-!\highlightgreen{%
-real  0m 13.02s}!
-!\highlightgreen{%
-user  0m 4.09s}!
-!\highlightgreen{%
-sys \ 0m 1.44s}!
-      \end{lstlisting}
-      \caption{
-	 \small{
-       Raw output of deeper Nmap scan of XBox 360, positively identifying it as \emph{XBox 360 UPnP}.
-	 }
+   Service detection performed. Please report any incorrect results at
+   http://nmap.org/submit/ .
+   Nmap done: 1 IP address (1 host up) scanned in 12.89 seconds
+   !\highlightgreen{%
+   real  0m 13.02s}!
+   !\highlightgreen{%
+   user  0m 4.09s}!
+   !\highlightgreen{%
+   sys \ 0m 1.44s}!
+   \end{lstlisting}
+   \caption{
+      \small{
+         Raw output of deeper Nmap scan of XBox 360, positively identifying it as \emph{XBox 360 UPnP}.
       }
-      \label{fig:nmapxbox}
-   \end{figure}
+   }
+   \label{fig:nmapxbox}
+\end{figure}
 
 This exhaustive scan takes longer to complete per port, but is limited to a small range.
 The results shows that the system manages to identify the XBox 360 gaming console, using the extra scan issued by the wrapper, the device can positively be identified correctly.
@@ -647,26 +647,26 @@ Scanning a faily standard GNU/Linux operating system\footnote{The operating syst
 The mail server option in the installer, enables identification on ports 110, 143, 993 and 995 because of the various email delivery protocols.
 Every major network service is discovered, on the GNU/Linux system.
 
-   \begin{figure}[h]
-      \centering
-      \label{fig:rasp_scan}
-      \begin{lstlisting}[escapechar=!]
-PORT    STATE SERVICE  REASON  VERSION
-22/tcp  open  ssh      syn-ack OpenSSH 6.0p1 Debian 4 ...
-80/tcp  open  http     syn-ack Apache httpd 2.2.22    ...
-110/tcp open  pop3     syn-ack Dovecot pop3d
-111/tcp open  rpcbind  syn-ack 2-4 (RPC #100000)
-143/tcp open  imap     syn-ack Dovecot imapd
-993/tcp open  ssl/imap syn-ack Dovecot imapd
-995/tcp open  ssl/pop3 syn-ack Dovecot pop3d
-MAC Address: B8:27:EB:0C:A5:70 (Raspberry Pi Foundation)
-\end{lstlisting}
-      \caption{
-         \small{
-Nmap version scan of the Raspberry Pi, identifying available services on the open ports.
-         }
+\begin{figure}[h]
+   \centering
+   \label{fig:rasp_scan}
+   \begin{lstlisting}[escapechar=!]
+   PORT    STATE SERVICE  REASON  VERSION
+   22/tcp  open  ssh      syn-ack OpenSSH 6.0p1 Debian 4 ...
+   80/tcp  open  http     syn-ack Apache httpd 2.2.22    ...
+   110/tcp open  pop3     syn-ack Dovecot pop3d
+   111/tcp open  rpcbind  syn-ack 2-4 (RPC #100000)
+   143/tcp open  imap     syn-ack Dovecot imapd
+   993/tcp open  ssl/imap syn-ack Dovecot imapd
+   995/tcp open  ssl/pop3 syn-ack Dovecot pop3d
+   MAC Address: B8:27:EB:0C:A5:70 (Raspberry Pi Foundation)
+   \end{lstlisting}
+   \caption{
+      \small{
+         Nmap version scan of the Raspberry Pi, identifying available services on the open ports.
       }
-   \end{figure}
+   }
+\end{figure}
 The Raspberry Pi running the Debian GNU/Linux distribution is successfully detected as such, all services selected during the installation are successfully detected.
 The front-end with select the first service from the dropdown list of presets and present the user with the choice to apply its forwarding rules.
 %\section{Performance}
@@ -708,61 +708,61 @@ But allowing such background jobs that are not system-critical will most likely 
 \chapter{Configuration files}\label{appA}
    %\addcontentsline{toc}{section}{Configuration files}
 
-   \begin{figure}[ht]
-      \centering
-      \begin{lstlisting}
-    config redirect               
-            option target 'DNAT' 
-            option src 'wan'
-            option dest 'lan'
-            option proto 'tcp'
-            option src_dport '80'
-            option dest_ip '192.168.1.214'
-            option dest_port '80' 
-            option name 'Web server'
-      \end{lstlisting}
-      \caption{
-         \small{
-Port forwarding section in the UCI \emph{firewall} configuration file.
-         }
+\begin{figure}[ht]
+   \centering
+   \begin{lstlisting}
+   config redirect               
+   option target 'DNAT' 
+   option src 'wan'
+   option dest 'lan'
+   option proto 'tcp'
+   option src_dport '80'
+   option dest_ip '192.168.1.214'
+   option dest_port '80' 
+   option name 'Web server'
+   \end{lstlisting}
+   \caption{
+      \small{
+         Port forwarding section in the UCI \emph{firewall} configuration file.
       }
-      \label{fig:redirect_conf}
-   \end{figure}
+   }
+   \label{fig:redirect_conf}
+\end{figure}
 
-   \begin{figure}[ht]
-      \centering
-      \begin{lstlisting}
-    config device 'xbox360'
-            option name 'xbox360'
-            option description 'Xbox 360 Live'
+\begin{figure}[ht]
+   \centering
+   \begin{lstlisting}
+   config device 'xbox360'
+   option name 'xbox360'
+   option description 'Xbox 360 Live'
 
-    config redirect
-            option device 'xbox360'
-            option proto 'udp'
-            option port '88'
+   config redirect
+   option device 'xbox360'
+   option proto 'udp'
+   option port '88'
 
-    config redirect
-            option device 'xbox360'
-            option proto 'tcp udp'
-            option port '3074'
+   config redirect
+   option device 'xbox360'
+   option proto 'tcp udp'
+   option port '3074'
 
-    config redirect
-            option device 'xbox360'
-            option proto 'tcp udp'
-            option port '53'
+   config redirect
+   option device 'xbox360'
+   option proto 'tcp udp'
+   option port '53'
 
-    config redirect
-            option device 'xbox360'
-            option proto 'tcp'
-            option port '80'
-      \end{lstlisting}
-      \caption{
-         \small{
-Preset for port forwarding sections in the UCI \emph{preset} configuration file.
-         }
+   config redirect
+   option device 'xbox360'
+   option proto 'tcp'
+   option port '80'
+   \end{lstlisting}
+   \caption{
+      \small{
+         Preset for port forwarding sections in the UCI \emph{preset} configuration file.
       }
-      \label{fig:preset_conf}
-   \end{figure}
+   }
+   \label{fig:preset_conf}
+\end{figure}
 
 \chapter{Programming and shell scripting}\label{appB}
    \begin{figure}[ht]
@@ -858,11 +858,11 @@ main
       \end{lstlisting}
       \caption{
          \small{
-Script that keeps the IP address translation for the local network up to date, allowing users to access the gateway by visiting $http://login.lan$ in their web browsers address bar.
-         }
+         Script that keeps the IP address translation for the local network up to date, allowing users to access the gateway by visiting $http://login.lan$ in their web browsers address bar.
       }
-      \label{fig:dnsmasq}
-   \end{figure}
+   }
+   \label{fig:dnsmasq}
+\end{figure}
 
 \bibliographystyle{plain}
 \bibliography{bibliography}
